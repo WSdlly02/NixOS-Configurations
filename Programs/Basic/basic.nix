@@ -1,6 +1,13 @@
 { config, pkgs, ... }:
 
 {
+  programs.fuse.userAllowOther = true;
+  programs.fish.enable = true;
+  programs.vim.defaultEditor = true;
+  programs.git.enable = true;
+  services.smartd.enable = true;
+  programs.tmux.enable = true;
+  programs.htop.enable = true;
   environment.systemPackages = with pkgs; [
      #Drivers and detection tools
      ntfs3g
@@ -8,27 +15,27 @@
      usbutils
      pciutils
      lm_sensors
-     smartmontools
+     #smartmontools
      amdgpu_top
      #Basic programs
      sleek-grub-theme
      adi1090x-plymouth-themes
      vim
-     git
+     #git
      wget
-     fish
+     #fish
      dig
      curl
      nmap
      lsof
-     htop
+     #htop
      killall
      xz
      lz4
      zip
      unzip
      rsync
-     tmux
+     #tmux
   ];
   nixpkgs.overlays = [
     (final: prev: {

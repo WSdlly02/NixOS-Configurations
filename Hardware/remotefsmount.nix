@@ -1,5 +1,4 @@
 {
-  programs.fuse.userAllowOther = true;
   fileSystems."/home/wsdlly02/Disks/Lily-PC" = 
     { device = "lily@lily-pc.local:/";
       fsType = "fuse.sshfs";

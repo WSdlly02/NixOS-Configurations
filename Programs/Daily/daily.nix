@@ -2,8 +2,15 @@
 
 {
   nixpkgs.config.allowUnfree = true;
-  environment.systemPackages = with pkgs; [
+  #Fonts
+  fonts.packages = with pkgs; [
     sarasa-gothic
+  ];
+  #Programs
+  programs.firefox.enable = true;
+  programs.noisetorch.enable = true;
+  programs.kdeconnect.enable = true;
+  environment.systemPackages = with pkgs; [
     fastfetch
     appimage-run
     steam-run
@@ -13,12 +20,14 @@
     ark
     kate
     gwenview
-    libsForQt5.kdeconnect-kde
+    #libsForQt5.kdeconnect-kde
     thunderbird
-    firefox
+    #firefox
     microsoft-edge
     motrix
     vulkan-tools
+    qbittorrent
+    #noisetorch
     bilibili
     vscode
     obs-studio
