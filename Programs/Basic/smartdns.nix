@@ -1,5 +1,4 @@
 {
-  networking.nameservers = [ "127.0.0.1" "::1" ];
   services.smartdns = {
     enable = true;
     bindPort = 53;

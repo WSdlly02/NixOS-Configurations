@@ -3,11 +3,13 @@
 {
   programs.fuse.userAllowOther = true;
   programs.fish.enable = true;
+  programs.bash.enableCompletion = true;
   programs.vim.defaultEditor = true;
   programs.git.enable = true;
   services.smartd.enable = true;
   programs.tmux.enable = true;
   programs.htop.enable = true;
+  services.syncthing.enable = true;
   environment.systemPackages = with pkgs; [
      #Drivers and detection tools
      ntfs3g

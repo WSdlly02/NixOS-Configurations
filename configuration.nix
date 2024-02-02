@@ -16,6 +16,7 @@
     ./Programs/Basic/basic.nix
     ./Programs/Basic/plymouth.nix
     ./Programs/Basic/sysctl.nix
+    ./Programs/Basic/network.nix
     ./Programs/Basic/pipewire.nix
     ./Programs/Basic/networkmanager.nix
     ./Programs/Basic/smartdns.nix
@@ -53,13 +54,13 @@
   };
 
   # Use the systemd-boot EFI boot loader.
-  #boot.loader.systemd-boot.enable = true;
-  #boot.loader.efi.canTouchEfiVariables = true;
+  # boot.loader.systemd-boot.enable = true;
+  # boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "WSdlly02-PC"; # Define your hostname.
+  # networking.hostName = "WSdlly02-PC"; # Define your hostname.
   # Pick only one of the below networking options.
-  #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  #networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "Asia/Shanghai";
@@ -112,7 +113,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
 
-  programs.bash.enableCompletion = true;
+  
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -125,7 +126,7 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  #services.openssh.enable = true;
+  # services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
