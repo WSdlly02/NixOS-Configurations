@@ -8,7 +8,8 @@
       addresses = true;
       workstation = true;
     };
-    nssmdns = true;
+    nssmdns6 = true;
+    nssmdns4 = true;
     ipv6 = true;
     ipv4 = true;
   };
