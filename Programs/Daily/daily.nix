@@ -36,5 +36,6 @@
     mpv
     qq
     mission-center
+    upscayl
   ];
 }

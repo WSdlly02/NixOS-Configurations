@@ -10,11 +10,11 @@
   
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ "amdgpu" ];
-  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
+  boot.kernelPackages = pkgs.linuxPackages_lqx;
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
   boot.resumeDevice = "/dev/disk/by-uuid/63d875d7-4213-4ae6-acb8-0280f5879d24";
-  boot.kernelParams = [ "quiet" "resume=UUID=63d875d7-4213-4ae6-acb8-0280f5879d24" ];
+  boot.kernelParams = [ "intel_iommu=on" "iommu=pt" "quiet" "resume=UUID=63d875d7-4213-4ae6-acb8-0280f5879d24" ];
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16";

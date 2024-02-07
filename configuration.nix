@@ -18,6 +18,7 @@
     ./Programs/Basic/sysctl.nix
     ./Programs/Basic/network.nix
     ./Programs/Basic/pipewire.nix
+    ./Programs/Basic/resolvconf.nix
     ./Programs/Basic/networkmanager.nix
     ./Programs/Basic/smartdns.nix
     ./Programs/Basic/avahi.nix
@@ -28,6 +29,7 @@
     ./Programs/Daily/daily.nix
     ./Programs/Daily/corectrl.nix
     ./Programs/Daily/fcitx5.nix
+    #./Programs/Daily/wine.nix
     ./Programs/Daily/nur.nix
     #Gaming
     ./Programs/Gaming/gaming.nix
@@ -139,7 +141,6 @@
   # accidentally delete configuration.nix.
   system.copySystemConfiguration = true;
 
-  hardware.enableRedistributableFirmware = true;
   services.fwupd.enable = true;
 
   # This option defines the first version of NixOS you have installed on this particular machine,
@@ -159,7 +160,19 @@
   # and migrated your data accordingly.
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  nix.settings.substituters = [ "https://mirror.sjtu.edu.cn/nix-channels/store" ];
+  nix.settings= { 
+    substituters = [
+      "https://mirror.sjtu.edu.cn/nix-channels/store"
+      "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+      "https://mirrors.ustc.edu.cn/nix-channels/store"
+    ];
+    auto-optimise-store = true;
+    experimental-features = [
+      "nix-command"
+      "flakes"
+      "repl-flake" # 可以交互解释自己的配置：nix repl ~/nixos-config
+    ];
+  };
   system.stateVersion = "24.05"; # Did you read the comment?
 
 }
