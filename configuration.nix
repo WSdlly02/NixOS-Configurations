@@ -28,6 +28,7 @@
     #Daily programs configuration
     ./Programs/Daily/daily.nix
     ./Programs/Daily/corectrl.nix
+    ./Programs/Daily/syncthing.nix
     ./Programs/Daily/fcitx5.nix
     #./Programs/Daily/wine.nix
     ./Programs/Daily/nur.nix

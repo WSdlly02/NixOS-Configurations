@@ -10,7 +10,6 @@
   programs.firefox.enable = true;
   programs.noisetorch.enable = true;
   programs.kdeconnect.enable = true;
-  services.syncthing.enable = true;
   environment.systemPackages = with pkgs; [
     fastfetch
     appimage-run
