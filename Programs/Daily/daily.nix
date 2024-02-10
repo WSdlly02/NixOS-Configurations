@@ -36,5 +36,6 @@
     qq
     mission-center
     upscayl
+    miraclecast
   ];
 }

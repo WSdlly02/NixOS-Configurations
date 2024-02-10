@@ -1,3 +1,4 @@
+# DISABLED CONFIGURATION
 { pkgs, ... }:
 
 {

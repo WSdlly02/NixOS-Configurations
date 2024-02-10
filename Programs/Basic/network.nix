@@ -6,7 +6,7 @@
   networking.nftables.enable = true;
   networking.tempAddresses = "disabled";
   networking.firewall = {
-    enable = true;
+    enable = false;
     #CFW ports
     allowedTCPPorts = [ 7890 ];
     allowedUDPPorts = [ 7890 ];

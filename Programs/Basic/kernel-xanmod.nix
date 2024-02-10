@@ -1,3 +1,4 @@
+# DISABLED CONFIGURATION
 { lib, stdenv, fetchFromGitHub, buildLinux, ... } @ args:
 
 {
