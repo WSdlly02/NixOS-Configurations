@@ -16,7 +16,6 @@
     steam-run
     konsole
     yakuake
-    gnome-network-displays
     ark
     kate
     gwenview
@@ -36,6 +35,5 @@
     qq
     mission-center
     upscayl
-    miraclecast
   ];
 }

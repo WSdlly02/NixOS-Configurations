@@ -25,6 +25,7 @@
     ./Programs/Basic/samba.nix
     ./Programs/Basic/sudo.nix
     ./Programs/Basic/openssh.nix
+    ./Programs/Basic/tmux.nix
     #Daily programs configuration
     ./Programs/Daily/daily.nix
     ./Programs/Daily/corectrl.nix
