@@ -7,9 +7,11 @@
     sarasa-gothic
   ];
   #Programs
-  programs.firefox.enable = true;
-  programs.noisetorch.enable = true;
-  programs.kdeconnect.enable = true;
+  programs = {
+    firefox.enable = true;
+    noisetorch.enable = true;
+    kdeconnect.enable = true;
+  };
   environment.systemPackages = with pkgs; [
     fastfetch
     appimage-run
@@ -19,14 +21,14 @@
     ark
     kate
     gwenview
-    #libsForQt5.kdeconnect-kde
     thunderbird
-    #firefox
     microsoft-edge
+    chromium
     motrix
     vulkan-tools
+    fsearch
     qbittorrent
-    #noisetorch
+    element-desktop
     bilibili
     vscode
     obs-studio
@@ -35,5 +37,6 @@
     qq
     mission-center
     upscayl
+    wpsoffice
   ];
 }

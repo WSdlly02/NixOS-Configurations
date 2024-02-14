@@ -6,34 +6,39 @@
 
 {
   imports =
-  [ # Include the results of the hardware scan.
+  [ # Hardware and drivers configuration
+    ./Hardware/bluetooth.nix
+    ./Hardware/gpu.nix
     ./Hardware/hardware-configuration.nix
     ./Hardware/localdisksmount.nix
     ./Hardware/remotefsmount.nix
-    ./Hardware/gpu.nix
-    ./Hardware/bluetooth.nix
-    #Basic programs configuration
-    ./Programs/Basic/basic.nix
-    ./Programs/Basic/plymouth.nix
-    ./Programs/Basic/sysctl.nix
-    ./Programs/Basic/network.nix
-    ./Programs/Basic/pipewire.nix
-    ./Programs/Basic/resolvconf.nix
-    ./Programs/Basic/networkmanager.nix
-    ./Programs/Basic/smartdns.nix
+
+    # Basic programs configuration
     ./Programs/Basic/avahi.nix
-    ./Programs/Basic/samba.nix
-    ./Programs/Basic/sudo.nix
+    ./Programs/Basic/basic.nix
+    #./Programs/Basic/kernel-xanmod.nix
+    #./Programs/Basic/kernel.nix
+    ./Programs/Basic/network.nix
+    ./Programs/Basic/networkmanager.nix
     ./Programs/Basic/openssh.nix
+    ./Programs/Basic/pipewire.nix
+    ./Programs/Basic/plymouth.nix
+    ./Programs/Basic/resolvconf.nix
+    ./Programs/Basic/samba.nix
+    ./Programs/Basic/smartdns.nix
+    ./Programs/Basic/sudo.nix
+    ./Programs/Basic/sysctl.nix
     ./Programs/Basic/tmux.nix
     #Daily programs configuration
-    ./Programs/Daily/daily.nix
+    ./Programs/Daily/chromium.nix
     ./Programs/Daily/corectrl.nix
-    ./Programs/Daily/syncthing.nix
+    ./Programs/Daily/daily.nix
     ./Programs/Daily/fcitx5.nix
-    #./Programs/Daily/wine.nix
     ./Programs/Daily/nur.nix
-    #Gaming
+    ./Programs/Daily/syncthing.nix
+    #./Programs/Daily/wine.nix
+
+    # Gaming
     ./Programs/Gaming/gaming.nix
   ];
 
@@ -93,6 +98,12 @@
   # Configure keymap in X11
   services.xserver.xkb.layout = "us";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
+
+  i18n.supportedLocales = [
+    "C.UTF-8/UTF-8"
+    "en_US.UTF-8/UTF-8"
+    "zh_CN.UTF-8/UTF-8"
+  ];
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -162,18 +173,22 @@
   # and migrated your data accordingly.
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  nix.settings= { 
-    substituters = [
-      "https://mirror.sjtu.edu.cn/nix-channels/store"
-      "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
-      "https://mirrors.ustc.edu.cn/nix-channels/store"
-    ];
-    auto-optimise-store = true;
-    experimental-features = [
-      "nix-command"
-      "flakes"
-      "repl-flake" # 可以交互解释自己的配置：nix repl ~/nixos-config
-    ];
+  nix = {
+    settings= {
+      max-jobs = 64;
+      substituters = [
+        "https://mirror.sjtu.edu.cn/nix-channels/store"
+        "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+        "https://mirrors.ustc.edu.cn/nix-channels/store"
+      ];
+      auto-optimise-store = true;
+      experimental-features = [
+        "nix-command"
+        "flakes"
+        "repl-flake" # 可以交互解释自己的配置：nix repl ~/nixos-config
+      ];
+    };
+    daemonCPUSchedPolicy = "batch";
   };
   system.stateVersion = "24.05"; # Did you read the comment?
 

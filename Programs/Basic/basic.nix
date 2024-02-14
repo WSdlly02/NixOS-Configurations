@@ -1,15 +1,26 @@
 { config, pkgs, ... }:
 
 {
-  programs.fuse.userAllowOther = true;
-  programs.fish.enable = true;
-  programs.bash.enableCompletion = true;
-  programs.vim.defaultEditor = true;
-  programs.git.enable = true;
+  programs ={
+    fuse.userAllowOther = true;
+    fish.enable = true;
+    bash.enableCompletion = true;
+    vim.defaultEditor = true;
+    git.enable = true;
+    htop.enable = true;
+    adb.enable = true;
+  };
+  users.users.wsdlly02 = {
+    isNormalUser = true;
+    group = "wheel";
+    extraGroups = [ "users" "adbusers" ];
+  };
   services.smartd.enable = true;
-  programs.htop.enable = true;
   environment.systemPackages = with pkgs; [
      #Drivers and detection tools
+     libva-utils
+     vdpauinfo
+     glxinfo
      ntfs3g
      sshfs-fuse
      usbutils

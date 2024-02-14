@@ -8,13 +8,18 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
   ];
   
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ "amdgpu" ];
-  boot.kernelPackages = pkgs.linuxPackages_lqx;
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
-  boot.resumeDevice = "/dev/disk/by-uuid/63d875d7-4213-4ae6-acb8-0280f5879d24";
-  boot.kernelParams = [ "intel_iommu=on" "iommu=pt" "quiet" "resume=UUID=63d875d7-4213-4ae6-acb8-0280f5879d24" ];
+  boot = {
+    initrd = {
+      supportedFilesystems = [ "btrfs" ];
+      availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
+      kernelModules = [ "amdgpu" ];
+    };
+    kernelPackages = pkgs.linuxPackages_lqx;
+    kernelModules = [ "amdgpu" "kvm-intel" ];
+    extraModulePackages = [ ];
+    resumeDevice = "/dev/disk/by-uuid/63d875d7-4213-4ae6-acb8-0280f5879d24";
+    kernelParams = [ "intel_iommu=on" "iommu=pt" "quiet" "resume=UUID=63d875d7-4213-4ae6-acb8-0280f5879d24" ];
+  };
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16";
@@ -53,7 +58,10 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
-  hardware.enableRedistributableFirmware = true;
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware = {
+    enableRedistributableFirmware = true;
+    cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    xone.enable = true;
+  };
 
 }

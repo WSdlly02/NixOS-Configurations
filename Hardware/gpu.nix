@@ -1,12 +1,20 @@
+{ config, pkgs, ... }:
+
 {
   hardware.opengl = {
-    ## radv: an open-source Vulkan driver from freedesktop
+    enable = true;
     driSupport = true;
     driSupport32Bit = true;
-    #environment.variables.AMD_VULKAN_ICD = "RADV";
-
-    ## amdvlk: an open-source Vulkan driver from AMD
-    #extraPackages = [ pkgs.libva ];
-    #extraPackages32 = [ pkgs.driversi686Linux.mesa ];
+    extraPackages = with pkgs; [
+      rocm-opencl-icd
+      rocm-opencl-runtime
+    ];
+    #extraPackages32 = with pkgs.pkgsi686Linux; [
+    #  libva
+		#  vaapiVdpau
+    #  libvdpau
+		#  libvdpau-va-gl
+    #];
+    setLdLibraryPath = true;
   };
 }
