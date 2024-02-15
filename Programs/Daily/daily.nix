@@ -12,31 +12,38 @@
     noisetorch.enable = true;
     kdeconnect.enable = true;
   };
-  environment.systemPackages = with pkgs; [
-    fastfetch
-    appimage-run
-    steam-run
-    konsole
-    yakuake
-    ark
-    kate
-    gwenview
-    thunderbird
-    microsoft-edge
-    chromium
-    motrix
-    vulkan-tools
-    fsearch
-    qbittorrent
-    element-desktop
-    bilibili
-    vscode
-    obs-studio
-    vlc
-    mpv
-    qq
-    mission-center
-    upscayl
-    wpsoffice
-  ];
+  environment = {
+    localBinInPath = true;
+    defaultPackages = with pkgs; [
+      fastfetch
+      appimage-run
+      steam-run
+      python310
+      konsole
+      yakuake
+      ark
+      kate
+      gwenview
+      libsForQt5.sddm-kcm
+      thunderbird
+      microsoft-edge
+      chromium
+      yesplaymusic
+      g4music
+      motrix
+      vulkan-tools
+      fsearch
+      qbittorrent
+      element-desktop
+      bilibili
+      vscode
+      obs-studio
+      vlc
+      mpv
+      qq
+      mission-center
+      upscayl
+      wpsoffice
+    ];
+  };
 }

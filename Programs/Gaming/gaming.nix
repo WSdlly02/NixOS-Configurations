@@ -13,11 +13,10 @@
       package = pkgs.jdk21;
     };
   };
-  environment.systemPackages = with pkgs; [
+  environment.defaultPackages = with pkgs; [
     mangohud
     goverlay
     vkbasalt
-    gamemode
     protonup-qt
     mindustry
     prismlauncher

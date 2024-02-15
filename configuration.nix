@@ -16,8 +16,8 @@
     # Basic programs configuration
     ./Programs/Basic/avahi.nix
     ./Programs/Basic/basic.nix
-    #./Programs/Basic/kernel-xanmod.nix
-    #./Programs/Basic/kernel.nix
+    ##./Programs/Basic/kernel-xanmod.nix
+    ##./Programs/Basic/kernel.nix
     ./Programs/Basic/network.nix
     ./Programs/Basic/networkmanager.nix
     ./Programs/Basic/openssh.nix
@@ -29,14 +29,14 @@
     ./Programs/Basic/sudo.nix
     ./Programs/Basic/sysctl.nix
     ./Programs/Basic/tmux.nix
-    #Daily programs configuration
+    # Daily programs configuration
     ./Programs/Daily/chromium.nix
     ./Programs/Daily/corectrl.nix
     ./Programs/Daily/daily.nix
     ./Programs/Daily/fcitx5.nix
     ./Programs/Daily/nur.nix
     ./Programs/Daily/syncthing.nix
-    #./Programs/Daily/wine.nix
+    ##./Programs/Daily/wine.nix
 
     # Gaming
     ./Programs/Gaming/gaming.nix
@@ -91,9 +91,21 @@
 
 
   # Enable the Plasma 5 Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
-  
+  services.xserver = {
+    displayManager.sddm = {
+      enable = true;
+      autoNumlock = true;
+    };
+    desktopManager.plasma5 = {
+      enable = true;
+      phononBackend = "gstreamer";
+      useQtScaling = true;
+    };
+  };
+  xdg.portal ={
+    enable = true;
+    xdgOpenUsePortal = true;
+  };
 
   # Configure keymap in X11
   services.xserver.xkb.layout = "us";
