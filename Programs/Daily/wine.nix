@@ -2,7 +2,7 @@
 { pkgs, ... }:
 
 {
-  environment.systemPackages = with pkgs; [
+  environment.defaultPackages = with pkgs; [
 
     # support both 32- and 64-bit applications
     #wineWowPackages.stable

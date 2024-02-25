@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   hardware.opengl = {
@@ -8,6 +8,9 @@
     extraPackages = with pkgs; [
       rocm-opencl-icd
       rocm-opencl-runtime
+      rocmPackages.rocm-smi
+      rocmPackages.clr
+      rocmPackages.clr.icd
     ];
     #extraPackages32 = with pkgs.pkgsi686Linux; [
     #  libva
@@ -16,5 +19,11 @@
 		#  libvdpau-va-gl
     #];
     setLdLibraryPath = true;
+  };
+  systemd.tmpfiles.rules = [
+    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
+  ];
+  environment.variables = {
+    HSA_OVERRIDE_GFX_VERSION = "10.3.0";
   };
 }

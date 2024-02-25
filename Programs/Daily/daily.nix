@@ -14,6 +14,7 @@
   };
   environment = {
     localBinInPath = true;
+    # variables = 
     defaultPackages = with pkgs; [
       fastfetch
       appimage-run
@@ -44,6 +45,7 @@
       mission-center
       upscayl
       wpsoffice
+      blender-hip
     ];
   };
 }

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   programs ={
@@ -48,7 +48,7 @@
      unzip
      rsync
      gnumake
-     gcc
+     gcc-unwrapped
      modprobed-db
   ];
   nixpkgs.overlays = [

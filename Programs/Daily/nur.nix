@@ -10,7 +10,7 @@
     "openssl-1.1.1w"
   ];
   
-  environment.systemPackages = with pkgs; [
+  environment.defaultPackages = with pkgs; [
     nur.repos.xddxdd.dingtalk
     nur.repos.linyinfeng.wemeet
     #nur.repos.xddxdd.lantianLinuxXanmod.latest-x86_64-v3-lto
