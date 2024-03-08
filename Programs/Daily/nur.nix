@@ -13,7 +13,7 @@
   environment.defaultPackages = with pkgs; [
     nur.repos.xddxdd.dingtalk
     nur.repos.linyinfeng.wemeet
-    #nur.repos.xddxdd.lantianLinuxXanmod.latest-x86_64-v3-lto
+    ##nur.repos.xddxdd.lantianLinuxXanmod.latest-x86_64-v3-lto
   ];
 }
 

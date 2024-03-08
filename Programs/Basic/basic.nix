@@ -10,14 +10,9 @@
     htop.enable = true;
     adb.enable = true;
   };
-  users.users.wsdlly02 = {
-    isNormalUser = true;
-    group = "wheel";
-    extraGroups = [ "users" "adbusers" ];
-  };
   services.smartd.enable = true;
   environment.systemPackages = with pkgs; [
-     #Drivers and detection tools
+     # Drivers and detection tools
      libva-utils
      vdpauinfo
      glxinfo
@@ -26,20 +21,20 @@
      usbutils
      pciutils
      lm_sensors
-     #smartmontools
+     ##smartmontools
      amdgpu_top
-     #Basic programs
+     # Basic programs
      sleek-grub-theme
      adi1090x-plymouth-themes
      vim
-     #git
+     ##git
      wget
-     #fish
+     ##fish
      dig
      curl
      nmap
      lsof
-     #htop
+     ##htop
      killall
      cryptsetup
      xz

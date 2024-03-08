@@ -1,6 +1,6 @@
 {
   boot.kernel.sysctl = {
-    #Network
+    # Network
     "net.core.somaxconn" = 65535;
     "net.core.netdev_max_backlog" = 16384;
     "net.core.rmem_default" = 1048576;
@@ -20,7 +20,7 @@
     "net.ipv4.tcp_mtu_probing" = 1;
     "net.ipv4.udp_rmem_min" = 8192;
     "net.ipv4.udp_wmem_min" = 8192;
-    #System
+    # System
     "vm.swappiness" = 40;
   };
 }

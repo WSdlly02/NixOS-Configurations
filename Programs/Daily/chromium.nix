@@ -1,10 +1,10 @@
-{ config, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   programs.chromium = {
     enable = true;
     enablePlasmaBrowserIntegration = true;
-    plasmaBrowserIntegrationPackage = pkgs.plasma5Packages.plasma-browser-integration;
+    plasmaBrowserIntegrationPackage = lib.mkForce pkgs.kdePackages.plasma-browser-integration;
     extensions = [
       "cjpalhdlnbpafiamejdnhcphjbkeiagm" # ublock origin
     ];

@@ -14,7 +14,7 @@
       availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
       kernelModules = [ "amdgpu" ];
     };
-    kernelPackages = pkgs.linuxPackages_lqx;
+    kernelPackages = pkgs.linuxPackages_xanmod_latest;
     kernelModules = [ "amdgpu" "kvm-intel" ];
     extraModulePackages = [ ];
     resumeDevice = "/dev/disk/by-uuid/63d875d7-4213-4ae6-acb8-0280f5879d24";

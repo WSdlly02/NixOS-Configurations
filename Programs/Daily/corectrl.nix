@@ -1,5 +1,3 @@
-{ config, pkgs, ... }:
-
 {
   security.polkit.enable = true;
   programs.corectrl = {

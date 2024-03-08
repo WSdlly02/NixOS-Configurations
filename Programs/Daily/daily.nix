@@ -1,20 +1,26 @@
 { config, pkgs, ... }:
 
-{
+{ 
+  users.users.wsdlly02 = {
+    isNormalUser = true;
+    group = "wheel";
+    extraGroups = [ "users" "adbusers" ];
+  };
   nixpkgs.config.allowUnfree = true;
-  #Fonts
+  # Fonts
   fonts.packages = with pkgs; [
     sarasa-gothic
   ];
-  #Programs
+  # Programs
   programs = {
     firefox.enable = true;
     noisetorch.enable = true;
     kdeconnect.enable = true;
+    partition-manager.enable = true;
   };
   environment = {
     localBinInPath = true;
-    # variables = 
+    ##variables = 
     defaultPackages = with pkgs; [
       fastfetch
       appimage-run
@@ -25,7 +31,9 @@
       ark
       kate
       gwenview
-      libsForQt5.sddm-kcm
+      lact
+      kdePackages.sddm-kcm
+      kdePackages.filelight
       thunderbird
       microsoft-edge
       chromium
@@ -44,7 +52,7 @@
       qq
       mission-center
       upscayl
-      wpsoffice
+      wpsoffice-cn
       blender-hip
     ];
   };

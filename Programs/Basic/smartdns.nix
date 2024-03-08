@@ -4,8 +4,8 @@
     bindPort = 53;
     settings = {
       bind-tcp = "[::]:53";
-      # bind-tls = "[::]:53";
-      # bind-https = "[::]:53";
+      ##bind-tls = "[::]:53";
+      ##bind-https = "[::]:53";
       cache-size = 32768;
       cache-persist = true;
       cache-file = "/tmp/smartdns.cache";

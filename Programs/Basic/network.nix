@@ -7,7 +7,7 @@
   networking.tempAddresses = "disabled";
   networking.firewall = {
     enable = false;
-    #CFW ports
+    # CFW ports
     allowedTCPPorts = [ 7890 ];
     allowedUDPPorts = [ 7890 ];
   };

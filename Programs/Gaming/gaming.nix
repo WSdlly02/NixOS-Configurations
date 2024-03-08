@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   programs = {
@@ -20,5 +20,6 @@
     protonup-qt
     mindustry
     prismlauncher
+    mcrcon
   ];
 }

@@ -20,6 +20,7 @@
     ##./Programs/Basic/kernel.nix
     ./Programs/Basic/network.nix
     ./Programs/Basic/networkmanager.nix
+    ./Programs/Basic/nix-ld.nix
     ./Programs/Basic/openssh.nix
     ./Programs/Basic/pipewire.nix
     ./Programs/Basic/plymouth.nix
@@ -29,6 +30,7 @@
     ./Programs/Basic/sudo.nix
     ./Programs/Basic/sysctl.nix
     ./Programs/Basic/tmux.nix
+    
     # Daily programs configuration
     ./Programs/Daily/chromium.nix
     ./Programs/Daily/corectrl.nix
@@ -40,6 +42,7 @@
 
     # Gaming
     ./Programs/Gaming/gaming.nix
+    ##./Programs/Gaming/minecraft-server-hibernation.nix
   ];
 
   boot.loader = {
@@ -90,16 +93,18 @@
   services.xserver.videoDrivers = [ "amdgpu" ];
 
 
-  # Enable the Plasma 5 Desktop Environment.
+  # Enable the Plasma 6 Desktop Environment.
   services.xserver = {
     displayManager.sddm = {
       enable = true;
+      enableHidpi = true;
+      package = lib.mkForce pkgs.kdePackages.sddm;
       autoNumlock = true;
     };
-    desktopManager.plasma5 = {
+    desktopManager.plasma6 = {
       enable = true;
-      phononBackend = "gstreamer";
-      useQtScaling = true;
+      # phononBackend = "gstreamer";
+      # useQtScaling = true;
     };
   };
   xdg.portal ={
@@ -121,8 +126,8 @@
   services.printing.enable = true;
 
   # Enable sound.
-  sound.enable = true;
-  # hardware.pulseaudio.enable = true;
+  sound.enable = lib.mkForce false;
+  hardware.pulseaudio.enable = lib.mkForce false;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -164,6 +169,7 @@
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
   # accidentally delete configuration.nix.
+
   system.copySystemConfiguration = true;
 
   services.fwupd.enable = true;
@@ -188,13 +194,13 @@
   nix = {
     settings= {
       max-jobs = 64;
-      substituters = [
-        "https://mirror.sjtu.edu.cn/nix-channels/store"
-        "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+      substituters = lib.mkForce [
         "https://mirrors.ustc.edu.cn/nix-channels/store"
+        "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+        "https://mirror.sjtu.edu.cn/nix-channels/store"
       ];
       auto-optimise-store = true;
-      experimental-features = [
+      experimental-features = lib.mkForce [
         "nix-command"
         "flakes"
         "repl-flake" # 可以交互解释自己的配置：nix repl ~/nixos-config
