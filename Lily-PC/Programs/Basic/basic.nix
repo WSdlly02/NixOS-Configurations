@@ -2,7 +2,6 @@
 
 {
   programs ={
-    fuse.userAllowOther = true;
     fish.enable = true;
     bash.enableCompletion = true;
     vim.defaultEditor = true;
@@ -13,19 +12,13 @@
   services.smartd.enable = true;
   environment.systemPackages = with pkgs; [
      # Drivers and detection tools
-     libva-utils
-     vdpauinfo
-     glxinfo
      ntfs3g
-     sshfs-fuse
      usbutils
      pciutils
      lm_sensors
      ##smartmontools
-     amdgpu_top
      # Basic programs
      sleek-grub-theme
-     adi1090x-plymouth-themes
      vim
      ##git
      wget
@@ -49,7 +42,6 @@
   nixpkgs.overlays = [
     (final: prev: {
       sleek-grub-theme = prev.sleek-grub-theme.override { withStyle = "dark"; withBanner = "GRUB BootLoader"; };
-      adi1090x-plymouth-themes = prev.adi1090x-plymouth-themes.override { selected_themes = ["red_loader"] ;};
     })
   ];
 }

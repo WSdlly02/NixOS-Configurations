@@ -1,7 +1,7 @@
 {
   services.openssh = {
     enable = true;
-    ##startWhenNeeded = true;
+    #startWhenNeeded = true;
     listenAddresses = [     
       {
         addr = "0.0.0.0";
@@ -14,6 +14,6 @@
     ];
     settings.PasswordAuthentication = false;
     settings.PermitRootLogin = "no";
-    authorizedKeysFiles = [ "/home/wsdlly02/.ssh/authorized_keys" ];
+    authorizedKeysFiles = [ "/home/lily/.ssh/authorized_keys" ];
   };
 }

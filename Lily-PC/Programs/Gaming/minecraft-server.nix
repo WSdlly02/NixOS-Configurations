@@ -3,7 +3,7 @@ let
 
   # check every 30 seconds if the server
   # need to be stopped
-  frequency-check-players = "*-*-* *:*:0/30";
+  frequency-check-players = "5min";
 
   # time in second before we could stop the server
   # this should let it time to spawn
@@ -77,24 +77,24 @@ in
   services.minecraft-server = {
     enable = true;
     package = pkgs.callPackage ./minecraft-server-fabric.nix { };
-    ##jvmOpts = "-Xms4092M -Xmx4092M -XX:+UseG1GC -XX:+CMSIncrementalPacing -XX:+CMSClassUnloadingEnabled -XX:ParallelGCThreads=2 -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10";
+    jvmOpts = "-Xms4092M -Xmx4092M -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true";
     declarative = true;
     dataDir = "/srv/minecraft";
     eula = true;
     openFirewall = true;
     serverProperties = {
-      allow-flight = false;
+      allow-flight = true;
       allow-nether = true;
       broadcast-console-to-ops = true;
       broadcast-rcon-to-ops = true;
-      difficulty = "hard";
+      difficulty = "normal";
       enable-command-block = true;
       enable-jmx-monitoring = false;
       enable-query = true;
       enable-rcon = true;
       enable-statu = true;
       enforce-secure-profile = true;
-      enforce-whitelist = false;
+      enforce-whitelist = true;
       entity-broadcast-range-percentage = 100;
       force-gamemode = false;
       function-permission-level = 2;
@@ -110,7 +110,7 @@ in
       level-type = "minecraft\:normal";
       log-ips = true;
       max-chained-neighbor-updates = 1000000;
-      max-players = 16;
+      max-players = 8;
       max-tick-time = 60000;
       max-world-size = 29999984;
       motd = "WSdlly02-SE-LO";
@@ -192,7 +192,7 @@ in
   systemd.timers.stop-minecraft = {
     enable = true;
     timerConfig = {
-      OnCalendar = "${frequency-check-players}";
+      OnUnitActiveSec = "${frequency-check-players}";
       Unit = "stop-minecraft.service";
     };
     wantedBy = [ "timers.target" ];

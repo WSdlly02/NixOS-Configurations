@@ -2,11 +2,12 @@
   system.nssDatabases.hosts = [ "mymachines mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files myhostname dns wins" ];
   services.avahi = {
     enable = true;
+    openFirewall = true;
     publish = {
       enable = true;
+      userServices = true;
       domain = true;
       addresses = true;
-      workstation = true;
     };
     nssmdns6 = true;
     nssmdns4 = true;

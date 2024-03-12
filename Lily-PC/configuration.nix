@@ -7,42 +7,29 @@
 {
   imports =
   [ # Hardware and drivers configuration
-    ./Hardware/bluetooth.nix
-    ./Hardware/gpu.nix
     ./Hardware/hardware-configuration.nix
-    ./Hardware/localdisksmount.nix
-    ./Hardware/remotefsmount.nix
 
     # Basic programs configuration
     ./Programs/Basic/avahi.nix
     ./Programs/Basic/basic.nix
-    ##./Programs/Basic/kernel-xanmod.nix
-    ##./Programs/Basic/kernel.nix
+    ./Programs/Basic/cups.nix
     ./Programs/Basic/network.nix
     ./Programs/Basic/networkmanager.nix
     ./Programs/Basic/nix-ld.nix
     ./Programs/Basic/openssh.nix
     ./Programs/Basic/pipewire.nix
-    ./Programs/Basic/plymouth.nix
     ./Programs/Basic/resolvconf.nix
-    ./Programs/Basic/samba.nix
     ./Programs/Basic/smartdns.nix
     ./Programs/Basic/sudo.nix
     ./Programs/Basic/sysctl.nix
     ./Programs/Basic/tmux.nix
     
     # Daily programs configuration
-    ./Programs/Daily/chromium.nix
-    ./Programs/Daily/corectrl.nix
     ./Programs/Daily/daily.nix
-    ./Programs/Daily/fcitx5.nix
-    ./Programs/Daily/nur.nix
     ./Programs/Daily/syncthing.nix
-    ##./Programs/Daily/wine.nix
 
     # Gaming
-    ./Programs/Gaming/gaming.nix
-    ##./Programs/Gaming/minecraft-server-hibernation.nix
+    ./Programs/Gaming/minecraft-server.nix
   ];
 
   boot.loader = {
@@ -89,31 +76,29 @@
   #};
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.videoDrivers = [ "amdgpu" ];
+  # services.xserver.enable = true;
+  # services.xserver.videoDrivers = [ "amdgpu" ];
 
 
   # Enable the Plasma 6 Desktop Environment.
-  services.xserver = {
-    displayManager.sddm = {
-      enable = true;
-      enableHidpi = true;
-      package = lib.mkForce pkgs.kdePackages.sddm;
-      autoNumlock = true;
-    };
-    desktopManager.plasma6 = {
-      enable = true;
-      # phononBackend = "gstreamer";
-      # useQtScaling = true;
-    };
-  };
-  xdg.portal ={
-    enable = true;
-    xdgOpenUsePortal = true;
-  };
+  #services.xserver = {
+  #  displayManager.sddm = {
+  #    enable = true;
+  #    enableHidpi = true;
+  #    package = lib.mkForce pkgs.kdePackages.sddm;
+  #    autoNumlock = true;
+  #  };
+  #  desktopManager.plasma6 = {
+  #    enable = true;
+  #  };
+  #};
+  #xdg.portal ={
+  #  enable = true;
+  #  xdgOpenUsePortal = true;
+  #};
 
   # Configure keymap in X11
-  services.xserver.xkb.layout = "us";
+  # services.xserver.xkb.layout = "us";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
 
   i18n.supportedLocales = [
@@ -121,9 +106,8 @@
     "en_US.UTF-8/UTF-8"
     "zh_CN.UTF-8/UTF-8"
   ];
-
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  # services.printing.enable = true;
 
   # Enable sound.
   sound.enable = lib.mkForce false;
