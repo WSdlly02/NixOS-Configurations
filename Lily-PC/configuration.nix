@@ -15,7 +15,7 @@
     ./Programs/Basic/cups.nix
     ./Programs/Basic/network.nix
     ./Programs/Basic/networkmanager.nix
-    ./Programs/Basic/nix-ld.nix
+    ## ./Programs/Basic/nix-ld.nix
     ./Programs/Basic/openssh.nix
     ./Programs/Basic/pipewire.nix
     ./Programs/Basic/resolvconf.nix
@@ -26,7 +26,7 @@
     
     # Daily programs configuration
     ./Programs/Daily/daily.nix
-    ./Programs/Daily/syncthing.nix
+    ##./Programs/Daily/syncthing.nix
 
     # Gaming
     ./Programs/Gaming/minecraft-server.nix

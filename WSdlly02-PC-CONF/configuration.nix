@@ -36,14 +36,15 @@
     ./Programs/Daily/corectrl.nix
     ./Programs/Daily/daily.nix
     ./Programs/Daily/fcitx5.nix
+    ./Programs/Daily/hyprland.nix
     ./Programs/Daily/nur.nix
-    ./Programs/Daily/plasma6.nix
+    ##./Programs/Daily/plasma6.nix
     ./Programs/Daily/syncthing.nix
     ##./Programs/Daily/wine.nix
 
     # Gaming
     ./Programs/Gaming/gaming.nix
-    ./Programs/Gaming/minecraft-server.nix
+    ##./Programs/Gaming/minecraft-server.nix
   ];
 
   boot.loader = {

@@ -15,8 +15,8 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/89582f6d-f5c5-4897-9d8c-74cc9280cd5d";
-      fsType = "xfs";
+    { device = "/dev/disk/by-uuid/23482b2a-c8ca-4edc-8ac8-7b320358e6c7";
+      fsType = "btrfs";
     };
 
   fileSystems."/boot/efi" =
@@ -32,7 +32,7 @@
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-  networking.useDHCP = lib.mkDefault true;
+  # networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp2s0.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp4s0.useDHCP = lib.mkDefault true;
 

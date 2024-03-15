@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation {
   pname = "minecraft-server-fabric";
-  version = "1.20.2";
+  version = "1.20.1";
 
   src = fetchurl {
-    url = "https://meta.fabricmc.net/v2/versions/loader/1.20.2/0.15.7/1.0.0/server/jar";
-    sha1 = "856cfeedcc5f1ede7ff6e94dd1975cdbb63b4286";
+    url = "https://meta.fabricmc.net/v2/versions/loader/1.20.1/0.15.7/1.0.0/server/jar";
+    sha256 = "d8f9af7f705540bcc7ddd6b4026e899b75d9460478db05add42378454d3fd1d7";
   };
 
   preferLocalBuild = true;

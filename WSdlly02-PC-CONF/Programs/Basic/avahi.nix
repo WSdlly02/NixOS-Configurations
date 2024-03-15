@@ -4,9 +4,9 @@
     enable = true;
     publish = {
       enable = true;
+      userServices = true;
       domain = true;
       addresses = true;
-      workstation = true;
     };
     nssmdns6 = true;
     nssmdns4 = true;

@@ -1,13 +1,13 @@
 { callPackage, config, lib, pkgs, modulesPath, ... }:
 let
 
-  # check every 30 seconds if the server
+  # check every 60 seconds if the server
   # need to be stopped
-  frequency-check-players = "5min";
+  frequency-check-players = "*:0/1";
 
   # time in second before we could stop the server
   # this should let it time to spawn
-  minimum-server-lifetime = 600;
+  minimum-server-lifetime = 120;
 
   # minecraft port
   # used in a few places in the code
@@ -29,7 +29,8 @@ let
   # a script used by hook-minecraft.service
   # to start minecraft and the timer regularly
   # polling for stopping it
-  start-mc = pkgs.writeShellScriptBin "start-mc" ''
+  start-mc = pkgs.writeShellScriptBin "start-mc"
+  ''
     systemctl start minecraft-server.service
     systemctl start stop-minecraft.timer
   '';
@@ -37,7 +38,8 @@ let
   # wait 60s for a TCP socket to be available
   # to wait in the proxifier
   # idea found in https://blog.developer.atlassian.com/docker-systemd-socket-activation/
-  wait-tcp = pkgs.writeShellScriptBin "wait-tcp" ''
+  wait-tcp = pkgs.writeShellScriptBin "wait-tcp"
+  ''
     for i in `seq 60`; do
       if ${pkgs.libressl.nc}/bin/nc -z 127.0.0.1 ${toString minecraft-port} > /dev/null ; then
         exit 0
@@ -45,29 +47,6 @@ let
       ${pkgs.busybox.out}/bin/sleep 1
     done
     exit 1
-  '';
-
-  # script returning true if the server has to be shutdown
-  # for minecraft, uses rcon to get the player list
-  # skips the checks if the service started less than minimum-server-lifetime
-  no-player-connected = pkgs.writeShellScriptBin "no-player-connected" ''
-    servicestartsec=$(date -d "$(systemctl show --property=ActiveEnterTimestamp minecraft-server.service | cut -d= -f2)" +%s)
-    serviceelapsedsec=$(( $(date +%s) - servicestartsec))
-
-    # exit if the server started less than 5 minutes ago
-    if [ $serviceelapsedsec -lt ${toString minimum-server-lifetime} ]
-    then
-      echo "server is too young to be stopped"
-      exit 1
-    fi
-
-    PLAYERS=`printf "list\n" | ${pkgs.rcon.out}/bin/rcon -m -H 127.0.0.1 -p 22024 -P ${rcon-password}`
-    if echo "$PLAYERS" | grep "are 0 of a"
-    then
-      exit 0
-    else
-      exit 1
-    fi
   '';
 
 in
@@ -192,7 +171,7 @@ in
   systemd.timers.stop-minecraft = {
     enable = true;
     timerConfig = {
-      OnUnitActiveSec = "${frequency-check-players}";
+      OnCalendar = "${frequency-check-players}";
       Unit = "stop-minecraft.service";
     };
     wantedBy = [ "timers.target" ];
@@ -206,13 +185,29 @@ in
   systemd.services.stop-minecraft = {
     enable = true;
     serviceConfig.Type = "oneshot";
-    script = ''
-      if ${no-player-connected}/bin/no-player-connected
+    script =
+    ''
+      currentTime=$(echo $(date "+%Y%m%d%H%M%S"))
+      getPlayers=`printf "list\n" | ${pkgs.rcon.out}/bin/rcon -m -H 127.0.0.1 -p 22024 -P ${rcon-password}`
+      currentPlayers=$(echo "$getPlayers" | grep "are 0 of a" | ${pkgs.gawk.out}/bin/awk '{print $3}')
+      if [[ $currentPlayers == 0 ]];
       then
+        echo -n 0 >> /tmp/minecraft-server-playersCount
+      else
+        echo -n "" > /tmp/minecraft-server-playersCount
+      fi
+      playersCount=$(cat /tmp/minecraft-server-playersCount)
+      if [[ $playersCount == 0000000000 ]];
+      then
+        rm /tmp/minecraft-server-playersCount
         echo "stopping server"
         systemctl stop minecraft-server.service
         systemctl stop hook-minecraft.service
         systemctl stop stop-minecraft.timer
+        sleep 2s
+        ${pkgs.btrfs-progs.out}/bin/btrfs subvolume snapshot -r /srv/minecraft/ /srv/backup/minecraft/$currentTime
+        cd /srv/backup/minecraft
+        ls -t | sed -n '6,$p' | xargs -I {} ${pkgs.btrfs-progs.out}/bin/btrfs subvolume delete {}
       fi
     '';
   };

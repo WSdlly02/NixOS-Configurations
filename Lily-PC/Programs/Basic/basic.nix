@@ -12,7 +12,6 @@
   services.smartd.enable = true;
   environment.systemPackages = with pkgs; [
      # Drivers and detection tools
-     ntfs3g
      usbutils
      pciutils
      lm_sensors
@@ -30,14 +29,15 @@
      ##htop
      killall
      cryptsetup
+     coreutils-full
      xz
      lz4
      zip
      unzip
      rsync
-     gnumake
-     gcc-unwrapped
-     modprobed-db
+     gnugrep
+     gawk
+     gnused
   ];
   nixpkgs.overlays = [
     (final: prev: {
