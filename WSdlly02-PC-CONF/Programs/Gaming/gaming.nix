@@ -10,7 +10,7 @@
     };
     java = {
       enable = true;
-      package = pkgs.jdk21;
+      package = pkgs.zulu;
     };
   };
   environment.defaultPackages = with pkgs; [
@@ -18,7 +18,7 @@
     goverlay
     vkbasalt
     protonup-qt
-    mindustry
+    ##!mindustry
     prismlauncher
     mcrcon
   ];

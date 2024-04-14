@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ callPackages, lib, pkgs, ... }:
 
 { 
   users.users.wsdlly02 = {
@@ -10,6 +10,7 @@
   # Fonts
   fonts.packages = with pkgs; [
     sarasa-gothic
+    nerdfonts
   ];
   # Programs
   programs = {
@@ -20,7 +21,9 @@
   };
   environment = {
     localBinInPath = true;
-    ##variables = 
+    variables = {
+      QT_AUTO_SCREEN_SCALE_FACTOR = "1.25";
+    };
     defaultPackages = with pkgs; [
       fastfetch
       appimage-run
@@ -31,7 +34,6 @@
       ark
       kate
       gwenview
-      lact
       kdePackages.sddm-kcm
       kdePackages.filelight
       thunderbird
@@ -50,10 +52,12 @@
       vlc
       mpv
       qq
+      wechat-uos
       mission-center
       upscayl
       wpsoffice-cn
       blender-hip
+      (callPackage ./gnome-network-displays.nix { })
     ];
   };
 }

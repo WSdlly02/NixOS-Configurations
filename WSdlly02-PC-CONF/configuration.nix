@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ callPackage, config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports =
@@ -16,6 +16,7 @@
     # Basic programs configuration
     ./Programs/Basic/avahi.nix
     ./Programs/Basic/basic.nix
+    ##./Programs/Basic/cups.nix
     ##./Programs/Basic/kernel-xanmod.nix
     ##./Programs/Basic/kernel.nix
     ./Programs/Basic/network.nix
@@ -38,7 +39,7 @@
     ./Programs/Daily/fcitx5.nix
     ./Programs/Daily/hyprland.nix
     ./Programs/Daily/nur.nix
-    ##./Programs/Daily/plasma6.nix
+    ./Programs/Daily/plasma6.nix
     ./Programs/Daily/syncthing.nix
     ##./Programs/Daily/wine.nix
 
@@ -94,19 +95,6 @@
   # services.xserver.enable = true;
   # services.xserver.videoDrivers = [ "amdgpu" ];
 
-
-  # Enable the Plasma 6 Desktop Environment.
-  #services.xserver = {
-  #  displayManager.sddm = {
-  #    enable = true;
-  #    enableHidpi = true;
-  #    package = lib.mkForce pkgs.kdePackages.sddm;
-  #    autoNumlock = true;
-  #  };
-  #  desktopManager.plasma6 = {
-  #    enable = true;
-  #  };
-  #};
   #xdg.portal ={
   #  enable = true;
   #  xdgOpenUsePortal = true;
@@ -194,6 +182,7 @@
     settings= {
       max-jobs = 64;
       substituters = lib.mkForce [
+        "https://cache.nixos.org/"
         "https://mirrors.ustc.edu.cn/nix-channels/store"
         "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
         "https://mirror.sjtu.edu.cn/nix-channels/store"

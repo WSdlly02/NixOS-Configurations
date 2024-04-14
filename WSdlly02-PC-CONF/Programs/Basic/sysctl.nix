@@ -21,6 +21,7 @@
     "net.ipv4.udp_rmem_min" = 8192;
     "net.ipv4.udp_wmem_min" = 8192;
     # System
-    "vm.swappiness" = 40;
+    "vm.swappiness" = 20;
+    "vm.max_map_count" = 2147483642;
   };
 }

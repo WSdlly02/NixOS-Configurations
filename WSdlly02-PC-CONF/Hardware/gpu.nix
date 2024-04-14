@@ -8,7 +8,6 @@
     extraPackages = with pkgs; [
       rocm-opencl-icd
       rocm-opencl-runtime
-      rocmPackages.rocm-smi
       rocmPackages.clr
       rocmPackages.clr.icd
     ];
@@ -25,5 +24,6 @@
   ];
   environment.variables = {
     HSA_OVERRIDE_GFX_VERSION = "10.3.0";
+    VDPAU_DRIVER = "radeonsi";
   };
 }
