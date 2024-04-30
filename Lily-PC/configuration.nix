@@ -8,11 +8,12 @@
   imports =
   [ # Hardware and drivers configuration
     ./Hardware/hardware-configuration.nix
-
+    ./Hardware/printer.nix
     # Basic programs configuration
     ./Programs/Basic/avahi.nix
     ./Programs/Basic/basic.nix
     ./Programs/Basic/cups.nix
+    ./Programs/Basic/gitDaemon.nix
     ./Programs/Basic/network.nix
     ./Programs/Basic/networkmanager.nix
     ## ./Programs/Basic/nix-ld.nix
@@ -20,6 +21,7 @@
     ./Programs/Basic/pipewire.nix
     ./Programs/Basic/resolvconf.nix
     ./Programs/Basic/smartdns.nix
+    ##./Programs/Basic/static-web-server.nix
     ./Programs/Basic/sudo.nix
     ./Programs/Basic/sysctl.nix
     ./Programs/Basic/tmux.nix
@@ -156,7 +158,7 @@
 
   system.copySystemConfiguration = true;
 
-  services.fwupd.enable = true;
+  # services.fwupd.enable = true;
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.

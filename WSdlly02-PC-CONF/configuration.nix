@@ -11,12 +11,14 @@
     ./Hardware/gpu.nix
     ./Hardware/hardware-configuration.nix
     ./Hardware/localdisksmount.nix
+    ##./Hardware/printer.nix
     ./Hardware/remotefsmount.nix
 
     # Basic programs configuration
     ./Programs/Basic/avahi.nix
     ./Programs/Basic/basic.nix
     ##./Programs/Basic/cups.nix
+    ##./Programs/Basic/gitDaemon.nix
     ##./Programs/Basic/kernel-xanmod.nix
     ##./Programs/Basic/kernel.nix
     ./Programs/Basic/network.nix
@@ -28,6 +30,7 @@
     ./Programs/Basic/resolvconf.nix
     ./Programs/Basic/samba.nix
     ./Programs/Basic/smartdns.nix
+    ##./Programs/Basic/static-web-server.nix
     ./Programs/Basic/sudo.nix
     ./Programs/Basic/sysctl.nix
     ./Programs/Basic/tmux.nix
@@ -37,7 +40,7 @@
     ./Programs/Daily/corectrl.nix
     ./Programs/Daily/daily.nix
     ./Programs/Daily/fcitx5.nix
-    ./Programs/Daily/hyprland.nix
+    ##./Programs/Daily/hyprland.nix
     ./Programs/Daily/nur.nix
     ./Programs/Daily/plasma6.nix
     ./Programs/Daily/syncthing.nix
@@ -46,6 +49,8 @@
     # Gaming
     ./Programs/Gaming/gaming.nix
     ##./Programs/Gaming/minecraft-server.nix
+    ./Programs/Gaming/openrazer.nix
+  
   ];
 
   boot.loader = {

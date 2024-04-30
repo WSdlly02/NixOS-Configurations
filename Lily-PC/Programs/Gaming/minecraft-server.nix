@@ -3,7 +3,7 @@ let
 
   # check every 60 seconds if the server
   # need to be stopped
-  frequency-check-players = "*:0/1";
+  frequency-check-players = "60s";
 
   # time in second before we could stop the server
   # this should let it time to spawn
@@ -18,7 +18,7 @@ let
   # this is the port that will trigger the server start
   # and the one that should be used by players
   # you need to open it in the firewall
-  public-port = 2024;
+  public-port = 12024;
 
   # a rcon password used by the local systemd commands
   # to get information about the server such as the
@@ -33,6 +33,8 @@ let
   ''
     systemctl start minecraft-server.service
     systemctl start stop-minecraft.timer
+    sleep 5s
+    systemctl start stop-minecraft.service
   '';
 
   # wait 60s for a TCP socket to be available
@@ -56,7 +58,7 @@ in
   services.minecraft-server = {
     enable = true;
     package = pkgs.callPackage ./minecraft-server-fabric.nix { };
-    jvmOpts = "-Xms4092M -Xmx4092M -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true";
+    jvmOpts = "-server -Xms4092M -Xmx4092M -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true";
     declarative = true;
     dataDir = "/srv/minecraft";
     eula = true;
@@ -66,7 +68,7 @@ in
       allow-nether = true;
       broadcast-console-to-ops = true;
       broadcast-rcon-to-ops = true;
-      difficulty = "normal";
+      difficulty = "hard";
       enable-command-block = true;
       enable-jmx-monitoring = false;
       enable-query = true;
@@ -74,7 +76,7 @@ in
       enable-statu = true;
       enforce-secure-profile = true;
       enforce-whitelist = true;
-      entity-broadcast-range-percentage = 100;
+      entity-broadcast-range-percentage = 80;
       force-gamemode = false;
       function-permission-level = 2;
       gamemode = "survival";
@@ -89,17 +91,17 @@ in
       level-type = "minecraft\:normal";
       log-ips = true;
       max-chained-neighbor-updates = 1000000;
-      max-players = 8;
+      max-players = 16;
       max-tick-time = 60000;
       max-world-size = 29999984;
       motd = "WSdlly02-SE-LO";
-      network-compression-threshold = 256;
+      network-compression-threshold = 1280;
       online-mode = true;
       op-permission-level = 4;
       player-idle-timeout = 0;
       prevent-proxy-connections = false;
       pvp = true;
-      "query.port" = 2024;
+      "query.port" = 12024;
       rate-limit = 0;
       "rcon.password" = rcon-password;
       "rcon.port" = 22024;
@@ -113,7 +115,7 @@ in
       spawn-animals = true;
       spawn-monsters = true;
       spawn-npcs = true;
-      spawn-protection = 16;
+      spawn-protection = 0;
       sync-chunk-writes = true;
       ##text-filtering-config = ;
       use-native-transport = true;
@@ -171,7 +173,7 @@ in
   systemd.timers.stop-minecraft = {
     enable = true;
     timerConfig = {
-      OnCalendar = "${frequency-check-players}";
+      OnUnitActiveSec = "${frequency-check-players}";
       Unit = "stop-minecraft.service";
     };
     wantedBy = [ "timers.target" ];
@@ -204,7 +206,7 @@ in
         systemctl stop minecraft-server.service
         systemctl stop hook-minecraft.service
         systemctl stop stop-minecraft.timer
-        sleep 2s
+        sleep 5s
         ${pkgs.btrfs-progs.out}/bin/btrfs subvolume snapshot -r /srv/minecraft/ /srv/backup/minecraft/$currentTime
         cd /srv/backup/minecraft
         ls -t | sed -n '6,$p' | xargs -I {} ${pkgs.btrfs-progs.out}/bin/btrfs subvolume delete {}
