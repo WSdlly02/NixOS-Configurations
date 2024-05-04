@@ -18,7 +18,9 @@
     noisetorch.enable = true;
     kdeconnect.enable = true;
     partition-manager.enable = true;
+    appimage.enable = true;
   };
+  services.flatpak.enable = true;
   environment = {
     localBinInPath = true;
     variables = {
@@ -26,7 +28,6 @@
     };
     defaultPackages = with pkgs; [
       fastfetch
-      appimage-run
       steam-run
       python310
       konsole
