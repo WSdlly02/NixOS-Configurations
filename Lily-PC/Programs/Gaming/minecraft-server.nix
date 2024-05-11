@@ -189,10 +189,10 @@ in
     serviceConfig.Type = "oneshot";
     script =
     ''
+      set -x
       currentTime=$(echo $(date "+%Y%m%d%H%M%S"))
-      getPlayers=`printf "list\n" | ${pkgs.rcon.out}/bin/rcon -m -H 127.0.0.1 -p 22024 -P ${rcon-password}`
-      currentPlayers=$(echo "$getPlayers" | grep "are 0 of a" | ${pkgs.gawk.out}/bin/awk '{print $3}')
-      if [[ $currentPlayers == 0 ]];
+      currentPlayers=$(${pkgs.iproute2.out}/bin/ss -a | grep 12024 | grep  -o ESTAB | xargs)
+      if [ -z $currentPlayers ];
       then
         echo -n 0 >> /tmp/minecraft-server-playersCount
       else

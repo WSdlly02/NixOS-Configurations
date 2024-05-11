@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, jdk21, }:
+{ lib, stdenv, fetchurl, zulu, }:
 
 stdenv.mkDerivation {
   pname = "minecraft-server-fabric";
@@ -17,7 +17,7 @@ stdenv.mkDerivation {
 
     cat > $out/bin/minecraft-server << EOF
     #!/bin/sh
-    exec ${jdk21}/bin/java \$@ -jar $out/lib/minecraft/server.jar nogui
+    exec ${zulu}/bin/java \$@ -jar $out/lib/minecraft/server.jar nogui
     EOF
 
     chmod +x $out/bin/minecraft-server

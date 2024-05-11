@@ -18,7 +18,7 @@ let
   # this is the port that will trigger the server start
   # and the one that should be used by players
   # you need to open it in the firewall
-  public-port = 2024;
+  public-port = 12024;
 
   # a rcon password used by the local systemd commands
   # to get information about the server such as the
@@ -68,7 +68,7 @@ in
       allow-nether = true;
       broadcast-console-to-ops = true;
       broadcast-rcon-to-ops = true;
-      difficulty = "normal";
+      difficulty = "hard";
       enable-command-block = true;
       enable-jmx-monitoring = false;
       enable-query = true;
@@ -76,7 +76,7 @@ in
       enable-statu = true;
       enforce-secure-profile = true;
       enforce-whitelist = true;
-      entity-broadcast-range-percentage = 100;
+      entity-broadcast-range-percentage = 80;
       force-gamemode = false;
       function-permission-level = 2;
       gamemode = "survival";
@@ -91,17 +91,17 @@ in
       level-type = "minecraft\:normal";
       log-ips = true;
       max-chained-neighbor-updates = 1000000;
-      max-players = 8;
+      max-players = 16;
       max-tick-time = 60000;
       max-world-size = 29999984;
       motd = "WSdlly02-SE-LO";
-      network-compression-threshold = 256;
+      network-compression-threshold = 1280;
       online-mode = true;
       op-permission-level = 4;
       player-idle-timeout = 0;
       prevent-proxy-connections = false;
       pvp = true;
-      "query.port" = 2024;
+      "query.port" = 12024;
       rate-limit = 0;
       "rcon.password" = rcon-password;
       "rcon.port" = 22024;
@@ -115,7 +115,7 @@ in
       spawn-animals = true;
       spawn-monsters = true;
       spawn-npcs = true;
-      spawn-protection = 16;
+      spawn-protection = 0;
       sync-chunk-writes = true;
       ##text-filtering-config = ;
       use-native-transport = true;
@@ -189,10 +189,10 @@ in
     serviceConfig.Type = "oneshot";
     script =
     ''
+      set -x
       currentTime=$(echo $(date "+%Y%m%d%H%M%S"))
-      getPlayers=`printf "list\n" | ${pkgs.rcon.out}/bin/rcon -m -H 127.0.0.1 -p 22024 -P ${rcon-password}`
-      currentPlayers=$(echo "$getPlayers" | grep "are 0 of a" | ${pkgs.gawk.out}/bin/awk '{print $3}')
-      if [[ $currentPlayers == 0 ]];
+      currentPlayers=$(${pkgs.iproute2.out}/bin/ss -a | grep 12024 | grep  -o ESTAB | xargs)
+      if [ -z $currentPlayers ];
       then
         echo -n 0 >> /tmp/minecraft-server-playersCount
       else

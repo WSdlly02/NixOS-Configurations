@@ -9,7 +9,10 @@
     htop.enable = true;
     adb.enable = true;
   };
-  services.smartd.enable = true;
+  services = {
+    smartd.enable = true;
+    dbus.implementation = "broker";
+  };
   environment.systemPackages = with pkgs; [
      # Drivers and detection tools
      usbutils

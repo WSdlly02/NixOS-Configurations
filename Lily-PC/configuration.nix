@@ -21,7 +21,7 @@
     ./Programs/Basic/pipewire.nix
     ./Programs/Basic/resolvconf.nix
     ./Programs/Basic/smartdns.nix
-    ##./Programs/Basic/static-web-server.nix
+    ./Programs/Basic/static-web-server.nix
     ./Programs/Basic/sudo.nix
     ./Programs/Basic/sysctl.nix
     ./Programs/Basic/tmux.nix
