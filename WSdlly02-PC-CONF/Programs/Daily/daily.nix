@@ -23,18 +23,10 @@
   services.flatpak.enable = true;
   environment = {
     localBinInPath = true;
-    variables = {
-      QT_AUTO_SCREEN_SCALE_FACTOR = "1.25";
-    };
     defaultPackages = with pkgs; [
       fastfetch
-      steam-run
       python310
-      konsole
       yakuake
-      ark
-      kate
-      gwenview
       kdePackages.sddm-kcm
       kdePackages.filelight
       thunderbird

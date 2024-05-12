@@ -62,7 +62,7 @@ in
     declarative = true;
     dataDir = "/srv/minecraft";
     eula = true;
-    openFirewall = true;
+    openFirewall = false;
     serverProperties = {
       allow-flight = true;
       allow-nether = true;

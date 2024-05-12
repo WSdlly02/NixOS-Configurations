@@ -1,8 +1,3 @@
-{ callPackages, pkgs, ...}:
-
-let
-   epson_201601w = pkgs.callPackage /etc/nixos/Programs/Basic/epson_201601w.nix { };
-in
 {
   hardware.printers = {
   ensurePrinters = [

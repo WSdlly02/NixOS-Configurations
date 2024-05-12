@@ -10,7 +10,10 @@
     htop.enable = true;
     adb.enable = true;
   };
-  services.smartd.enable = true;
+  services = {
+    smartd.enable = true;
+    dbus.implementation = "broker";
+  };
   environment.systemPackages = with pkgs; [
      # Drivers and detection tools
      libva-utils
@@ -42,9 +45,7 @@
      zip
      unzip
      rsync
-     gnumake
      gcc-unwrapped
-     modprobed-db
   ];
   nixpkgs.overlays = [
     (final: prev: {

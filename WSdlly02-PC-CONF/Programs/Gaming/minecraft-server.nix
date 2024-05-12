@@ -62,7 +62,7 @@ in
     declarative = true;
     dataDir = "/srv/minecraft";
     eula = true;
-    openFirewall = true;
+    openFirewall = false;
     serverProperties = {
       allow-flight = true;
       allow-nether = true;
@@ -189,7 +189,6 @@ in
     serviceConfig.Type = "oneshot";
     script =
     ''
-      set -x
       currentTime=$(echo $(date "+%Y%m%d%H%M%S"))
       currentPlayers=$(${pkgs.iproute2.out}/bin/ss -a | grep 12024 | grep  -o ESTAB | xargs)
       if [ -z $currentPlayers ];
