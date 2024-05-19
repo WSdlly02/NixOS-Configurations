@@ -57,7 +57,7 @@ in
   # rcon is mandatory for no-player-connected
   services.minecraft-server = {
     enable = true;
-    package = pkgs.callPackage ./minecraft-server-fabric.nix { };
+    package = pkgs.callPackage /etc/nixos/Packages/minecraft-server-fabric.nix { };
     jvmOpts = "-server -Xms4092M -Xmx4092M -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true";
     declarative = true;
     dataDir = "/srv/minecraft";
@@ -189,7 +189,7 @@ in
     serviceConfig.Type = "oneshot";
     script =
     ''
-      currentTime=$(echo $(date "+%Y%m%d%H%M%S"))
+      currentTime=$(echo $(date "+%Y-%m-%d-%H:%M:%S"))
       currentPlayers=$(${pkgs.iproute2.out}/bin/ss -a | grep 12024 | grep  -o ESTAB | xargs)
       if [ -z $currentPlayers ];
       then

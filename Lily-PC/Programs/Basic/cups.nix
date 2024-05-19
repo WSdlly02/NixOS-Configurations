@@ -15,7 +15,7 @@
     defaultShared = true;
     openFirewall = true;
     drivers =  with pkgs; [
-      (pkgs.callPackage ./epson_201601w.nix { })
+      (callPackage /etc/nixos/Packages/epson_201601w.nix { })
     ];
   };
 }

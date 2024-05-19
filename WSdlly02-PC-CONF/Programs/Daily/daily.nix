@@ -46,11 +46,13 @@
       mpv
       qq
       wechat-uos
+      telegram-desktop
       mission-center
       upscayl
       wpsoffice-cn
       blender-hip
-      (callPackage ./gnome-network-displays.nix { })
+      vdhcoapp
+      (callPackage /etc/nixos/Packages/gnome-network-displays.nix { })
     ];
   };
 }

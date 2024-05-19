@@ -45,7 +45,10 @@
     ./Programs/Daily/plasma6.nix
     ./Programs/Daily/syncthing.nix
     ##./Programs/Daily/wine.nix
-
+    
+    # Development tools
+    ##./Programs/Development/whisper.nix
+    
     # Gaming
     ./Programs/Gaming/gaming.nix
     ##./Programs/Gaming/minecraft-server.nix
@@ -171,9 +174,9 @@
   # accidentally delete configuration.nix.
 
   system.copySystemConfiguration = true;
-
+  
   services.fwupd.enable = true;
-
+  
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
   #

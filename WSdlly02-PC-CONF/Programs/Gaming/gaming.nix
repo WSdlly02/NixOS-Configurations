@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ callpackages, pkgs, ... }:
 
 {
   programs = {
@@ -10,7 +10,7 @@
     };
     java = {
       enable = true;
-      package = pkgs.zulu;
+      package = (pkgs.callPackage ./zulu-22.nix { });
     };
   };
   environment.defaultPackages = with pkgs; [

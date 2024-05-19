@@ -1,9 +1,11 @@
-{ lib, stdenv, fetchurl, zulu, }:
-
+{ pkgs, callPackages, lib, stdenv, fetchurl, zulu, }:
+let
+zulu = pkgs.callPackage ./zulu-22.nix { };
+in
 stdenv.mkDerivation {
   pname = "minecraft-server-fabric";
   version = "1.20.1";
-
+  inherit zulu;
   src = fetchurl {
     url = "https://meta.fabricmc.net/v2/versions/loader/1.20.1/0.15.10/1.0.1/server/jar";
     sha256 = "e2fb76d0ca74a5557ff54bf8aac68eb6b12b741a785246772df72ddeadc4cbf8";

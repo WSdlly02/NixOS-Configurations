@@ -4,11 +4,11 @@
     openFirewall = true;
     nsswins = true;
     extraConfig = ''
-        workgroup = WORKGROUP
-        server string = samba server
-        netbios name = WSdlly02-PC
-        security = USER
-        guest account = nobody
+      workgroup = WORKGROUP
+      server string = samba server
+      netbios name = WSdlly02-PC
+      security = USER
+      guest account = nobody
     '';
     shares = {
       "WSdlly02-Lib" = {
