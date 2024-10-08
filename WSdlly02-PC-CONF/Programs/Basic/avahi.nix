@@ -1,5 +1,5 @@
 {
-  system.nssDatabases.hosts = [ "mymachines mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files myhostname dns wins" ];
+  system.nssDatabases.hosts = [ "wins" ];
   services.avahi = {
     enable = true;
     publish = {

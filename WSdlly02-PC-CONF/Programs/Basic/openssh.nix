@@ -1,16 +1,7 @@
 {
   services.openssh = {
     enable = false;
-    listenAddresses = [     
-      {
-        addr = "0.0.0.0";
-        port = 10022;
-      }
-      {
-        addr = "[::]";
-        port = 10022;
-      }
-    ];
+    ports = [ 10022 ];
     settings = {
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
