@@ -6,7 +6,7 @@
     themePackages = with pkgs; [
       adi1090x-plymouth-themes
     ];
-    theme = "red_loader";
+    theme = "hexagon_dots_alt";
   };
   systemd.services.plymouth-wait-for-animation = {
     enable = true;
@@ -15,7 +15,7 @@
     unitConfig = { Description = "Waits for Plymouth animation to finish"; };
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.coreutils}/bin/sleep 6";
+      ExecStart = "${pkgs.coreutils}/bin/sleep 4";
     };
   };
 }

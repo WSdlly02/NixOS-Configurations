@@ -8,11 +8,11 @@
   imports =
   [ # Hardware and drivers configuration
     ./Hardware/bluetooth.nix
-    ./Hardware/gpu.nix
+    #./Hardware/gpu.nix
     ./Hardware/hardware-configuration.nix
     ./Hardware/localdisksmount.nix
     ##./Hardware/printer.nix
-    ./Hardware/remotefsmount.nix
+    #./Hardware/remotefsmount.nix
 
     # Basic programs configuration
     ./Programs/Basic/avahi.nix
@@ -23,25 +23,27 @@
     ##./Programs/Basic/kernel.nix
     ./Programs/Basic/network.nix
     ./Programs/Basic/networkmanager.nix
-    ./Programs/Basic/nix-ld.nix
+    ##./Programs/Basic/nix-ld.nix
     ./Programs/Basic/openssh.nix
     ./Programs/Basic/pipewire.nix
     ./Programs/Basic/plymouth.nix
     ./Programs/Basic/resolvconf.nix
-    ./Programs/Basic/samba.nix
+    #./Programs/Basic/samba.nix
     ./Programs/Basic/smartdns.nix
     ##./Programs/Basic/static-web-server.nix
     ./Programs/Basic/sudo.nix
     ./Programs/Basic/sysctl.nix
     ./Programs/Basic/tmux.nix
+    ./Programs/Basic/zram.nix
     
     # Daily programs configuration
+    ./Programs/Daily/cache2ram.nix
     ./Programs/Daily/chromium.nix
     ./Programs/Daily/corectrl.nix
     ./Programs/Daily/daily.nix
     ./Programs/Daily/fcitx5.nix
     ##./Programs/Daily/hyprland.nix
-    ./Programs/Daily/nur.nix
+    #./Programs/Daily/nur.nix
     ./Programs/Daily/plasma6.nix
     ./Programs/Daily/syncthing.nix
     ##./Programs/Daily/wine.nix
@@ -63,16 +65,28 @@
       gfxmodeEfi = "2560x1440";
       theme = pkgs.sleek-grub-theme;
       efiSupport = true;
+      extraConfig = "set timeout=10";
       extraEntries = ''
-        menuentry "Windows" {
-        search --file --no-floppy --set=root /EFI/Microsoft/Boot/bootmgfw.efi
-        chainloader (''${root})/EFI/Microsoft/Boot/bootmgfw.efi
+        menuentry "Windows" --class windows {
+          search --file --no-floppy --set=root /EFI/Microsoft/Boot/bootmgfw.efi
+          chainloader (''${root})/EFI/Microsoft/Boot/bootmgfw.efi
+        }
+        menuentry 'UEFI Firmware Settings' --class efi --id 'uefi-firmware'{
+          fwsetup
+        }
+        menuentry "System restart" --class restart {
+          echo "System rebooting..."
+          reboot
+        }
+        menuentry "System shutdown" --class poweroff {
+	        echo "System shutting down..."
+	        halt
         }
       '';
     };
     efi = {
       canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot/efi";
+      efiSysMountPoint = "/efi";
     };
   };
 
@@ -120,7 +134,6 @@
       "zh_CN.UTF-8/UTF-8"
     ];
     extraLocaleSettings = {
-      LANGUAGE = "en_US.UTF-8/UTF-8";
       LC_TIME = "zh_CN.UTF-8";
       LC_PAPER = "C.UTF-8";
     };
@@ -129,7 +142,7 @@
   services.printing.enable = true;
 
   # Enable sound.
-  sound.enable = lib.mkForce false;
+  #sound.enable = lib.mkForce false;
   hardware.pulseaudio.enable = lib.mkForce false;
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -198,7 +211,6 @@
     settings= {
       max-jobs = 64;
       substituters = lib.mkForce [
-        "https://cache.nixos.org/"
         "https://mirrors.ustc.edu.cn/nix-channels/store"
         "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
         "https://mirror.sjtu.edu.cn/nix-channels/store"
@@ -210,7 +222,7 @@
         "repl-flake" # 可以交互解释自己的配置：nix repl ~/nixos-config
       ];
     };
-    daemonCPUSchedPolicy = "batch";
+    #daemonCPUSchedPolicy = "batch";
   };
   system.stateVersion = "24.05"; # Did you read the comment?
 

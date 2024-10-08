@@ -11,42 +11,40 @@
   boot = {
     initrd = {
       supportedFilesystems = [ "btrfs" ];
-      availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
+      availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
       kernelModules = [ "amdgpu" ];
     };
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
     kernelModules = [ "amdgpu" "kvm-intel" ];
     extraModulePackages = [ ];
-    resumeDevice = "/dev/disk/by-uuid/63d875d7-4213-4ae6-acb8-0280f5879d24";
-    kernelParams = [ "intel_iommu=on" "iommu=pt" "quiet" "resume=UUID=63d875d7-4213-4ae6-acb8-0280f5879d24" ];
+    kernelParams = [ "quiet" "loglevel=3" ];
   };
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16";
       fsType = "btrfs";
-      options = [ "rw" "relatime" "ssd" "space_cache=v2" "subvolid=273""subvol=@" ];
+      options = [ "rw" "relatime" "ssd" "space_cache=v2" "subvol=@" ];
     };
 
   fileSystems."/home" =
     { device = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16";
       fsType = "btrfs";
-      options = [ "rw" "relatime" "ssd" "space_cache=v2" "subvolid=257" "subvol=@home" ];
+      options = [ "rw" "relatime" "ssd" "space_cache=v2" "subvol=@home" ];
     };
 
   fileSystems."/nix" =
     { device = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16";
       fsType = "btrfs";
-      options = [ "rw" "relatime" "ssd" "space_cache=v2" "subvolid=274" "subvol=@nix" ];
+      options = [ "rw" "relatime" "ssd" "space_cache=v2" "subvol=@nix" ];
     };
 
-  fileSystems."/boot/efi" =
+  fileSystems."/efi" =
     { device = "/dev/disk/by-uuid/18B2-C53C";
       fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
     };
 
-  swapDevices =
-    [ { device = "/dev/disk/by-uuid/63d875d7-4213-4ae6-acb8-0280f5879d24"; }
-    ];
+  swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -57,10 +55,9 @@
   # networking.interfaces.wlp5s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
   hardware = {
     enableRedistributableFirmware = true;
-    cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     xone.enable = true;
   };
 

@@ -11,7 +11,7 @@
     #  rocmPackages.clr
     #  rocmPackages.clr.icd
     #];
-    setLdLibraryPath = true;
+    #setLdLibraryPath = true;
   };
   systemd.tmpfiles.rules = [
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"

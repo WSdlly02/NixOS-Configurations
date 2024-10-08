@@ -10,7 +10,7 @@
     };
     java = {
       enable = true;
-      package = (pkgs.callPackage ./zulu-22.nix { });
+      package = pkgs.zulu;
     };
   };
   environment.defaultPackages = with pkgs; [

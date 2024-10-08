@@ -4,7 +4,7 @@
   programs ={
     fuse.userAllowOther = true;
     fish.enable = true;
-    bash.enableCompletion = true;
+    vim.enable = true;
     vim.defaultEditor = true;
     git.enable = true;
     htop.enable = true;
@@ -45,12 +45,12 @@
      zip
      unzip
      rsync
-     gcc-unwrapped
+     corkscrew # ssh tunnel
   ];
   nixpkgs.overlays = [
     (final: prev: {
       sleek-grub-theme = prev.sleek-grub-theme.override { withStyle = "dark"; withBanner = "GRUB BootLoader"; };
-      adi1090x-plymouth-themes = prev.adi1090x-plymouth-themes.override { selected_themes = ["red_loader"] ;};
+      adi1090x-plymouth-themes = prev.adi1090x-plymouth-themes.override { selected_themes = ["hexagon_dots_alt"] ;};
     })
   ];
 }

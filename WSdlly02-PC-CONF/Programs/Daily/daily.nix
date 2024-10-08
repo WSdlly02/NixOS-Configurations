@@ -10,7 +10,6 @@
   # Fonts
   fonts.packages = with pkgs; [
     sarasa-gothic
-    nerdfonts
   ];
   # Programs
   programs = {
@@ -32,13 +31,11 @@
       thunderbird
       microsoft-edge
       chromium
-      yesplaymusic
       g4music
       motrix
       vulkan-tools
       fsearch
       qbittorrent
-      element-desktop
       bilibili
       vscode
       obs-studio
@@ -51,8 +48,16 @@
       upscayl
       wpsoffice-cn
       blender-hip
-      vdhcoapp
-      (callPackage /etc/nixos/Packages/gnome-network-displays.nix { })
+      clash-nyanpasu
+      id-generator
     ];
   };
+  nixpkgs.overlays = [(self: super: {
+    id-generator = pkgs.writeShellScriptBin "id-generator" ''
+      sha512ID=$(echo -n $1 | sha512sum | head -zc 8)
+      echo $1 >> ~/Documents/id-list.txt
+      echo $sha512ID >> ~/Documents/id-list.txt
+      echo $sha512ID
+    '';
+  })];
 }
