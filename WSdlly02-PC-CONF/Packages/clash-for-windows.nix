@@ -1,22 +1,23 @@
-{ alsa-lib
-, autoPatchelfHook
-, at-spi2-core
-, dpkg
-, glib
-, gtk3
-, iproute2
-, lib
-, libdrm
-, libGL
-, libpulseaudio
-, makeShellWrapper
-, mesa
-, nftables
-, nss
-, stdenv
-, fetchurl
-, wrapGAppsHook3
-, xorg
+{
+  alsa-lib,
+  autoPatchelfHook,
+  at-spi2-core,
+  dpkg,
+  glib,
+  gtk3,
+  iproute2,
+  lib,
+  libdrm,
+  libGL,
+  libpulseaudio,
+  makeShellWrapper,
+  mesa,
+  nftables,
+  nss,
+  stdenv,
+  fetchurl,
+  wrapGAppsHook3,
+  xorg,
 }:
 stdenv.mkDerivation {
   pname = "clash-for-windows";
@@ -67,16 +68,16 @@ stdenv.mkDerivation {
       --replace-quiet "/opt/clash_for_windows/cfw" "$out/bin/cfw"
     makeShellWrapper $out/opt/clash_for_windows/cfw $out/bin/cfw \
       --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH" \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libGL gtk3 mesa nss libdrm]}" \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [libGL gtk3 mesa nss libdrm]}" \
       "''${gappsWrapperArgs[@]}"
     runHook postInstall
   '';
-meta = with lib; {
+  meta = with lib; {
     homepage = "https://github.com/lantongxue/clash_for_windows_pkg";
     description = "A Windows/macOS/Linux GUI based on Clash";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     license = licenses.unfree;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers =  [ ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
+    maintainers = [];
   };
 }

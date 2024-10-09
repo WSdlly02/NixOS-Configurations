@@ -1,6 +1,8 @@
-{ lib, pkgs, ... }:
-
 {
+  lib,
+  pkgs,
+  ...
+}: {
   programs.chromium = {
     enable = true;
     enablePlasmaBrowserIntegration = true;

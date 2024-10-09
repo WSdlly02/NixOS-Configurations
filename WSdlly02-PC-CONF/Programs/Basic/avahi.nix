@@ -1,5 +1,4 @@
 {
-  system.nssDatabases.hosts = [ "wins" ];
   services.avahi = {
     enable = true;
     publish = {
@@ -12,5 +11,9 @@
     nssmdns4 = true;
     ipv6 = true;
     ipv4 = true;
+    extraConfig = ''
+      [server]
+      disallow-other-stacks=yes
+    '';
   };
 }

@@ -1,14 +1,16 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
-{ config, lib, pkgs, ... }:
-
 {
-  imports =
-  [ # Hardware and drivers configuration
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Hardware and drivers configuration
     ./Hardware/bluetooth.nix
-    #./Hardware/gpu.nix
+    ./Hardware/gpu.nix
     ./Hardware/hardware-configuration.nix
     ./Hardware/localdisksmount.nix
     ##./Hardware/printer.nix
@@ -19,8 +21,6 @@
     ./Programs/Basic/basic.nix
     ##./Programs/Basic/cups.nix
     ##./Programs/Basic/gitDaemon.nix
-    ##./Programs/Basic/kernel-xanmod.nix
-    ##./Programs/Basic/kernel.nix
     ./Programs/Basic/network.nix
     ./Programs/Basic/networkmanager.nix
     ##./Programs/Basic/nix-ld.nix
@@ -35,27 +35,24 @@
     ./Programs/Basic/sysctl.nix
     ./Programs/Basic/tmux.nix
     ./Programs/Basic/zram.nix
-    
+
     # Daily programs configuration
     ./Programs/Daily/cache2ram.nix
     ./Programs/Daily/chromium.nix
     ./Programs/Daily/corectrl.nix
     ./Programs/Daily/daily.nix
     ./Programs/Daily/fcitx5.nix
-    ##./Programs/Daily/hyprland.nix
-    #./Programs/Daily/nur.nix
     ./Programs/Daily/plasma6.nix
     ./Programs/Daily/syncthing.nix
     ##./Programs/Daily/wine.nix
-    
+
     # Development tools
     ##./Programs/Development/whisper.nix
-    
+
     # Gaming
     ./Programs/Gaming/gaming.nix
     ##./Programs/Gaming/minecraft-server.nix
     ./Programs/Gaming/openrazer.nix
-  
   ];
 
   boot.loader = {
@@ -79,8 +76,8 @@
           reboot
         }
         menuentry "System shutdown" --class poweroff {
-	        echo "System shutting down..."
-	        halt
+         echo "System shutting down..."
+         halt
         }
       '';
     };
@@ -108,9 +105,9 @@
 
   # Select internationalisation properties.
   #console = {
-     #font = "Lat2-Terminus16";
-     #keyMap = "us";
-     #useXkbConfig = true; # use xkb.options in tty.
+  #font = "Lat2-Terminus16";
+  #keyMap = "us";
+  #useXkbConfig = true; # use xkb.options in tty.
   #};
 
   # Enable the X11 windowing system.
@@ -140,10 +137,6 @@
   };
   # Enable CUPS to print documents.
   services.printing.enable = true;
-
-  # Enable sound.
-  #sound.enable = lib.mkForce false;
-  hardware.pulseaudio.enable = lib.mkForce false;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -187,9 +180,8 @@
   # accidentally delete configuration.nix.
 
   system.copySystemConfiguration = true;
-  
   services.fwupd.enable = true;
-  
+
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
   #
@@ -208,7 +200,7 @@
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   nix = {
-    settings= {
+    settings = {
       max-jobs = 64;
       substituters = lib.mkForce [
         "https://mirrors.ustc.edu.cn/nix-channels/store"
@@ -225,6 +217,4 @@
     #daemonCPUSchedPolicy = "batch";
   };
   system.stateVersion = "24.05"; # Did you read the comment?
-
 }
-

@@ -1,6 +1,4 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   networking = {
     hostName = "WSdlly02-PC";
     useDHCP = lib.mkDefault true;
@@ -8,11 +6,11 @@
     tempAddresses = "disabled";
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 7890 ];
+      allowedTCPPorts = [7890];
       #                   CFW  SWS   MC    MC_RCON gitDaemon
-      allowedUDPPorts = [ 7890 ];
+      allowedUDPPorts = [7890];
     };
-    nameservers = [ "127.0.0.1" "::1" ];
+    nameservers = ["127.0.0.1" "::1"];
     extraHosts = ''
       20.196.210.19 bing.com
       20.196.210.19 www.bing.com

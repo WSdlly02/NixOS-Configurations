@@ -1,6 +1,8 @@
-{ callPackages, pkgs, ...}:
-
 {
+  callPackages,
+  pkgs,
+  ...
+}: {
   services.printing = {
     enable = true;
     startWhenNeeded = false;
@@ -14,8 +16,8 @@
     browsing = true;
     defaultShared = true;
     openFirewall = true;
-    drivers =  with pkgs; [
-      (callPackage /etc/nixos/Packages/epson_201601w.nix { })
+    drivers = with pkgs; [
+      (callPackage /etc/nixos/Packages/epson_201601w.nix {})
     ];
   };
 }

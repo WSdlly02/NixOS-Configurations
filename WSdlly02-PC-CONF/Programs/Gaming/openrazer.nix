@@ -1,6 +1,6 @@
 {
- hardware.openrazer = {
+  hardware.openrazer = {
     enable = true;
-    users = [ "wsdlly02" ];
- };
+    users = ["wsdlly02"];
+  };
 }

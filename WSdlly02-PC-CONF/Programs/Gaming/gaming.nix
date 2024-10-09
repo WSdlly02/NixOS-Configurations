@@ -1,6 +1,8 @@
-{ callpackages, pkgs, ... }:
-
 {
+  callpackages,
+  pkgs,
+  ...
+}: {
   programs = {
     gamemode.enable = true;
     steam = {

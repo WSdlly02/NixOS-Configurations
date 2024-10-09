@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{ 
+{pkgs, ...}: {
   environment.defaultPackages = with pkgs; [
     openai-whisper
   ];

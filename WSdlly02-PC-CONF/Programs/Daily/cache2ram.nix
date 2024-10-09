@@ -1,6 +1,5 @@
-{ pkgs, ...}:
-let
-  microsoft-edge-cache2ram-main = pkgs.writeShellScript "microsoft-edge-cache2ram-main" (''
+{pkgs, ...}: let
+  microsoft-edge-cache2ram-main = pkgs.writeShellScript "microsoft-edge-cache2ram-main" ''
       case "$1" in
     import)
       cd /dev/shm
@@ -17,9 +16,9 @@ let
     ;;
     esac
     exit 0
-  '');
+  '';
 
-  microsoft-edge-cache2ram-startup = pkgs.writeShellScript "microsoft-edge-cache2ram-startup" ( ''
+  microsoft-edge-cache2ram-startup = pkgs.writeShellScript "microsoft-edge-cache2ram-startup" ''
     mkdir -p /dev/shm/microsoft-edge-cache
     mkdir -p /dev/shm/microsoft-edge-config
     ${pkgs.util-linux}/bin/mount --bind /dev/shm/microsoft-edge-cache /home/wsdlly02/.cache/microsoft-edge
@@ -27,22 +26,21 @@ let
     ${microsoft-edge-cache2ram-main} import
     ${pkgs.coreutils}/bin/chown wsdlly02:wheel -R /dev/shm/microsoft-edge-cache
     ${pkgs.coreutils}/bin/chown wsdlly02:wheel -R /dev/shm/microsoft-edge-config
-  '');
+  '';
 
-  microsoft-edge-cache2ram-shutdown = pkgs.writeShellScript "microsoft-edge-cache2ram-shutdown" ( ''
+  microsoft-edge-cache2ram-shutdown = pkgs.writeShellScript "microsoft-edge-cache2ram-shutdown" ''
     ${microsoft-edge-cache2ram-main} dump
     ping -c 4 127.0.0.1 > /dev/null
-  '');
-in
-{
+  '';
+in {
   systemd.services.microsoft-edge-cache2ram = {
     enable = true;
     unitConfig = {
       Description = "Synchronize microsoft-edge caches between ram and disk";
       PartOf = "graphical.target";
       DefaultDependencies = "no";
-      Before = [ "umount.target" "shutdown.target" "reboot.target" "halt.target" ];
-      RequiresMountsFor = [ "/home" ];
+      Before = ["umount.target" "shutdown.target" "reboot.target" "halt.target"];
+      RequiresMountsFor = ["/home"];
     };
     serviceConfig = {
       Type = "simple";
@@ -50,6 +48,6 @@ in
       ExecStart = "${microsoft-edge-cache2ram-startup}";
       ExecStop = "${microsoft-edge-cache2ram-shutdown}";
     };
-    wantedBy = [ "graphical.target" ];
+    wantedBy = ["graphical.target"];
   };
 }

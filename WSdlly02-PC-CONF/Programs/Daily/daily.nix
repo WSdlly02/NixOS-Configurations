@@ -1,10 +1,13 @@
-{ callPackages, lib, pkgs, ... }:
-
-{ 
+{
+  callPackages,
+  lib,
+  pkgs,
+  ...
+}: {
   users.users.wsdlly02 = {
     isNormalUser = true;
     group = "wheel";
-    extraGroups = [ "users" "adbusers" ];
+    extraGroups = ["users" "adbusers"];
   };
   nixpkgs.config.allowUnfree = true;
   # Fonts
@@ -38,6 +41,7 @@
       qbittorrent
       bilibili
       vscode
+      alejandra
       obs-studio
       vlc
       mpv
@@ -52,12 +56,14 @@
       id-generator
     ];
   };
-  nixpkgs.overlays = [(self: super: {
-    id-generator = pkgs.writeShellScriptBin "id-generator" ''
-      sha512ID=$(echo -n $1 | sha512sum | head -zc 8)
-      echo $1 >> ~/Documents/id-list.txt
-      echo $sha512ID >> ~/Documents/id-list.txt
-      echo $sha512ID
-    '';
-  })];
+  nixpkgs.overlays = [
+    (self: super: {
+      id-generator = pkgs.writeShellScriptBin "id-generator" ''
+        sha512ID=$(echo -n $1 | sha512sum | head -zc 8)
+        echo $1 >> ~/Documents/id-list.txt
+        echo $sha512ID >> ~/Documents/id-list.txt
+        echo $sha512ID
+      '';
+    })
+  ];
 }
