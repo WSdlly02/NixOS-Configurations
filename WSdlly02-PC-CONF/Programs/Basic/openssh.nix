@@ -1,6 +1,6 @@
-{
+{lib, ...}: {
   services.openssh = {
-    enable = false;
+    enable = true;
     ports = [10022];
     settings = {
       PasswordAuthentication = false;
@@ -9,5 +9,8 @@
       PrintMotd = true;
     };
     authorizedKeysFiles = ["/home/wsdlly02/.ssh/authorized_keys"];
+  };
+  systemd.services.sshd = {
+    wantedBy = lib.mkForce [];
   };
 }

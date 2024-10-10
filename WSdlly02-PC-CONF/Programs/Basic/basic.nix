@@ -22,20 +22,16 @@
     usbutils
     pciutils
     lm_sensors
-    ##smartmontools
     amdgpu_top
     # Basic programs
     sleek-grub-theme
     adi1090x-plymouth-themes
     vim
-    ##git
     wget
-    ##fish
     dig
     curl
     nmap
     lsof
-    ##htop
     killall
     cryptsetup
     xz
@@ -44,6 +40,7 @@
     unzip
     rsync
     corkscrew # ssh tunnel
+    nix-output-monitor
   ];
   nixpkgs.overlays = [
     (final: prev: {

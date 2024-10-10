@@ -51,7 +51,6 @@
       mission-center
       upscayl
       wpsoffice-cn
-      blender-hip
       clash-nyanpasu
       id-generator
     ];

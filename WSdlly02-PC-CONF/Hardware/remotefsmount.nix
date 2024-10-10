@@ -9,6 +9,7 @@
       "_netdev"
       "users"
       "idmap=user"
+      "ssh_command=ssh"
       "IdentityFile=/home/wsdlly02/.ssh/id_rsa_lily"
       "allow_other"
       "reconnect"

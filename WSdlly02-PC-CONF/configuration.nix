@@ -14,7 +14,7 @@
     ./Hardware/hardware-configuration.nix
     ./Hardware/localdisksmount.nix
     ##./Hardware/printer.nix
-    #./Hardware/remotefsmount.nix
+    ##./Hardware/remotefsmount.nix
 
     # Basic programs configuration
     ./Programs/Basic/avahi.nix
@@ -179,7 +179,6 @@
   # (/run/current-system/configuration.nix). This is useful in case you
   # accidentally delete configuration.nix.
 
-  system.copySystemConfiguration = true;
   services.fwupd.enable = true;
 
   # This option defines the first version of NixOS you have installed on this particular machine,

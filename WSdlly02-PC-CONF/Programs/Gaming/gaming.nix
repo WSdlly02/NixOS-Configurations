@@ -24,7 +24,4 @@
     prismlauncher
     mcrcon
   ];
-  systemd.tmpfiles.rules = [
-    "z  /sys/class/powercap/intel-rapl:0/energy_uj  0404  -  -  -  -"
-  ];
 }
