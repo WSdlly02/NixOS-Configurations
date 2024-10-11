@@ -6,6 +6,7 @@
 }: {
   users.users.wsdlly02 = {
     isNormalUser = true;
+    uid = 1000;
     group = "wheel";
     extraGroups = ["users" "adbusers"];
   };
