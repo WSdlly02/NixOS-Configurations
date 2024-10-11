@@ -1,6 +1,6 @@
 {
   zramSwap = {
     enable = true;
-    priority = 180;
   };
+  # Sysctl settings are located in sysctl.nix
 }

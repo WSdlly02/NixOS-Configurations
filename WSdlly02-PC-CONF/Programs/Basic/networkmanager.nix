@@ -6,7 +6,7 @@
     wifi.macAddress = "permanent";
     /*
       settings = {
-      keyfile = {hostname = "WSdlly02-PC";}; # For Privacy
+      main = {hostname = "WSdlly02-PC";}; # For Privacy
     };
     */
   };
