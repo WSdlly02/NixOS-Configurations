@@ -21,7 +21,7 @@
     ./Programs/Basic/basic.nix
     ##./Programs/Basic/cups.nix
     ##./Programs/Basic/gitDaemon.nix
-    ./Programs/Basic/network.nix
+    ./Programs/Basic/networking.nix
     ./Programs/Basic/networkmanager.nix
     ##./Programs/Basic/nix-ld.nix
     ./Programs/Basic/openssh.nix
@@ -47,7 +47,7 @@
     ##./Programs/Daily/wine.nix
 
     # Development tools
-    ##./Programs/Development/whisper.nix
+    ##./Programs/Development/develop.nix
 
     # Gaming
     ./Programs/Gaming/gaming.nix

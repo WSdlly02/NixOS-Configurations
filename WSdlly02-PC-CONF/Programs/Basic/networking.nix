@@ -7,7 +7,6 @@
     firewall = {
       enable = true;
       allowedTCPPorts = [7890];
-      #                   CFW  SWS   MC    MC_RCON gitDaemon
       allowedUDPPorts = [7890];
     };
     nameservers = ["127.0.0.1" "::1"];
