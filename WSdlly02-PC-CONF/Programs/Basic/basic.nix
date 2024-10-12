@@ -26,7 +26,6 @@
     # Basic programs
     sleek-grub-theme
     adi1090x-plymouth-themes
-    vim
     wget
     dig
     curl
@@ -34,7 +33,6 @@
     lsof
     killall
     cryptsetup
-    xz
     iperf
     zip
     unzip

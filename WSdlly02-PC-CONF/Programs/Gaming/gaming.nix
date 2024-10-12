@@ -1,14 +1,25 @@
-{
-  callpackages,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   programs = {
     gamemode.enable = true;
     steam = {
       enable = true;
-      remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+      /*
+      package = pkgs.steam-small.override {
+        extraEnv = {
+          MANGOHUD = true;
+        };
+      };
+      */
+      localNetworkGameTransfers.openFirewall = true;
+      extest.enable = true;
+      gamescopeSession.enable = true;
+      extraCompatPackages = with pkgs; [
+        proton-ge-bin
+      ];
+    };
+    gamescope = {
+      enable = true;
+      capSysNice = true;
     };
     java = {
       enable = true;
