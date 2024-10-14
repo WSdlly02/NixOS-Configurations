@@ -20,7 +20,7 @@
   
   #wsl.enable = true;
   #wsl.defaultUser = "nixos";
-  #Already defined in flake.nix
+  # Already defined in flake.nix
 
   time.timeZone = "Asia/Shanghai";
   i18n = {

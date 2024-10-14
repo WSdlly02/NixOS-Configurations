@@ -24,10 +24,9 @@
     lm_sensors
     amdgpu_top
     # Basic programs
-    sleek-grub-theme
-    adi1090x-plymouth-themes
     wget
     dig
+    ripgrep
     curl
     nmap
     lsof
@@ -39,6 +38,7 @@
     rsync
     corkscrew # ssh tunnel
     nix-output-monitor
+    nix-tree
   ];
   nixpkgs.overlays = [
     (final: prev: {

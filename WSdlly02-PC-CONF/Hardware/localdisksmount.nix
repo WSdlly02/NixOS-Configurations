@@ -1,4 +1,4 @@
-#NTFS Disks mounting
+# NTFS Disks mounting
 {
   fileSystems."/home/wsdlly02/Disks/Files-M" = {
     device = "/dev/disk/by-uuid/29B31A33EBBBBC0B";

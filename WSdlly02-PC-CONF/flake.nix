@@ -9,7 +9,7 @@
     self,
     nixpkgs,
     ...
-  } @ inputs: {
+  }: {
     nixosConfigurations.WSdlly02-PC = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [

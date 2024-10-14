@@ -14,6 +14,7 @@
   # Fonts
   fonts.packages = with pkgs; [
     sarasa-gothic
+    noto-fonts-color-emoji
   ];
   # Programs
   programs = {
@@ -29,6 +30,7 @@
     defaultPackages = with pkgs; [
       fastfetch
       python310
+      lact
       yakuake
       kdePackages.sddm-kcm
       kdePackages.filelight

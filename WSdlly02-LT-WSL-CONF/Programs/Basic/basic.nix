@@ -26,6 +26,7 @@
     # Basic programs
     wget
     dig
+    ripgrep
     curl
     nmap
     lsof
@@ -37,13 +38,15 @@
     rsync
     corkscrew # ssh tunnel
     nix-output-monitor
+    nix-tree
+    id-generator
   ];
   nixpkgs.overlays = [
     (self: super: {
       id-generator = pkgs.writeShellScriptBin "id-generator" ''
         sha512ID=$(echo -n $1 | sha512sum | head -zc 8)
-        echo $1 >> ~/Documents/id-list.txt
-        echo $sha512ID >> ~/Documents/id-list.txt
+        echo $1 >> /mnt/c/Users/WSdlly02/Documents/id-list.txt
+        echo $sha512ID >> /mnt/c/Users/WSdlly02/Documents/id-list.txt
         echo $sha512ID
       '';
     })

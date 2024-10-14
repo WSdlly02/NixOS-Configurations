@@ -28,7 +28,7 @@
     ./Programs/Basic/pipewire.nix
     ./Programs/Basic/plymouth.nix
     ./Programs/Basic/resolvconf.nix
-    #./Programs/Basic/samba.nix
+    ##./Programs/Basic/samba.nix
     ./Programs/Basic/smartdns.nix
     ##./Programs/Basic/static-web-server.nix
     ./Programs/Basic/sudo.nix
@@ -39,8 +39,8 @@
     # Daily programs configuration
     ./Programs/Daily/cache2ram.nix
     ./Programs/Daily/chromium.nix
-    ./Programs/Daily/corectrl.nix
     ./Programs/Daily/daily.nix
+    ./Programs/Daily/lact.nix
     ./Programs/Daily/fcitx5.nix
     ./Programs/Daily/plasma6.nix
     ./Programs/Daily/syncthing.nix
@@ -71,11 +71,11 @@
         menuentry 'UEFI Firmware Settings' --class efi --id 'uefi-firmware'{
           fwsetup
         }
-        menuentry "System restart" --class restart {
+        menuentry "Restart" --class restart {
           echo "System rebooting..."
           reboot
         }
-        menuentry "System shutdown" --class poweroff {
+        menuentry "Shutdown" --class poweroff {
          echo "System shutting down..."
          halt
         }
@@ -151,9 +151,6 @@
   #   ];
   # };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-
   # services.flatpak.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -175,12 +172,7 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-
   services.fwupd.enable = true;
-
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
   #
@@ -213,7 +205,7 @@
         "repl-flake" # 可以交互解释自己的配置：nix repl ~/nixos-config
       ];
     };
-    #daemonCPUSchedPolicy = "batch";
   };
   system.stateVersion = "24.05"; # Did you read the comment?
+  system.name = "WSdlly02-PC";
 }

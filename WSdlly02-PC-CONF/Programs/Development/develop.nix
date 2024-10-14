@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   environment.defaultPackages = with pkgs; [
-    #openai-whisper
+    # openai-whisper
   ];
   nixpkgs.config.rocmSupport = true;
   services.tabby = {
