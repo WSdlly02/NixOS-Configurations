@@ -1,5 +1,9 @@
-{ pkgs, callPackages, lib, stdenv, fetchurl, zulu, }:
-
+{
+  lib,
+  stdenv,
+  fetchurl,
+  zulu,
+}:
 stdenv.mkDerivation {
   pname = "minecraft-server-fabric";
   version = "1.20.1";
@@ -27,9 +31,9 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Minecraft Server with Fabric";
     homepage = "https://minecraft.net";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.unfreeRedistributable;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ thoughtpolice tomberek costrouc joelkoen ];
+    maintainers = with maintainers; [thoughtpolice tomberek costrouc joelkoen];
   };
 }

@@ -3,7 +3,6 @@
   autoPatchelfHook,
   at-spi2-core,
   dpkg,
-  glib,
   gtk3,
   iproute2,
   lib,
@@ -54,6 +53,8 @@ stdenv.mkDerivation {
     mesa
     nss
     libdrm
+    iproute2
+    nftables
   ];
 
   dontWrapGApps = true;

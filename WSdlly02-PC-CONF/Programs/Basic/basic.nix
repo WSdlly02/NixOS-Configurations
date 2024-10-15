@@ -27,6 +27,7 @@
     wget
     dig
     ripgrep
+    tree
     curl
     nmap
     lsof

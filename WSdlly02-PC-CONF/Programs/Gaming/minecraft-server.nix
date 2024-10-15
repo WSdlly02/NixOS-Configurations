@@ -1,18 +1,12 @@
 {
   callPackage,
-  config,
   lib,
   pkgs,
-  modulesPath,
   ...
 }: let
   # check every 60 seconds if the server
   # need to be stopped
   frequency-check-players = "60s";
-
-  # time in second before we could stop the server
-  # this should let it time to spawn
-  minimum-server-lifetime = 120;
 
   # minecraft port
   # used in a few places in the code

@@ -2,7 +2,6 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 {
-  config,
   lib,
   pkgs,
   ...
@@ -21,6 +20,7 @@
     ./Programs/Basic/basic.nix
     ##./Programs/Basic/cups.nix
     ##./Programs/Basic/gitDaemon.nix
+    ./Programs/Basic/gnupg.nix
     ./Programs/Basic/networking.nix
     ./Programs/Basic/networkmanager.nix
     ##./Programs/Basic/nix-ld.nix

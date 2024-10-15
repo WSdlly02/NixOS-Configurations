@@ -1,13 +1,7 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   boot.plymouth = {
     enable = true;
-    themePackages = with pkgs; [
-      adi1090x-plymouth-themes
-    ];
+    themePackages = [pkgs.adi1090x-plymouth-themes];
     theme = "hexagon_dots_alt";
   };
   systemd.services.plymouth-wait-for-animation = {

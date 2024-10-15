@@ -1,7 +1,6 @@
 {
-  callPackages,
-  lib,
   pkgs,
+  inputs,
   ...
 }: {
   users.users.wsdlly02 = {
@@ -56,6 +55,7 @@
       wpsoffice-cn
       clash-nyanpasu
       id-generator
+      pass-wayland
     ];
   };
   nixpkgs.overlays = [
