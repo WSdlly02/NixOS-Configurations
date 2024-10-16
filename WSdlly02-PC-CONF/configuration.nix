@@ -135,7 +135,6 @@
       LC_PAPER = "C.UTF-8";
     };
   };
-  # Enable CUPS to print documents.
   services.printing.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -160,17 +159,6 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   services.fwupd.enable = true;
   # This option defines the first version of NixOS you have installed on this particular machine,
@@ -202,7 +190,6 @@
       experimental-features = lib.mkForce [
         "nix-command"
         "flakes"
-        "repl-flake" # 可以交互解释自己的配置：nix repl ~/nixos-config
       ];
     };
   };

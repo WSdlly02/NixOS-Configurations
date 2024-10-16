@@ -24,7 +24,7 @@
       linuxKernel.packages.linux_xanmod_latest.zenpower
     ];
     */
-    kernelParams = ["quiet" "udev.log_level=3" "amdgpu.ppfeaturemask=0xffffffff"];
+    kernelParams = ["quiet" "udev.log_level=3" "amd_iommu=pt" "amdgpu.ppfeaturemask=0xffffffff"];
     #resumeDevice = "";
   };
 

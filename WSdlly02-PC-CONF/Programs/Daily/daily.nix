@@ -28,7 +28,6 @@
     localBinInPath = true;
     defaultPackages = with pkgs; [
       fastfetch
-      python310
       lact
       yakuake
       kdePackages.sddm-kcm

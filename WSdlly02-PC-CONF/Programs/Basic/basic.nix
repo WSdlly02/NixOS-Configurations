@@ -12,6 +12,9 @@
     smartd.enable = true;
     dbus.implementation = "broker";
   };
+  systemd.sleep.extraConfig = ''
+    MemorySleepMode=deep
+  '';
   environment.systemPackages = with pkgs; [
     # Drivers and detection tools
     libva-utils
