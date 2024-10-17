@@ -2,7 +2,7 @@
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [
-      gcc-unwrapped
+      steam-run.fhsenv.args.multiPkgs
     ];
   };
 }

@@ -1,6 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 {
   lib,
   pkgs,
@@ -40,6 +37,7 @@
     ./Programs/Daily/cache2ram.nix
     ./Programs/Daily/chromium.nix
     ./Programs/Daily/daily.nix
+    ##./Programs/Daily/envfs.nix
     ./Programs/Daily/lact.nix
     ./Programs/Daily/fcitx5.nix
     ./Programs/Daily/plasma6.nix
@@ -160,7 +158,7 @@
   #   enableSSHSupport = true;
   # };
 
-  services.fwupd.enable = true;
+  # services.fwupd.enable = true;
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
   #

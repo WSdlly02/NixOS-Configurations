@@ -50,7 +50,7 @@
         withStyle = "dark";
         withBanner = "GRUB BootLoader";
       };
-      adi1090x-plymouth-themes = prev.adi1090x-plymouth-themes.override {selected_themes = ["hexagon_dots_alt"];};
+      adi1090x-plymouth-themes = prev.adi1090x-plymouth-themes.override {selected_themes = ["hexagon_dots"];};
     })
   ];
 }

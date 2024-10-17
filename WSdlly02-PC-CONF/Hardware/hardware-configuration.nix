@@ -21,11 +21,12 @@
     kernelModules = ["kvm-amd"];
     /*
     extraModulePackages = with pkgs; [
-      linuxKernel.packages.linux_xanmod_latest.zenpower
+      config.boot.kernelPackages.zenpower
     ];
     */
     kernelParams = ["quiet" "udev.log_level=3" "amd_iommu=pt" "amdgpu.ppfeaturemask=0xffffffff"];
-    #resumeDevice = "";
+    # blacklistedKernelModules = ["k10temp"];
+    # resumeDevice = "";
   };
 
   fileSystems."/" = {

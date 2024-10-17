@@ -151,7 +151,7 @@ in {
     enable = true;
     requires = ["hook-minecraft.service" "listen-minecraft.socket"];
     after = ["hook-minecraft.service" "listen-minecraft.socket"];
-    serviceConfig.ExecStart = "${pkgs.systemd.out}/lib/systemd/systemd-socket-proxyd 127.0.0.1:${toString minecraft-port}";
+    serviceConfig.ExecStart = "${pkgs.systemd}/lib/systemd/systemd-socket-proxyd 127.0.0.1:${toString minecraft-port}";
   };
 
   # this starts Minecraft is required
@@ -161,8 +161,8 @@ in {
     path = with pkgs; [systemd libressl busybox];
     enable = true;
     serviceConfig = {
-      ExecStartPost = "${wait-tcp.out}/bin/wait-tcp";
-      ExecStart = "${start-mc.out}/bin/start-mc";
+      ExecStartPost = "${wait-tcp}/bin/wait-tcp";
+      ExecStart = "${start-mc}/bin/start-mc";
     };
   };
 
@@ -188,7 +188,7 @@ in {
     serviceConfig.Type = "oneshot";
     script = ''
       currentTime=$(echo $(date "+%Y-%m-%d-%H:%M:%S"))
-      currentPlayers=$(${pkgs.iproute2.out}/bin/ss -a | grep 12024 | grep  -o ESTAB | xargs)
+      currentPlayers=$(${pkgs.iproute2}/bin/ss -a | grep 12024 | grep  -o ESTAB | xargs)
       if [ -z $currentPlayers ];
       then
         echo -n 0 >> /tmp/minecraft-server-playersCount
@@ -204,9 +204,9 @@ in {
         systemctl stop hook-minecraft.service
         systemctl stop stop-minecraft.timer
         sleep 5s
-        ${pkgs.btrfs-progs.out}/bin/btrfs subvolume snapshot -r /srv/minecraft/ /srv/backup/minecraft/$currentTime
+        ${pkgs.btrfs-progs}/bin/btrfs subvolume snapshot -r /srv/minecraft/ /srv/backup/minecraft/$currentTime
         cd /srv/backup/minecraft
-        ls -t | sed -n '6,$p' | xargs -I {} ${pkgs.btrfs-progs.out}/bin/btrfs subvolume delete {}
+        ls -t | sed -n '6,$p' | xargs -I {} ${pkgs.btrfs-progs}/bin/btrfs subvolume delete {}
       fi
     '';
   };
