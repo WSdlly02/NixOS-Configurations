@@ -11,6 +11,17 @@
   services = {
     smartd.enable = true;
     dbus.implementation = "broker";
+    fstrim = {
+      enable = true;
+      interval = "weekly";
+    };
+    btrfs.autoScrub = {
+      enable = true;
+      interval = "weekly";
+      fileSystems = [
+        "/"
+      ];
+    };
   };
   systemd.sleep.extraConfig = ''
     MemorySleepMode=deep
@@ -26,6 +37,7 @@
     pciutils
     lm_sensors
     amdgpu_top
+    compsize # btrfs need
     # Basic programs
     wget
     dig
