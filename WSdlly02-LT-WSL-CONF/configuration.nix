@@ -18,24 +18,23 @@
     ./Programs/Basic/tmux.nix
   ];
   
-  #wsl.enable = true;
-  #wsl.defaultUser = "nixos";
+  # wsl.enable = true;
+  # wsl.defaultUser = "nixos";
   # Already defined in flake.nix
 
   time.timeZone = "Asia/Shanghai";
   i18n = {
-    defaultLocale = "en_US.UTF-8";
+    defaultLocale = "C.UTF-8";
     supportedLocales = [
       "C.UTF-8/UTF-8"
       "en_US.UTF-8/UTF-8"
       "zh_CN.UTF-8/UTF-8"
     ];
     extraLocaleSettings = {
-      LC_TIME = "zh_CN.UTF-8";
       LC_PAPER = "C.UTF-8";
     };
   };
-
+  nixpkgs.config.allowUnfree = true;
   nix = {
     settings = {
       max-jobs = 64;
@@ -48,7 +47,6 @@
       experimental-features = lib.mkForce [
         "nix-command"
         "flakes"
-        "repl-flake"
       ];
     };
   };

@@ -2,14 +2,32 @@
   programs = {
     fuse.userAllowOther = true;
     fish.enable = true;
-    vim.enable = true;
-    vim.defaultEditor = true;
-    git.enable = true;
+    vim = {
+      enable = true;
+      defaultEditor = true;
+    };
+    git = {
+      enable = true;
+      lfs.enable = true;
+    };
     htop.enable = true;
+    bandwhich.enable = true;
+    # usbtop.enable = true;
     adb.enable = true;
   };
   services = {
     dbus.implementation = "broker";
+    fstrim = {
+      enable = true;
+      interval = "weekly";
+    };
+    journald = {
+      storage = "auto";
+      extraConfig = ''
+        Compress=true
+        SystemMaxUse=512M
+      '';
+    };
   };
   users.users.wsdlly02 = {
     isNormalUser = true;
@@ -19,27 +37,28 @@
   };
   environment.systemPackages = with pkgs; [
     # Drivers and detection tools
-    sshfs-fuse
-    usbutils
-    pciutils
-    lm_sensors
-    # Basic programs
-    wget
-    dig
-    ripgrep
-    curl
-    nmap
-    lsof
-    killall
+    bind
+    btop
+    corkscrew
     cryptsetup
     iperf
-    zip
-    unzip
-    rsync
-    corkscrew # ssh tunnel
+    killall
+    lm_sensors
+    lsof
     nix-output-monitor
     nix-tree
+    nmap
+    rar
+    ripgrep
+    rsync
     id-generator
+    sshfs-fuse
+    fastfetch
+    tree
+    unrar
+    unzip
+    wget
+    zip
   ];
   nixpkgs.overlays = [
     (self: super: {
