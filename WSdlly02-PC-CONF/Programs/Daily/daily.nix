@@ -21,40 +21,37 @@
     noisetorch.enable = true;
     kdeconnect.enable = true;
     partition-manager.enable = true;
-    appimage.enable = true;
+    # appimage.enable = true;
   };
-  services.flatpak.enable = true;
+  # services.flatpak.enable = true;
   environment = {
     localBinInPath = true;
     defaultPackages = with pkgs; [
-      fastfetch
-      lact
-      yakuake
-      kdePackages.sddm-kcm
-      kdePackages.filelight
-      thunderbird
-      microsoft-edge
-      chromium
-      g4music
-      motrix
-      vulkan-tools
-      fsearch
-      qbittorrent
-      bilibili
-      vscode
       alejandra
-      obs-studio
-      vlc
-      mpv
-      qq
-      wechat-uos
-      telegram-desktop
-      mission-center
-      upscayl
-      wpsoffice-cn
+      bilibili
+      chromium
       clash-nyanpasu
+      fastfetch
+      fsearch
+      gapless
       id-generator
+      kdePackages.filelight
+      kdePackages.sddm-kcm
+      microsoft-edge
+      mission-center
+      motrix
+      mpv
+      obs-studio
       pass-wayland
+      qbittorrent
+      qq
+      telegram-desktop
+      thunderbird
+      vlc
+      vscode
+      wechat-uos
+      wpsoffice-cn
+      yakuake
     ];
   };
   nixpkgs.overlays = [

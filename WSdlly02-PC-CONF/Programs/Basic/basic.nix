@@ -2,15 +2,21 @@
   programs = {
     fuse.userAllowOther = true;
     fish.enable = true;
-    vim.enable = true;
-    vim.defaultEditor = true;
-    git.enable = true;
+    vim = {
+      enable = true;
+      defaultEditor = true;
+    };
+    git = {
+      enable = true;
+      lfs.enable = true;
+    };
     htop.enable = true;
+    bandwhich.enable = true;
+    # usbtop.enable = true;
     adb.enable = true;
   };
   services = {
     smartd.enable = true;
-    dbus.implementation = "broker";
     fstrim = {
       enable = true;
       interval = "weekly";
@@ -22,39 +28,51 @@
         "/"
       ];
     };
+    dbus.implementation = "broker";
+    journald = {
+      storage = "auto";
+      extraConfig = ''
+        Compress=true
+        SystemMaxUse=512M
+      '';
+    };
   };
+
   systemd.sleep.extraConfig = ''
     MemorySleepMode=deep
   '';
-  environment.systemPackages = with pkgs; [
+  environment.defaultPackages = with pkgs; [
     # Drivers and detection tools
-    libva-utils
-    vdpauinfo
-    glxinfo
-    ntfs3g
-    sshfs-fuse
-    usbutils
-    pciutils
-    lm_sensors
     amdgpu_top
-    compsize # btrfs need
-    # Basic programs
-    wget
-    dig
-    ripgrep
-    tree
-    curl
-    nmap
-    lsof
-    killall
+    bind
+    btop
+    compsize
+    corkscrew
     cryptsetup
+    glxinfo
     iperf
-    zip
-    unzip
-    rsync
-    corkscrew # ssh tunnel
+    killall
+    libva-utils
+    lact # AMDGPU Fan Control
+    lm_sensors
+    lsof
     nix-output-monitor
     nix-tree
+    nmap
+    ntfs3g
+    pciutils
+    rar
+    ripgrep
+    rsync
+    sshfs-fuse
+    tree
+    unrar
+    unzip
+    usbutils
+    vdpauinfo
+    vulkan-tools
+    wget
+    zip
   ];
   nixpkgs.overlays = [
     (final: prev: {

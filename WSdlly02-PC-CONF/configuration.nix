@@ -102,34 +102,33 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Select internationalisation properties.
-  #console = {
-  #font = "Lat2-Terminus16";
-  #keyMap = "us";
-  #useXkbConfig = true; # use xkb.options in tty.
-  #};
+  # console = {
+  # font = "Lat2-Terminus16";
+  # keyMap = "us";
+  # useXkbConfig = true; # use xkb.options in tty.
+  # };
 
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
   # services.xserver.videoDrivers = [ "amdgpu" ];
 
-  #xdg.portal ={
+  # xdg.portal ={
   #  enable = true;
   #  xdgOpenUsePortal = true;
-  #};
+  # };
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
 
   i18n = {
-    defaultLocale = "en_US.UTF-8";
+    defaultLocale = "C.UTF-8";
     supportedLocales = [
       "C.UTF-8/UTF-8"
       "en_US.UTF-8/UTF-8"
       "zh_CN.UTF-8/UTF-8"
     ];
     extraLocaleSettings = {
-      LC_TIME = "zh_CN.UTF-8";
       LC_PAPER = "C.UTF-8";
     };
   };
