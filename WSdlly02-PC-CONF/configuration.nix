@@ -31,7 +31,7 @@
     ./Programs/Basic/sudo.nix
     ./Programs/Basic/sysctl.nix
     ./Programs/Basic/tmux.nix
-    ./Programs/Basic/zram.nix
+    ##./Programs/Basic/zram.nix
 
     # Daily programs configuration
     ./Programs/Daily/cache2ram.nix

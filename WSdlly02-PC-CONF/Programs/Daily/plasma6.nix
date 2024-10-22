@@ -3,7 +3,6 @@
   pkgs,
   ...
 }: {
-  # Enable the Plasma 6 Desktop Environment.
   services = {
     xserver = {
       enable = true;
