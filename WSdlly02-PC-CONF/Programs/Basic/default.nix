@@ -1,4 +1,22 @@
 {pkgs, ...}: {
+  imports = [
+    ./avahi.nix
+    ##./cups.nix
+    ##./gitDaemon.nix
+    ./gnupg.nix
+    ./networking.nix
+    ./networkmanager.nix
+    ##./nix-ld.nix
+    ./openssh.nix
+    ./pipewire.nix
+    ./plymouth.nix
+    ##./samba.nix
+    ##./smartdns.nix
+    ##./static-web-server.nix
+    ./sudo.nix
+    ./sysctl.nix
+    ./tmux.nix
+  ];
   programs = {
     fuse.userAllowOther = true;
     fish.enable = true;
@@ -38,16 +56,13 @@
     };
   };
 
-  systemd.sleep.extraConfig = ''
-    MemorySleepMode=deep
-  '';
   environment.defaultPackages = with pkgs; [
     # Drivers and detection tools
     amdgpu_top
+    aria2
     bind
     btop
     compsize
-    corkscrew
     cryptsetup
     glxinfo
     iperf
@@ -56,6 +71,7 @@
     lact # AMDGPU Fan Control
     lm_sensors
     lsof
+    modprobed-db
     nix-output-monitor
     nix-tree
     nmap
@@ -66,7 +82,7 @@
     rsync
     sshfs-fuse
     tree
-    unrar
+    proxychains-ng
     unzip
     usbutils
     vdpauinfo
@@ -76,10 +92,6 @@
   ];
   nixpkgs.overlays = [
     (final: prev: {
-      sleek-grub-theme = prev.sleek-grub-theme.override {
-        withStyle = "dark";
-        withBanner = "GRUB BootLoader";
-      };
       adi1090x-plymouth-themes = prev.adi1090x-plymouth-themes.override {selected_themes = ["hexagon_dots"];};
     })
   ];

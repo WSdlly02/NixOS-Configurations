@@ -1,9 +1,9 @@
 {
   services.smartdns = {
     enable = true;
-    bindPort = 53;
+    bindPort = 60;
     settings = {
-      bind-tcp = "[::]:53";
+      bind-tcp = "[::]:60";
       mdns-lookup = true;
       cache-size = 32768;
       cache-persist = true;

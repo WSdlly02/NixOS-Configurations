@@ -1,7 +1,7 @@
 {
   networking.networkmanager = {
     enable = true;
-    dns = "none";
+    dns = "systemd-resolved";
     ethernet.macAddress = "permanent";
     wifi.macAddress = "permanent";
     /*

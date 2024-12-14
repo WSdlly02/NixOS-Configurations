@@ -9,18 +9,14 @@
       allowedTCPPorts = [7890];
       allowedUDPPorts = [7890];
     };
-    nameservers = ["127.0.0.1" "::1"];
     timeServers = [
       "ntp.ntsc.ac.cn"
       "cn.ntp.org.cn"
     ];
-    extraHosts = ''
-      20.196.210.19 bing.com
-      20.196.210.19 www.bing.com
-      20.196.210.19 r.bing.com
-      20.196.210.19 cn.bing.com
-      20.196.210.19 edgeservices.bing.com
-      20.196.210.19 sydney.bing.com
-    '';
+  };
+  services.resolved = {
+    enable = true;
+    fallbackDns = ["223.5.5.5"];
+    extraConfig = "MulticastDNS=no";
   };
 }

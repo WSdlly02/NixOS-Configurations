@@ -1,16 +1,16 @@
 { lib, stdenv, fetchurl, rpmextract, autoreconfHook, file, libjpeg, cups }:
 
 let
-  version = "1.0.0";
+  version = "1.0.1";
 in
   stdenv.mkDerivation {
 
-    pname = "epson_201601w";
+    pname = "epson-inkjet-printer-201601w";
     inherit version;
 
     src = fetchurl {
       urls = [
-        "https://download3.ebz.epson.net/dsc/f/03/00/05/62/39/9f21bf22f723fc15a9c584687cc852b3a611f455/epson-inkjet-printer-201601w-1.0.0-1lsb3.2.src.rpm"
+        "https://download3.ebz.epson.net/dsc/f/03/00/15/66/51/1046e0a9f8d8ec892806a8d4921335cf6f5fd1ea/epson-inkjet-printer-${version}-1.src.rpm"
       ];
       sha256 = "a56f9da8557ed826d3a122961cee3c95c32f42c73c273ff01442fed9ce416241";
     };
@@ -22,12 +22,12 @@ in
     unpackPhase = ''
       rpmextract $src
       tar -zxf epson-inkjet-printer-201601w-${version}.tar.gz
-      tar -zxf epson-inkjet-printer-filter-${version}.tar.gz
+      tar -zxf epson-inkjet-printer-filter-1.0.2.tar.gz
       for ppd in epson-inkjet-printer-201601w-${version}/ppds/*; do
         substituteInPlace $ppd --replace "/opt/epson-inkjet-printer-201601w" "$out"
         substituteInPlace $ppd --replace "/cups/lib" "/lib/cups"
       done
-      cd epson-inkjet-printer-filter-${version}
+      cd epson-inkjet-printer-filter-1.0.2
     '';
 
     preConfigure = ''
@@ -58,7 +58,7 @@ in
         To use the driver adjust your configuration.nix file:
           services.printing = {
             enable = true;
-            drivers = [ pkgs.epson_201601w ];
+            drivers = [ pkgs.epson-inkjet-printer-201601w ];
           };
       '';
       license = with licenses; [ lgpl21 epson ];

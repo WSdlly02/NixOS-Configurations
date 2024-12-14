@@ -1,4 +1,14 @@
 {pkgs, ...}: {
+  imports = [
+    ##./envfs.nix
+    ./fcitx5.nix
+    ./lact.nix
+    ##./nur.nix
+    ./plasma6.nix
+    ./psd.nix
+    ./syncthing.nix
+    ##./wine.nix
+  ];
   users.users.wsdlly02 = {
     isNormalUser = true;
     uid = 1000;
@@ -7,13 +17,26 @@
   };
   nixpkgs.config.allowUnfree = true;
   # Fonts
-  fonts.packages = with pkgs; [
-    sarasa-gothic
-    noto-fonts-color-emoji
-  ];
+  fonts = {
+    packages = with pkgs; [
+      sarasa-gothic
+      noto-fonts-color-emoji
+    ];
+    fontconfig = {
+      allowBitmaps = false;
+      useEmbeddedBitmaps = true;
+      subpixel.rgba = "rgb";
+      defaultFonts = {
+        serif = ["Sarasa UI SC"];
+        sansSerif = ["Sarasa UI SC"];
+        monospace = ["Sarasa Fixed SC"];
+      };
+    };
+  };
   # Programs
   programs = {
     firefox.enable = true;
+    lazygit.enable = true;
     noisetorch.enable = true;
     kdeconnect.enable = true;
     partition-manager.enable = true;
@@ -24,25 +47,30 @@
     localBinInPath = true;
     defaultPackages = with pkgs; [
       alejandra
+      ddcutil
       bilibili
-      chromium
-      clash-nyanpasu
+      google-chrome
       fastfetch
       fsearch
       gapless
+      go-musicfox
       id-generator
       kdePackages.filelight
       kdePackages.sddm-kcm
       microsoft-edge
-      mission-center
-      motrix
+      mihomo-party
       mpv
+      helvum
       obs-studio
+      obsidian
       pass-wayland
-      qbittorrent
+      profile-sync-daemon
+      qbittorrent-enhanced
       qq
       telegram-desktop
       thunderbird
+      scrcpy
+      sunshine
       vlc
       vscode
       wechat-uos

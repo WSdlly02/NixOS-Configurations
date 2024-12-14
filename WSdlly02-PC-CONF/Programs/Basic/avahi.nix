@@ -4,8 +4,6 @@
     publish = {
       enable = true;
       userServices = true;
-      domain = true;
-      addresses = true;
     };
     nssmdns6 = true;
     nssmdns4 = true;

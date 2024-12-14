@@ -10,7 +10,4 @@
     };
     authorizedKeysFiles = ["/home/wsdlly02/.ssh/authorized_keys"];
   };
-  systemd.services.sshd = {
-    wantedBy = lib.mkForce [];
-  };
 }

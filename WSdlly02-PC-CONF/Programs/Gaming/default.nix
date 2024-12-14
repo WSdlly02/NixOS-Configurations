@@ -1,21 +1,20 @@
 {pkgs, ...}: {
+  imports = [
+    #./minecraft-server.nix
+    ./openrazer.nix
+  ];
   programs = {
     gamemode.enable = true;
     steam = {
       enable = true;
-      /*
-      package = pkgs.steam-small.override {
+      package = pkgs.steam.override {
         extraEnv = {
           MANGOHUD = true;
         };
       };
-      */
       localNetworkGameTransfers.openFirewall = true;
       extest.enable = true;
       gamescopeSession.enable = true;
-      extraCompatPackages = with pkgs; [
-        proton-ge-bin
-      ];
     };
     gamescope = {
       enable = true;

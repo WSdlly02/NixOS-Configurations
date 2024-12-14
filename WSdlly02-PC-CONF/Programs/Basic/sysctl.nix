@@ -21,9 +21,6 @@
     "net.ipv4.udp_wmem_min" = 8192;
     # System
     "vm.max_map_count" = 2147483642;
-    # "vm.swappiness" = 20;
-    # "vm.watermark_boost_factor" = 0;
-    # "vm.watermark_scale_factor" = 125;
-    # "vm.page-cluster" = 0;
+    "vm.swappiness" = 20;
   };
 }

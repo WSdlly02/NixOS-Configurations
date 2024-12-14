@@ -2,7 +2,16 @@
 {
   fileSystems."/home/wsdlly02/Disks/Files-M" = {
     device = "/dev/disk/by-uuid/29B31A33EBBBBC0B";
-    fsType = "ntfs";
-    options = ["x-systemd.automount" "noauto" "nofail" "rw" "user_id=0" "group_id=0" "allow_other" "blksize=4096"];
+    fsType = "ntfs3";
+    depends = ["/home"];
+    noCheck = true;
+    options = ["rw" "realtime" "nofail" "uid=0" "gid=0" "iocharset=utf8"];
+  };
+  fileSystems."/home/wsdlly02/Disks/Files" = {
+    device = "/dev/disk/by-uuid/D85499D95499BAA8";
+    fsType = "ntfs3";
+    depends = ["/home"];
+    noCheck = true;
+    options = ["rw" "realtime" "nofail" "uid=0" "gid=0" "iocharset=utf8"];
   };
 }
