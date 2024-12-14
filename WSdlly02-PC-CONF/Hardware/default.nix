@@ -26,7 +26,6 @@
     kernelModules = ["kvm-amd"];
     extraModulePackages = with pkgs; [
       linuxKernel.packages.linux_xanmod_latest.zenergy
-      linuxKernel.packages.linux_xanmod_latest.v4l2loopback
     ];
     kernelParams = ["quiet" "nowatchdog" "udev.log_level=3" "amd_iommu=pt" "amdgpu.ppfeaturemask=0xffffffff" "resume_offset=95528544"];
     # blacklistedKernelModules = ["k10temp"];

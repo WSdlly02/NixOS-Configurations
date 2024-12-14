@@ -6,6 +6,7 @@
     tempAddresses = "disabled";
     firewall = {
       enable = true;
+      allowPing = false;
       allowedTCPPorts = [7890];
       allowedUDPPorts = [7890];
     };

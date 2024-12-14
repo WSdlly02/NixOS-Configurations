@@ -6,6 +6,7 @@
     ##./nur.nix
     ./plasma6.nix
     ./psd.nix
+    ./sunshine.nix
     ./syncthing.nix
     ##./wine.nix
   ];
@@ -38,6 +39,10 @@
     firefox.enable = true;
     lazygit.enable = true;
     noisetorch.enable = true;
+    obs-studio = {
+      enable = true;
+      enableVirtualCamera = true;
+    };
     kdeconnect.enable = true;
     partition-manager.enable = true;
     # appimage.enable = true;
@@ -61,7 +66,6 @@
       mihomo-party
       mpv
       helvum
-      obs-studio
       obsidian
       pass-wayland
       profile-sync-daemon
