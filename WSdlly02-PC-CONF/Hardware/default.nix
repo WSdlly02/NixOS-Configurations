@@ -20,6 +20,7 @@
       availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
       verbose = false;
       kernelModules = [];
+      systemd.enable = true; # Hibernate Required
     };
     consoleLogLevel = 3;
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
@@ -27,9 +28,16 @@
     extraModulePackages = with pkgs; [
       linuxKernel.packages.linux_xanmod_latest.zenergy
     ];
-    kernelParams = ["quiet" "nowatchdog" "udev.log_level=3" "amd_iommu=pt" "amdgpu.ppfeaturemask=0xffffffff" "resume_offset=95528544"];
+    kernelParams = [
+      "quiet"
+      "nowatchdog"
+      "udev.log_level=3"
+      "amd_iommu=pt"
+      "amdgpu.ppfeaturemask=0xffffffff"
+      # "resume_offset=95528544" No longer required by config.boot.initrd.systemd.enable
+    ];
     # blacklistedKernelModules = ["k10temp"];
-    resumeDevice = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16";
+    # resumeDevice = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16"; No longer required by config.boot.initrd.systemd.enable
   };
 
   fileSystems."/" = {
@@ -92,6 +100,7 @@
     enableRedistributableFirmware = true;
     amdgpu.initrd.enable = true;
     cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    i2c.enable = true;
     xone.enable = true;
   };
 }

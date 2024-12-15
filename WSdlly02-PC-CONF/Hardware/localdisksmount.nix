@@ -5,13 +5,13 @@
     fsType = "ntfs3";
     depends = ["/home"];
     noCheck = true;
-    options = ["rw" "realtime" "nofail" "uid=0" "gid=0" "iocharset=utf8"];
+    options = ["rw"];
   };
   fileSystems."/home/wsdlly02/Disks/Files" = {
     device = "/dev/disk/by-uuid/D85499D95499BAA8";
     fsType = "ntfs3";
     depends = ["/home"];
     noCheck = true;
-    options = ["rw" "realtime" "nofail" "uid=0" "gid=0" "iocharset=utf8"];
+    options = ["rw"];
   };
 }

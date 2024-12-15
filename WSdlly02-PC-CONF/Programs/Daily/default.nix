@@ -47,13 +47,16 @@
     partition-manager.enable = true;
     # appimage.enable = true;
   };
+  services = {
+    power-profiles-daemon.enable = true;
+  };
   # services.flatpak.enable = true;
   environment = {
     localBinInPath = true;
     defaultPackages = with pkgs; [
       alejandra
-      ddcutil
       bilibili
+      ddcutil
       google-chrome
       fastfetch
       fsearch
@@ -65,10 +68,10 @@
       microsoft-edge
       mihomo-party
       mpv
+      ncdu
       helvum
       obsidian
       pass-wayland
-      profile-sync-daemon
       qbittorrent-enhanced
       qq
       telegram-desktop
