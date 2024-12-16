@@ -18,7 +18,6 @@ in {
     group = "wheel";
     extraGroups = ["users" "adbusers"];
   };
-  nixpkgs.config.allowUnfree = true;
   # Fonts
   fonts = {
     packages = with pkgs; [

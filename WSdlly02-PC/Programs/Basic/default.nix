@@ -17,6 +17,7 @@
     ./sysctl.nix
     ./tmux.nix
   ];
+
   programs = {
     fuse.userAllowOther = true;
     fish.enable = true;
