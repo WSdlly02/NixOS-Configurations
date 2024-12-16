@@ -1,4 +1,6 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  wayland-enable = {commandLineArgs = "--ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations --enable-wayland-ime";};
+in {
   imports = [
     ##./envfs.nix
     ./fcitx5.nix
@@ -55,9 +57,9 @@
     localBinInPath = true;
     defaultPackages = with pkgs; [
       alejandra
-      bilibili
+      (bilibili.override wayland-enable)
       ddcutil
-      google-chrome
+      (google-chrome.override wayland-enable)
       fastfetch
       fsearch
       gapless
@@ -65,21 +67,21 @@
       id-generator
       kdePackages.filelight
       kdePackages.sddm-kcm
-      microsoft-edge
+      (microsoft-edge.override wayland-enable)
       mihomo-party
       mpv
       ncdu
       helvum
-      obsidian
+      (obsidian.override wayland-enable)
       pass-wayland
       qbittorrent-enhanced
-      qq
+      (qq.override wayland-enable)
       telegram-desktop
       thunderbird
       scrcpy
       sunshine
       vlc
-      vscode
+      (vscode.override wayland-enable)
       wechat-uos
       wpsoffice-cn
       yakuake
