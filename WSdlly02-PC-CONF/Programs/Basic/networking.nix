@@ -1,7 +1,10 @@
-{lib, ...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   networking = {
     hostName = "WSdlly02-PC";
-    useDHCP = lib.mkDefault true;
     nftables.enable = lib.mkDefault false;
     tempAddresses = "disabled";
     firewall = {
@@ -15,9 +18,12 @@
       "cn.ntp.org.cn"
     ];
   };
-  services.resolved = {
-    enable = true;
-    fallbackDns = ["223.5.5.5"];
-    extraConfig = "MulticastDNS=no";
+  services = {
+    timesyncd.servers = config.networking.timeServers;
+    resolved = {
+      enable = true;
+      fallbackDns = ["223.5.5.5" "117.50.11.11"];
+      extraConfig = "MulticastDNS=no";
+    };
   };
 }
