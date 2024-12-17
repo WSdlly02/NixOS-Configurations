@@ -8,7 +8,7 @@
     "net.core.wmem_max" = 16777216;
     "net.core.optmem_max" = 65536;
     "net.core.default_qdisc" = "cake";
-    # net.ipv4.tcp_congestion_control = bbr; has been set as default
+    # net.ipv4.tcp_congestion_control = bbr; It has been set as default
     "net.ipv4.tcp_rmem" = "4096 1048576 2097152";
     "net.ipv4.tcp_wmem" = "4096 65536 16777216";
     "net.ipv4.tcp_window_scaling" = 1;

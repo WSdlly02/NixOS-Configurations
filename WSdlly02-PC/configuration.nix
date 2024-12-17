@@ -83,7 +83,10 @@
   };
   nixpkgs = {
     hostPlatform = lib.mkDefault "x86_64-linux";
-    config.allowUnfree = true;
+    config = {
+      allowUnfree = true;
+      rocmSupport = true;
+    };
   };
   system.stateVersion = "24.11"; # Did you read the comment?
   system.name = "WSdlly02-PC";

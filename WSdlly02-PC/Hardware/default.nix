@@ -38,6 +38,11 @@
     ];
     # blacklistedKernelModules = ["k10temp"];
     # resumeDevice = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16"; No longer required by config.boot.initrd.systemd.enable
+    tmp = {
+      useTmpfs = true;
+      tmpfsSize = "100%";
+      cleanOnBoot = true;
+    };
   };
 
   fileSystems."/" = {

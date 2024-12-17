@@ -16,6 +16,12 @@
     lanzaboote,
     ...
   }: {
+    /*
+    devShells."x86_64-linux".rocm-python312-env = let
+      pkgs = import nixpkgs {system = "x86_64-linux";}; # Notice that it will only affect devShells
+    in
+      pkgs.mkShell {packages = [];};
+    */
     nixosConfigurations.WSdlly02-PC = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
