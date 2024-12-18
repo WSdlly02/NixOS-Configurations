@@ -1,4 +1,5 @@
 {pkgs, ...}: {
+  # Notice: config.yaml in /etc/lact is not be declared!
   systemd.services.lactd = {
     unitConfig = {
       Description = "AMDGPU Control Daemon";

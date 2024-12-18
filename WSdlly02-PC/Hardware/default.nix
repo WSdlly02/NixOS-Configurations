@@ -96,8 +96,14 @@
   swapDevices = [{device = "/swap/swapfile";}];
   hardware = {
     enableRedistributableFirmware = true;
-    amdgpu.initrd.enable = true;
-    cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    amdgpu = {
+      initrd.enable = true;
+      opencl.enable = true; # Add Rocm support to opencl driver
+    };
+    cpu.amd = {
+      ryzen-smu.enable = true;
+      updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    };
     i2c.enable = true;
     xone.enable = true;
   };

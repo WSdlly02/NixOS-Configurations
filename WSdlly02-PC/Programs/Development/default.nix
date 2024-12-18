@@ -3,41 +3,21 @@
     (buildFHSEnv {
       name = "rocm-python312-env";
       targetPkgs = pkgs: (with pkgs; [
-        udev
         gcc
+        glibc
         dbus
         fish
         libdrm
+        udev
         python312
         zstd
-        /*
-        (with rocmPackages; [
-          rocm-core
-          clr
-          rccl
-          miopen # Compiling failed
-          rocrand
-          rocblas
-          rocsparse
-          hipsparse
-          rocthrust
-          rocprim
-          hipcub
-          roctracer
-          rocfft
-          rocsolver
-          hipfft
-          hipsolver
-          hipblas
-          rocminfo
-          rocm-thunk
-          rocm-comgr
-          rocm-device-libs
-          rocm-runtime
-          clr.icd
-          hipify
-        ])
-        */
+        rocmPackages.clr
+        rocmPackages.clr.icd
+        # rocmPackages.hipblas
+        # rocmPackages.rocblas
+        rocmPackages.rocm-runtime
+        rocmPackages.rocminfo
+        rocmPackages.rocm-smi
       ]);
       runScript = "fish";
     })

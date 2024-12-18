@@ -66,6 +66,7 @@ in {
       id-generator
       kdePackages.filelight
       kdePackages.sddm-kcm
+      kdePackages.yakuake
       (microsoft-edge.override wayland-enable)
       mihomo-party
       mpv
@@ -83,7 +84,6 @@ in {
       (vscode.override wayland-enable)
       wechat-uos
       wpsoffice-cn
-      yakuake
     ];
   };
   nixpkgs.overlays = [
