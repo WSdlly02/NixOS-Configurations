@@ -1,65 +1,71 @@
 {
-  stdenv,
-  fetchFromGitHub,
-  cmake,
   extra-cmake-modules,
-  plasma-framework,
-  #gst-libav,
-  mpv,
-  websockets,
-  qtwebsockets,
-  qtwebchannel,
-  qtdeclarative,
-  qtx11extras,
-  vulkan-headers,
-  vulkan-loader,
-  vulkan-tools,
-  pkg-config,
+  fetchFromGitHub,
+  kpackage,
+  libplasma,
+  lib,
   lz4,
-}: let
-  glslang-submodule = stdenv.mkDerivation {
-    name = "glslang";
-    installPhase = ''
-      mkdir -p $out
-    '';
-    src = fetchFromGitHub {
-      owner = "KhronosGroup";
-      repo = "glslang";
-      rev = "c34bb3b6c55f6ab084124ad964be95a699700d34";
-      sha256 = "IMROcny+b5CpmzEfvKBYDB0QYYvqC5bq3n1S4EQ6sXc=";
-    };
+  mkKdeDerivation,
+  mpv,
+  pkg-config,
+  python3,
+  qtbase,
+  qtmultimedia,
+  qtwebchannel,
+  qtwebengine,
+  qtwebsockets,
+}:
+mkKdeDerivation {
+  pname = "wallpaper-engine-kde-plugin";
+  version = "0.5.5-unstable-2024-06-16";
+
+  src = fetchFromGitHub {
+    owner = "catsout";
+    repo = "wallpaper-engine-kde-plugin";
+    rev = "1e604105c586c7938c5b2c19e3dc8677b2eb4bb4";
+    hash = "sha256-bKGQxyS8gUi+37lODLVHphMoQwLKZt/hpSjR5MN+5GA=";
+    fetchSubmodules = true;
   };
-in
-  stdenv.mkDerivation rec {
-    pname = "wallpaper-engine-kde-plugin";
-    version = "0.5.4";
 
-    cmakeFlags = ["-DUSE_PLASMAPKG=ON" "-DCMAKE_C_COMPILER=gcc" "-DCMAKE_CXX_COMPILER=g++"];
-    nativeBuildInputs = [cmake extra-cmake-modules pkg-config glslang-submodule];
-    buildInputs = [
-      plasma-framework
-      mpv
-      qtwebsockets
-      websockets
-      qtwebchannel
-      qtdeclarative
-      qtx11extras
-      lz4
-      vulkan-headers
-      vulkan-tools
-      vulkan-loader
-    ];
+  patches = [./nix-plugin.patch];
 
-    postPatch = ''
-      rm -rf src/backend_scene/third_party/glslang
-      ln -s ${glslang-submodule.src} src/backend_scene/third_party/glslang
-    '';
+  extraNativeBuildInputs = [
+    kpackage
+    pkg-config
+  ];
 
-    src = fetchFromGitHub {
-      owner = "catsout";
-      repo = pname;
-      rev = "f972b2a24c9c3cc2d3e4f41d2ebd14f1473cebdf";
-      fetchSubmodules = true;
-      sha256 = "BVtTnJA1RLUU/Tj7WI/80ja4pI8NezHCjKvB72VjrZk=";
-    };
-  }
+  extraBuildInputs = [
+    extra-cmake-modules
+    libplasma
+    lz4
+    mpv
+  ];
+
+  extraCmakeFlags = [
+    "-DQML2_CMAKE_PATH=${
+      lib.makeSearchPath "lib/qt-6/qml" [
+        qtmultimedia
+        qtwebchannel
+        qtwebengine
+        qtwebsockets
+      ]
+    }"
+    "-DQt6_DIR=${qtbase}/lib/cmake/Qt6"
+    "-DUSE_PLASMAPKG=ON"
+  ];
+
+  postInstall = let
+    py3-ws = python3.withPackages (ps: with ps; [websockets]);
+  in ''
+    cd ../plugin
+    PATH=${py3-ws}/bin:$PATH patchShebangs --build ./contents/pyext.pysubstituteInPlace ./contents/ui/Pyext.qml --replace-fail NIX_STORE_PACKAGE_PATH ${placeholder "out"}
+    kpackagetool6 -i ./ -p $out/share/plasma/wallpapers/
+  '';
+
+  meta = with lib; {
+    description = "KDE wallpaper plugin integrating Wallpaper Engine";
+    homepage = "https://github.com/catsout/wallpaper-engine-kde-plugin";
+    license = licenses.gpl2Only;
+    maintainers = with maintainers; [macronova];
+  };
+}
