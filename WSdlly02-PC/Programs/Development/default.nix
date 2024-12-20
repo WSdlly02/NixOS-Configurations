@@ -1,24 +1,34 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  usedRocmPackages = with pkgs.rocmPackages; [
+    clr
+    clr.icd
+    # hipblas
+    hip-common
+    # rocblas
+    rocm-runtime
+    rocminfo
+    rocm-smi
+    # rocm-thunk
+    rocm-comgr
+    rocm-device-libs
+  ];
+in {
   environment.systemPackages = with pkgs; [
     (buildFHSEnv {
       name = "rocm-python312-env";
-      targetPkgs = pkgs: (with pkgs; [
-        gcc
-        glibc
-        dbus
-        fish
-        libdrm
-        udev
-        python312
-        zstd
-        rocmPackages.clr
-        rocmPackages.clr.icd
-        # rocmPackages.hipblas
-        # rocmPackages.rocblas
-        rocmPackages.rocm-runtime
-        rocmPackages.rocminfo
-        rocmPackages.rocm-smi
-      ]);
+      targetPkgs = pkgs: (with pkgs;
+        [
+          # Common pkgs
+          gcc
+          glibc
+          dbus
+          fish
+          libdrm
+          udev
+          python312
+          zstd
+        ]
+        ++ usedRocmPackages);
       runScript = "fish";
     })
   ];

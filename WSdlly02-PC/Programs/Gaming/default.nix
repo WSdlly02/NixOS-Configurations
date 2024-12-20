@@ -12,6 +12,9 @@
           MANGOHUD = true;
         };
       };
+      extraPackages = with pkgs; [
+        gamescope
+      ];
       localNetworkGameTransfers.openFirewall = true;
       extest.enable = true;
       gamescopeSession.enable = true;

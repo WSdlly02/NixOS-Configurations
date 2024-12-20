@@ -1,23 +1,29 @@
-{ lib, stdenv, fetchurl, rpmextract, autoreconfHook, file, libjpeg, cups }:
-
-let
+{
+  lib,
+  stdenv,
+  fetchurl,
+  rpmextract,
+  autoreconfHook,
+  file,
+  libjpeg,
+  cups,
+}: let
+  pname = "epson-inkjet-printer-201601w";
   version = "1.0.1";
 in
   stdenv.mkDerivation {
-
-    pname = "epson-inkjet-printer-201601w";
-    inherit version;
+    inherit pname version;
 
     src = fetchurl {
       urls = [
-        "https://download3.ebz.epson.net/dsc/f/03/00/15/66/51/1046e0a9f8d8ec892806a8d4921335cf6f5fd1ea/epson-inkjet-printer-${version}-1.src.rpm"
+        "https://download3.ebz.epson.net/dsc/f/03/00/15/66/51/1046e0a9f8d8ec892806a8d4921335cf6f5fd1ea/${pname}-${version}-1.src.rpm"
       ];
-      sha256 = "a56f9da8557ed826d3a122961cee3c95c32f42c73c273ff01442fed9ce416241";
+      sha256 = "sha256-BI1y3U3EvVqqFfQ7YnQxiuIby6GJ5B0TCC2jQH1Uos0=";
     };
 
-    nativeBuildInputs = [ rpmextract autoreconfHook file ];
+    nativeBuildInputs = [rpmextract autoreconfHook file];
 
-    buildInputs = [ libjpeg cups ];
+    buildInputs = [libjpeg cups];
 
     unpackPhase = ''
       rpmextract $src
@@ -61,9 +67,8 @@ in
             drivers = [ pkgs.epson-inkjet-printer-201601w ];
           };
       '';
-      license = with licenses; [ lgpl21 epson ];
-      maintainers = [ maintainers.romildo ];
-      platforms = [ "x86_64-linux" ];
+      license = with licenses; [lgpl21 epson];
+      maintainers = [maintainers.romildo];
+      platforms = ["x86_64-linux"];
     };
-
   }

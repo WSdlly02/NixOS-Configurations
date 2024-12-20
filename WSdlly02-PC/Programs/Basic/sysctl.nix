@@ -19,6 +19,8 @@
     "net.ipv4.tcp_mtu_probing" = 1;
     "net.ipv4.udp_rmem_min" = 8192;
     "net.ipv4.udp_wmem_min" = 8192;
+    "net.ipv4.ip_forward" = 1;
+    "net.ipv6.conf.all.forwarding" = 1;
     # System
     "vm.max_map_count" = 2147483642;
     "vm.swappiness" = 20;

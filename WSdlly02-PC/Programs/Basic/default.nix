@@ -21,9 +21,11 @@
   programs = {
     fuse.userAllowOther = true;
     fish.enable = true;
-    vim = {
+    neovim = {
       enable = true;
       defaultEditor = true;
+      vimAlias = true;
+      viAlias = true;
     };
     git = {
       enable = true;
