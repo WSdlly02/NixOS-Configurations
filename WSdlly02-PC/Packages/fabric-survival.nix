@@ -22,12 +22,12 @@ in
       mkdir -p $out/bin $out/lib/minecraft
       cp -v $src $out/lib/minecraft/fabric-survival.jar
 
-      cat > $out/bin/minecraft-server << EOF
+      cat > $out/bin/fabric-server << EOF
       #!/bin/bash
       exec ${pkgs.zulu21}/bin/java \$@ -jar $out/lib/minecraft/fabric-survival.jar nogui
       EOF
 
-      chmod +x $out/bin/minecraft-server
+      chmod +x $out/bin/fabric-server
     '';
 
     dontUnpack = true;

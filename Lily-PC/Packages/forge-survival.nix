@@ -6,13 +6,13 @@
   zulu21,
 }: let
   minecraftVersion = "1.20.1";
-  fabricVersion = "0.16.9";
+  forgeVersion = "47.3.0";
 in
   stdenv.mkDerivation {
-    pname = "fabric-survival";
-    version = minecraftVersion + "-" + fabricVersion;
+    pname = "forge-survival";
+    version = minecraftVersion + "-" + forgeVersion;
     src = fetchurl {
-      url = "https://meta.fabricmc.net/v2/versions/loader/${minecraftVersion}/${fabricVersion}/1.0.1/server/jar";
+      url = "https://maven.minecraftforge.net/net/minecraftforge/forge/${minecraftVersion}-${forgeVersion}/forge-${minecraftVersion}-${forgeVersion}-installer.jar";
       sha256 = "e2fb76d0ca74a5557ff54bf8aac68eb6b12b741a785246772df72ddeadc4cbf8";
     };
 
@@ -20,14 +20,14 @@ in
 
     installPhase = ''
       mkdir -p $out/bin $out/lib/minecraft
-      cp -v $src $out/lib/minecraft/fabric-survival.jar
+      cp -v $src $out/lib/minecraft/forge-survival-installer.jar
 
-      cat > $out/bin/fabric-server << EOF
+      cat > $out/bin/forge-server << EOF
       #!/bin/bash
-      exec ${pkgs.zulu21}/bin/java \$@ -jar $out/lib/minecraft/fabric-survival.jar nogui
+      exec ${pkgs.zulu21}/bin/java \$@ -jar $out/lib/minecraft/forge-survival-installer.jar nogui
       EOF
 
-      chmod +x $out/bin/fabric-server
+      chmod +x $out/bin/forge-server
     '';
 
     dontUnpack = true;

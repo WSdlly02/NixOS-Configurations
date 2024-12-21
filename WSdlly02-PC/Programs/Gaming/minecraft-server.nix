@@ -56,10 +56,10 @@ in {
   # rcon is mandatory for no-player-connected
   services.minecraft-server = {
     enable = true;
-    package = pkgs.callPackage /etc/nixos/Packages/minecraft-server-fabric.nix {};
-    jvmOpts = "-server -Xms4092M -Xmx4092M -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true";
+    package = pkgs.callPackage ../../Packages/fabric-survivals.nix {};
+    jvmOpts = "-server -Xmx3072M -Xms3072M -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+UseNUMA -XX:NmethodSweepActivity=1 -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:-DontCompileHugeMethods -XX:MaxNodeLimit=240000 -XX:NodeLimitFudgeFactor=8000 -XX:+UseVectorCmov -XX:+PerfDisableSharedMem -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority -XX:ThreadPriorityPolicy=1 -XX:AllocatePrefetchStyle=3  -XX:+UseG1GC -XX:MaxGCPauseMillis=37 -XX:+PerfDisableSharedMem -XX:G1HeapRegionSize=16M -XX:G1NewSizePercent=23 -XX:G1ReservePercent=20 -XX:SurvivorRatio=32 -XX:G1MixedGCCountTarget=3 -XX:G1HeapWastePercent=20 -XX:InitiatingHeapOccupancyPercent=10 -XX:G1RSetUpdatingPauseTimePercent=0 -XX:MaxTenuringThreshold=1 -XX:G1SATBBufferEnqueueingThresholdPercent=30 -XX:G1ConcMarkStepDurationMillis=5.0 -XX:G1ConcRSHotCardLimit=16 -XX:G1ConcRefinementServiceIntervalMillis=150 -XX:GCTimeRatio=99 -XX:+UseLargePages -XX:LargePageSizeInBytes=2m";
     declarative = true;
-    dataDir = "/srv/minecraft";
+    dataDir = "/srv/fabric-survival";
     eula = true;
     openFirewall = false;
     serverProperties = {
@@ -131,7 +131,7 @@ in {
 
   # don't start Minecraft on startup
   systemd.services.minecraft-server = {
-    wantedBy = pkgs.lib.mkForce [];
+    wantedBy = lib.mkForce [];
   };
 
   # this waits for incoming connection on public-port
@@ -187,26 +187,37 @@ in {
     enable = true;
     serviceConfig.Type = "oneshot";
     script = ''
-      currentTime=$(echo $(date "+%Y-%m-%d-%H:%M:%S"))
-      currentPlayers=$(${pkgs.iproute2}/bin/ss -a | grep 12024 | grep  -o ESTAB | xargs)
-      if [ -z $currentPlayers ];
-      then
-        echo -n 0 >> /tmp/minecraft-server-playersCount
-      else
-        echo -n "" > /tmp/minecraft-server-playersCount
-      fi
-      playersCount=$(cat /tmp/minecraft-server-playersCount)
-      if [[ $playersCount == 0000000000 ]];
-      then
-        rm /tmp/minecraft-server-playersCount
+      current_time=$(date "+%Y-%m-%d %H:%M:%S")
+      fabric_survival_pid=$(systemctl show --property MainPID --value fabric-survival.service)
+      function stop-server() {
+        rm /run/fabric_survival_players_count
         echo "stopping server"
-        systemctl stop minecraft-server.service
-        systemctl stop hook-minecraft.service
-        systemctl stop stop-minecraft.timer
-        sleep 5s
-        ${pkgs.btrfs-progs}/bin/btrfs subvolume snapshot -r /srv/minecraft/ /srv/backup/minecraft/$currentTime
-        cd /srv/backup/minecraft
-        ls -t | sed -n '6,$p' | xargs -I {} ${pkgs.btrfs-progs}/bin/btrfs subvolume delete {}
+        systemctl stop fabric-survival.service fabric-survival.socket
+        sleep 4s
+        echo $current_time | xargs -I {} ${pkgs.btrfs}/bin/btrfs subvolume snapshot -r /srv/fabric-survival/ /srv/backup/fabric-survival/{}
+        cd /srv/backup/fabric-survival
+        ls -t | sed -n '6,$p' | xargs -I {} ${pkgs.btrfs}/bin/btrfs subvolume delete {}
+        sleep 1s
+        systemctl start listen-fabric-survival.socket listen-forge-pvp.socket listen-vanilla-survival.socket
+        systemctl stop stop-fabric-survival.timer
+      }
+      if [[ $fabric_survival_pid == 0 ]];
+      then
+       stop-server
+      else
+       current_players=$(${pkgs.iproute2}/bin/ss -a | grep 12024 | grep  -o ESTAB | xargs)
+       if [ -z $current_players ];
+       then
+        echo -n 0 >> /run/fabric_survival_players_count
+       else
+        echo -n "" > /run/fabric_survival_players_count
+       fi
+       idle_time=$(cat /run/fabric_survival_players_count)
+       if [[ $idle_time == 000000000000000 ]];
+       # 15 Minutes
+       then
+        stop-server
+       fi
       fi
     '';
   };

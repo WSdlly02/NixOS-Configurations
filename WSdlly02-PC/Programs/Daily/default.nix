@@ -62,7 +62,6 @@ in {
       fastfetch
       fsearch
       gapless
-      go-musicfox
       id-generator
       kdePackages.filelight
       kdePackages.sddm-kcm
@@ -81,6 +80,7 @@ in {
       scrcpy
       sunshine
       vlc
+      qcm
       (vscode.override wayland-enable)
       wechat-uos
       wpsoffice-cn
