@@ -1,5 +1,9 @@
-{pkgs, ...}: let
-  wayland-enable = {commandLineArgs = "--ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations --enable-wayland-ime";};
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  wayland-enable = {commandLineArgs = "--ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations,WebRTCPipeWireCapturer --enable-wayland-ime=true";};
 in {
   imports = [
     ##./envfs.nix
@@ -87,6 +91,20 @@ in {
     ];
   };
   nixpkgs.overlays = [
+    (final: prev: {
+      mihomo-party = prev.mihomo-party.overrideAttrs (finalAttrs: previousAttrs: {
+        preFixup = ''
+          mkdir $out/bin
+          makeWrapper $out/mihomo-party/mihomo-party $out/bin/mihomo-party \
+            --prefix LD_LIBRARY_PATH : "${
+            lib.makeLibraryPath [
+              pkgs.libGL
+            ]
+          }" \
+          --add-flags "--ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations,WebRTCPipeWireCapturer --enable-wayland-ime=true"
+        ''; # Add wayland support
+      });
+    })
     (self: super: {
       id-generator = pkgs.writeShellScriptBin "id-generator" ''
         sha512ID=$(echo -n $1 | sha512sum | head -zc 8)

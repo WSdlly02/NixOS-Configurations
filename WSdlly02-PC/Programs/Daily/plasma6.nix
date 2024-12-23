@@ -4,11 +4,6 @@
   ...
 }: {
   services = {
-    xserver = {
-      enable = true;
-      xkb.layout = "us";
-      videoDrivers = ["amdgpu"];
-    };
     displayManager.sddm = {
       enable = true;
       package = lib.mkForce pkgs.kdePackages.sddm;
@@ -18,10 +13,11 @@
         compositor = "kwin";
       };
     };
-    desktopManager.plasma6 = {
-      enable = true;
-    };
+    desktopManager.plasma6.enable = true;
   };
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
+    khelpcenter
+  ];
   xdg.portal = {
     enable = true;
     xdgOpenUsePortal = true;

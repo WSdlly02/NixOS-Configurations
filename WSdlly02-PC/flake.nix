@@ -15,9 +15,21 @@
     nixpkgs-unstable,
     lanzaboote,
     ...
-  }: {
-    devShells."x86_64-linux".rocm-python312-env = let pkgs = import nixpkgs-unstable {system = "x86_64-linux";}; in pkgs.mkShell {packages = [];};
+  }:
+  /*
+  let
+    rocm-python312-env-sum = let pkgs = import nixpkgs-unstable {system = "x86_64-linux";}; in pkgs.mkShell {packages = [];};
+  in
+  # It has side effects, no longer use it
+  */
+  {
+    /*
+    devShells."x86_64-linux" = {
+      rocm-python312-env = let pkgs = import nixpkgs-unstable {system = "x86_64-linux";}; in pkgs.mkShell {packages = [];};
+      nix-fmt = let pkgs = import nixpkgs-unstable {system = "x86_64-linux";}; in import ./Packages/devShell.nix {inherit pkgs;};
+    };
     # Notice that the binding will only affect devShells
+    */
     nixosConfigurations = {
       WSdlly02-PC = nixpkgs-unstable.lib.nixosSystem {
         system = "x86_64-linux";

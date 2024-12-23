@@ -1,6 +1,5 @@
 {pkgs, ...}: let
   usedPython312Packages = with pkgs.python312Packages; [
-    pip
     virtualenv
   ];
   usedRocmPackages = with pkgs.rocmPackages; [
@@ -31,6 +30,7 @@ in {
             fish
             libdrm
             ninja
+            ncurses
             udev
             uv
             python312
