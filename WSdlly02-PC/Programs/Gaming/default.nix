@@ -29,23 +29,19 @@
     };
   };
   environment.defaultPackages = with pkgs; [
-    mangohud
-    goverlay
-    vkbasalt
-    protonup-qt
-    mindustry
-    prismlauncher
-    mcrcon
-  ];
-  nixpkgs.overlays = [
-    (final: prev: {
-      mindustry = prev.mindustry.override {jdk17 = pkgs.zulu17;};
-      prismlauncher = prev.prismlauncher.override {
-        jdk21 = pkgs.zulu21; # Actually, it's useless, because Prismlauncher doesn't really need java.
-        jdk17 = null; # Strip
-        jdk8 = null; # Strip
-        jdks = [pkgs.zulu21]; # Add JAVA_PATH for Prismlauncher
-      };
+    (mindustry.override {jdk17 = zulu17;})
+    (prismlauncher.override rec {
+      jdk21 = zulu21; # Actually, it's useless, because Prismlauncher doesn't really need java.
+      jdk17 = null; # Strip
+      jdk8 = null; # Strip
+      jdks = [jdk21]; # Add JAVA_PATH for Prismlauncher
+      textToSpeechSupport = false;
     })
+    mangohud
+    mangojuice
+    mcrcon
+    protonup-qt
+    # vkbasalt
+    # vkbasalt-cli
   ];
 }

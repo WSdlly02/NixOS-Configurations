@@ -96,10 +96,9 @@
   swapDevices = [{device = "/swap/swapfile";}];
   hardware = {
     enableRedistributableFirmware = true;
-    amdgpu = {
-      initrd.enable = true;
-      opencl.enable = true; # Add Rocm support to opencl driver
-    };
+    # enableAllHardware = true;
+    # enableAllFirmware = true;
+    firmwareCompression = "zstd";
     cpu.amd = {
       ryzen-smu.enable = true;
       updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

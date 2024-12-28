@@ -2,7 +2,7 @@
   description = "WSdlly02-PC NixOS flake";
 
   inputs = {
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.1";
       # Optional but recommended to limit the size of your system closure.
@@ -34,7 +34,6 @@
       WSdlly02-PC = nixpkgs-unstable.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./configuration.nix
           lanzaboote.nixosModules.lanzaboote
           ({
             pkgs,
@@ -49,6 +48,7 @@
               pkiBundle = "/var/lib/sbctl/";
             };
           })
+          ./configuration.nix
         ];
       };
     };

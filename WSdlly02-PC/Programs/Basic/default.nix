@@ -4,6 +4,7 @@
     ##./cups.nix
     ##./gitDaemon.nix
     ./gnupg.nix
+    ./neovim.nix
     ./networking.nix
     ./networkmanager.nix
     ##./nix-ld.nix
@@ -21,19 +22,13 @@
   programs = {
     fuse.userAllowOther = true;
     fish.enable = true;
-    neovim = {
-      enable = true;
-      defaultEditor = true;
-      vimAlias = true;
-      viAlias = true;
-    };
     git = {
       enable = true;
       lfs.enable = true;
     };
     htop.enable = true;
     bandwhich.enable = true;
-    # usbtop.enable = true;
+    usbtop.enable = true;
     adb.enable = true;
   };
   services = {
@@ -69,9 +64,8 @@
     cryptsetup
     glxinfo
     iperf
-    killall
-    libva-utils
     lact # AMDGPU Fan Control
+    libva-utils
     lm_sensors
     lsof
     modprobed-db
@@ -80,22 +74,16 @@
     nmap
     ntfs3g
     pciutils
+    proxychains-ng
+    psmisc
     rar
     ripgrep
     rsync
-    sshfs-fuse
+    sshfs
     tree
-    proxychains-ng
-    unzip
     usbutils
     vdpauinfo
     vulkan-tools
     wget
-    zip
-  ];
-  nixpkgs.overlays = [
-    (final: prev: {
-      adi1090x-plymouth-themes = prev.adi1090x-plymouth-themes.override {selected_themes = ["hexagon_dots"];};
-    })
   ];
 }

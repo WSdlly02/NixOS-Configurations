@@ -49,7 +49,7 @@ in {
       enableVirtualCamera = true;
     };
     kdeconnect.enable = true;
-    partition-manager.enable = true;
+    ##partition-manager.enable = true;
     # appimage.enable = true;
   };
   services = {
@@ -59,33 +59,34 @@ in {
   environment = {
     localBinInPath = true;
     defaultPackages = with pkgs; [
-      alejandra
       (bilibili.override wayland-enable)
-      ddcutil
+      (element-desktop.override wayland-enable)
       (google-chrome.override wayland-enable)
+      (microsoft-edge.override wayland-enable)
+      (obsidian.override wayland-enable)
+      (qq.override wayland-enable)
+      (vscode.override wayland-enable)
+      alejandra
+      ddcutil # Required to control the brightness
       fastfetch
       fsearch
       gapless
+      helvum
       id-generator
       kdePackages.filelight
       kdePackages.sddm-kcm
       kdePackages.yakuake
-      (microsoft-edge.override wayland-enable)
       mihomo-party
       mpv
       ncdu
-      helvum
-      (obsidian.override wayland-enable)
       pass-wayland
       qbittorrent-enhanced
-      (qq.override wayland-enable)
-      telegram-desktop
-      thunderbird
+      qcm
       scrcpy
       sunshine
+      telegram-desktop
+      thunderbird
       vlc
-      qcm
-      (vscode.override wayland-enable)
       wechat-uos
       wpsoffice-cn
     ];
@@ -93,6 +94,7 @@ in {
   nixpkgs.overlays = [
     (final: prev: {
       mihomo-party = prev.mihomo-party.overrideAttrs (finalAttrs: previousAttrs: {
+        # preFixup = previousAttrs.preFixup + "--add-flags ...";
         preFixup = ''
           mkdir $out/bin
           makeWrapper $out/mihomo-party/mihomo-party $out/bin/mihomo-party \
@@ -113,5 +115,8 @@ in {
         echo $sha512ID
       '';
     })
+    /*
+    (self: super: {foo=bar;})
+    */
   ];
 }

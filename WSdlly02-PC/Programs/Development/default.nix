@@ -2,6 +2,7 @@
   usedPython312Packages = with pkgs.python312Packages; [
     virtualenv
   ];
+  /*
   usedRocmPackages = with pkgs.rocmPackages; [
     clr
     clr.icd
@@ -15,10 +16,11 @@
     rocm-comgr
     rocm-device-libs
   ];
+  */
 in {
   environment.systemPackages = with pkgs; [
     (buildFHSEnv {
-      name = "rocm-python312-env";
+      name = "python312FHSEnv";
       targetPkgs = pkgs: (
         with pkgs;
           [
@@ -37,7 +39,7 @@ in {
             zstd
           ]
           ++ usedPython312Packages
-          ++ usedRocmPackages
+        # ++ usedRocmPackages
       );
       runScript = "fish";
     })

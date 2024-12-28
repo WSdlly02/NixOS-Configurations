@@ -63,7 +63,7 @@
   # };
   security.tpm2 = {
     enable = true;
-    pkcs11.enable = true;
+    ##pkcs11.enable = true;
   };
   # services.fwupd.enable = true;
   nix = {
@@ -85,9 +85,12 @@
     hostPlatform = lib.mkDefault "x86_64-linux";
     config = {
       allowUnfree = true;
-      rocmSupport = true;
+      ##rocmSupport = true;
     };
   };
-  system.stateVersion = "24.11"; # Did you read the comment?
-  system.name = "WSdlly02-PC";
+  system = {
+    name = "WSdlly02-PC";
+    # nixos.tag = [];
+    stateVersion = "24.11";
+  };
 }
