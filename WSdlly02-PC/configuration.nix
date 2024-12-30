@@ -18,7 +18,7 @@
 
   boot.loader = {
     systemd-boot = {
-      enable = true;
+      enable = false;
       consoleMode = "auto";
     };
     timeout = 10;
@@ -63,7 +63,7 @@
   # };
   security.tpm2 = {
     enable = true;
-    ##pkcs11.enable = true;
+    pkcs11.enable = true;
   };
   # services.fwupd.enable = true;
   nix = {

@@ -11,6 +11,7 @@
     ./openssh.nix
     ./pipewire.nix
     ./plymouth.nix
+    ./proxychains.nix
     ##./samba.nix
     ##./smartdns.nix
     ##./static-web-server.nix
@@ -74,7 +75,6 @@
     nmap
     ntfs3g
     pciutils
-    proxychains-ng
     psmisc
     rar
     ripgrep

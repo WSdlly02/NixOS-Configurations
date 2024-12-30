@@ -21,9 +21,16 @@
   services = {
     timesyncd.servers = config.networking.timeServers;
     resolved = {
-      enable = true;
-      fallbackDns = ["223.5.5.5" "117.50.11.11"];
-      extraConfig = "MulticastDNS=no";
+      enable = true; # which will disable resolvconf
+      fallbackDns = [
+        "223.5.5.5"
+        "119.29.29.29"
+        "1.1.1.1"
+        "9.9.9.9"
+      ];
+      extraConfig = ''
+        MulticastDNS=no
+      '';
     };
   };
 }

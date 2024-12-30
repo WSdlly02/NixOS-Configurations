@@ -1,3 +1,6 @@
+/*
+hardware.amdgpu.opencl.enable and nixpkgs.config.rocmSupport is diabled
+*/
 {pkgs, ...}: let
   usedPython312Packages = with pkgs.python312Packages; [
     virtualenv

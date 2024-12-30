@@ -58,7 +58,8 @@ mkKdeDerivation {
     py3-ws = python3.withPackages (ps: with ps; [websockets]);
   in ''
     cd ../plugin
-    PATH=${py3-ws}/bin:$PATH patchShebangs --build ./contents/pyext.pysubstituteInPlace ./contents/ui/Pyext.qml --replace-fail NIX_STORE_PACKAGE_PATH ${placeholder "out"}
+    PATH=${py3-ws}/bin:$PATH patchShebangs --build ./contents/pyext.py
+    substituteInPlace ./contents/ui/Pyext.qml --replace-fail NIX_STORE_PACKAGE_PATH ${placeholder "out"}
     kpackagetool6 -i ./ -p $out/share/plasma/wallpapers/
   '';
 

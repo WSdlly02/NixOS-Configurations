@@ -15,14 +15,7 @@
     nixpkgs-unstable,
     lanzaboote,
     ...
-  }:
-  /*
-  let
-    rocm-python312-env-sum = let pkgs = import nixpkgs-unstable {system = "x86_64-linux";}; in pkgs.mkShell {packages = [];};
-  in
-  # It has side effects, no longer use it
-  */
-  {
+  } @ inputs: {
     /*
     devShells."x86_64-linux" = {
       rocm-python312-env = let pkgs = import nixpkgs-unstable {system = "x86_64-linux";}; in pkgs.mkShell {packages = [];};
@@ -31,23 +24,13 @@
     # Notice that the binding will only affect devShells
     */
     nixosConfigurations = {
+      # WSdlly02-Raspberrypi = nixpkgs-unstable.lib.nixosSystem {}
       WSdlly02-PC = nixpkgs-unstable.lib.nixosSystem {
         system = "x86_64-linux";
+        # specialArgs = {inherit inputs;};
         modules = [
           lanzaboote.nixosModules.lanzaboote
-          ({
-            pkgs,
-            lib,
-            ...
-          }: {
-            environment.systemPackages = [pkgs.sbctl];
-            boot.loader.systemd-boot.enable = lib.mkForce false;
-            boot.lanzaboote = {
-              # Other configs will inherit automatically
-              enable = true;
-              pkiBundle = "/var/lib/sbctl/";
-            };
-          })
+          (import ./Hardware/lanzaboote.nix)
           ./configuration.nix
         ];
       };
