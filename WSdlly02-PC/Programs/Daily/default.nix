@@ -1,6 +1,5 @@
 {
   pkgs,
-  callPackages,
   lib,
   ...
 }: let

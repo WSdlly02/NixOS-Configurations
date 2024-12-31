@@ -27,7 +27,7 @@
       # WSdlly02-Raspberrypi = nixpkgs-unstable.lib.nixosSystem {}
       WSdlly02-PC = nixpkgs-unstable.lib.nixosSystem {
         system = "x86_64-linux";
-        # specialArgs = {inherit inputs;};
+        specialArgs = {inherit inputs;};
         modules = [
           lanzaboote.nixosModules.lanzaboote
           (import ./Hardware/lanzaboote.nix)
