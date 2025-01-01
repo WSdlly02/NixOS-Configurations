@@ -16,22 +16,40 @@
     lanzaboote,
     ...
   } @ inputs: {
-    /*
     devShells."x86_64-linux" = {
-      rocm-python312-env = let pkgs = import nixpkgs-unstable {system = "x86_64-linux";}; in pkgs.mkShell {packages = [];};
-      nix-fmt = let pkgs = import nixpkgs-unstable {system = "x86_64-linux";}; in import ./Packages/devShell.nix {inherit pkgs;};
+      # rocm-python312-env = let pkgs = import nixpkgs-unstable {system = "x86_64-linux";}; in pkgs.mkShell {packages = [];};
+      nixfmt = let pkgs = import nixpkgs-unstable {system = "x86_64-linux";}; in import ./Packages/devShell-nixfmt.nix {inherit pkgs;};
     };
-    # Notice that the binding will only affect devShells
-    */
-    nixosConfigurations = {
-      # WSdlly02-Raspberrypi = nixpkgs-unstable.lib.nixosSystem {}
-      WSdlly02-PC = nixpkgs-unstable.lib.nixosSystem {
+    nixosConfigurations = let
+      specialArgs = {inherit inputs;};
+    in {
+      "WSdlly02-PC" = nixpkgs-unstable.lib.nixosSystem {
+        inherit specialArgs;
         system = "x86_64-linux";
-        specialArgs = {inherit inputs;};
         modules = [
           lanzaboote.nixosModules.lanzaboote
-          (import ./Hardware/lanzaboote.nix)
           ./configuration.nix
+        ];
+      };
+      "WSdlly02-RaspberryPi5" = nixpkgs-unstable.lib.nixosSystem {
+        inherit specialArgs;
+        system = "aarch64-linux";
+        modules = [
+          # TBD
+        ];
+      };
+      "Lily-PC" = nixpkgs-unstable.lib.nixosSystem {
+        inherit specialArgs;
+        system = "x86_64-linux";
+        modules = [
+          # TBD
+        ];
+      };
+      "WSdlly02-LT-WSL" = nixpkgs-unstable.lib.nixosSystem {
+        inherit specialArgs;
+        system = "x86_64-linux";
+        modules = [
+          # TBD
         ];
       };
     };

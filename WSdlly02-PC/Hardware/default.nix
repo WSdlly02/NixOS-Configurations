@@ -9,7 +9,7 @@
     (modulesPath + "/installer/scan/not-detected.nix")
     ./bluetooth.nix
     ./gpu.nix
-    # ./lanzaboote.nix Already defined in flake.nix
+    ./lanzaboote.nix
     ./localdisksmount.nix
     ##./printer.nix
     ##./remotefsmount.nix
