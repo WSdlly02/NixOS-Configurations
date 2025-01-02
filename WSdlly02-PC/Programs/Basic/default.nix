@@ -1,13 +1,13 @@
 {pkgs, ...}: {
   imports = [
     ./avahi.nix
-    ##./cups.nix
+    ./cups.nix
     ##./gitDaemon.nix
     ./gnupg.nix
+    ./i18n.nix
     ./neovim.nix
     ./networking.nix
     ./networkmanager.nix
-    ##./nix-ld.nix
     ./openssh.nix
     ./pipewire.nix
     ./plymouth.nix
@@ -17,6 +17,7 @@
     ##./static-web-server.nix
     ./sudo.nix
     ./sysctl.nix
+    ./system.nix
     ./tmux.nix
   ];
 

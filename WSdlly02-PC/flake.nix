@@ -28,7 +28,11 @@
         system = "x86_64-linux";
         modules = [
           lanzaboote.nixosModules.lanzaboote
-          ./configuration.nix
+          ./Hardware
+          ./Hardware/bootloader.nix
+          ./Programs/Basic
+          ./Programs/Daily
+          ./Programs/Gaming
         ];
       };
       "WSdlly02-RaspberryPi5" = nixpkgs-unstable.lib.nixosSystem {

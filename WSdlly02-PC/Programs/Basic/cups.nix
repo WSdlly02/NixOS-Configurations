@@ -5,6 +5,7 @@
 }: {
   services.printing = {
     enable = true;
+    /*
     startWhenNeeded = false;
     stateless = true;
     listenAddresses = [
@@ -19,5 +20,6 @@
     drivers = with pkgs; [
       (callPackage /etc/nixos/Packages/epson_201601w.nix {})
     ];
+    */
   };
 }

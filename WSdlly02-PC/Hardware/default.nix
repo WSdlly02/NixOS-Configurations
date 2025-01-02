@@ -8,11 +8,12 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     ./bluetooth.nix
+    # ./bootloader.nix
     ./gpu.nix
-    ./lanzaboote.nix
     ./localdisksmount.nix
     ##./printer.nix
     ##./remotefsmount.nix
+    ./tpm.nix
   ];
 
   boot = {
