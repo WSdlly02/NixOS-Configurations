@@ -5,6 +5,7 @@
     ##./gitDaemon.nix
     ./gnupg.nix
     ./i18n.nix
+    ./kmscon.nix
     ./neovim.nix
     ./networking.nix
     ./networkmanager.nix
@@ -35,10 +36,7 @@
   };
   services = {
     smartd.enable = true;
-    fstrim = {
-      enable = true;
-      interval = "weekly";
-    };
+    fstrim.enable = false;
     btrfs.autoScrub = {
       enable = true;
       interval = "monthly";
@@ -64,6 +62,7 @@
     btop
     compsize
     cryptsetup
+    e2fsprogs
     glxinfo
     iperf
     lact # AMDGPU Fan Control

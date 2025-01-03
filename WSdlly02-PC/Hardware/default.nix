@@ -36,10 +36,8 @@
       "udev.log_level=3"
       "amd_iommu=pt"
       "amdgpu.ppfeaturemask=0xffffffff"
-      # "resume_offset=95528544" No longer required by config.boot.initrd.systemd.enable
     ];
     # blacklistedKernelModules = ["k10temp"];
-    # resumeDevice = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16"; No longer required by config.boot.initrd.systemd.enable
     tmp = {
       useTmpfs = true;
       tmpfsSize = "100%";
@@ -95,7 +93,12 @@
     options = ["rw" "relatime" "fmask=0022" "dmask=0022" "codepage=437" "iocharset=ascii" "shortname=mixed" "errors=remount-ro"];
   };
 
-  swapDevices = [{device = "/swap/swapfile";}];
+  swapDevices = [
+    {
+      device = "/swap/swapfile";
+      discardPolicy = "pages";
+    }
+  ];
   hardware = {
     enableRedistributableFirmware = true;
     # enableAllHardware = true;

@@ -8,12 +8,17 @@
       # Optional but recommended to limit the size of your system closure.
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    nix-minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs = {
     self,
     nixpkgs-unstable,
     lanzaboote,
+    nix-minecraft,
     ...
   } @ inputs: {
     devShells."x86_64-linux" = {
@@ -28,10 +33,13 @@
         system = "x86_64-linux";
         modules = [
           lanzaboote.nixosModules.lanzaboote
+          nix-minecraft.nixosModules.minecraft-servers
+          # TODO: nix-minecraft libvirt
           ./Hardware
           ./Hardware/bootloader.nix
           ./Programs/Basic
           ./Programs/Daily
+          ./Programs/Development
           ./Programs/Gaming
         ];
       };
