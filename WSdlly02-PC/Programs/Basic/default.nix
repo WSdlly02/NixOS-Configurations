@@ -2,10 +2,10 @@
   imports = [
     ./avahi.nix
     ./cups.nix
+    ./getty.nix
     ##./gitDaemon.nix
     ./gnupg.nix
     ./i18n.nix
-    ./kmscon.nix
     ./neovim.nix
     ./networking.nix
     ./networkmanager.nix
