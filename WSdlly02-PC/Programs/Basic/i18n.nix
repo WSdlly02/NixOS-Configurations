@@ -6,9 +6,7 @@
       "en_US.UTF-8/UTF-8"
       "zh_CN.UTF-8/UTF-8"
     ];
-    extraLocaleSettings = {
-      LC_PAPER = "C.UTF-8";
-    };
+    # extraLocaleSettings = {};
   };
   time.timeZone = "Asia/Shanghai";
   # Select internationalisation properties.
