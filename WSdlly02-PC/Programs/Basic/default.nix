@@ -58,10 +58,10 @@
     # Drivers and detection tools
     amdgpu_top
     aria2
-    bind
     btop
     compsize
     cryptsetup
+    dnsutils
     e2fsprogs
     glxinfo
     iperf

@@ -3,11 +3,15 @@
 
   inputs = {
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.1";
-      # Optional but recommended to limit the size of your system closure.
+    home-manager = {
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.1";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nix-minecraft = {
       url = "github:Infinidoge/nix-minecraft";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -17,9 +21,10 @@
   outputs = {
     self,
     nixpkgs-unstable,
+    home-manager,
     lanzaboote,
+    nixos-hardware,
     nix-minecraft,
-    ...
   } @ inputs: {
     devShells."x86_64-linux" = {
       # rocm-python312-env = let pkgs = import nixpkgs-unstable {system = "x86_64-linux";}; in pkgs.mkShell {packages = [];};
@@ -32,6 +37,7 @@
         inherit specialArgs;
         system = "x86_64-linux";
         modules = [
+          ##home-manager.nixosModules.home-manager
           lanzaboote.nixosModules.lanzaboote
           nix-minecraft.nixosModules.minecraft-servers
           # TODO: nix-minecraft libvirt
@@ -48,6 +54,8 @@
         system = "aarch64-linux";
         modules = [
           # TBD
+          nix-minecraft.nixosModules.minecraft-servers
+          nixos-hardware.nixosModules.raspberry-pi-5
         ];
       };
       "Lily-PC" = nixpkgs-unstable.lib.nixosSystem {

@@ -132,6 +132,26 @@
         "type": "github"
       }
     },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1736277415,
+        "narHash": "sha256-kPDXF6cIPsVqSK08XF5EC6KM7BdMnM9vtJDzsnf+lLU=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "5c4302313d9207f7ec0886d68f8ff4a3c71209a1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
     "lanzaboote": {
       "inputs": {
         "crane": "crane",
@@ -168,16 +188,32 @@
         ]
       },
       "locked": {
-        "lastModified": 1736128264,
-        "narHash": "sha256-B2RuVaQBbVChPf9ZqRBEqUA09MCD5P/iBpOokoXd5gM=",
+        "lastModified": 1736300827,
+        "narHash": "sha256-u+EDWFGKrJgLB6c0i26UqDSN5zc5+bvKf9OS80rkH7s=",
         "owner": "Infinidoge",
         "repo": "nix-minecraft",
-        "rev": "eefeae9b72d15f69e7264a6a87fba6ecc9782496",
+        "rev": "b475c4229266709644047fd91c30600bcf38c5f1",
         "type": "github"
       },
       "original": {
         "owner": "Infinidoge",
         "repo": "nix-minecraft",
+        "type": "github"
+      }
+    },
+    "nixos-hardware": {
+      "locked": {
+        "lastModified": 1736283893,
+        "narHash": "sha256-BG1FfTexFwNty5VhYjaQLMR6CMPfI3QRcaZrFQYu2EM=",
+        "owner": "NixOS",
+        "repo": "nixos-hardware",
+        "rev": "4f339f6be2b61662f957c2ee9eda0fa597d8a6d6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "master",
+        "repo": "nixos-hardware",
         "type": "github"
       }
     },
@@ -199,11 +235,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1736134818,
-        "narHash": "sha256-30sOEZ8CFK2nTTMdkhaNrfVlIi3rWTNV0Z5z+NmpFNI=",
+        "lastModified": 1736241350,
+        "narHash": "sha256-CHd7yhaDigUuJyDeX0SADbTM9FXfiWaeNyY34FL1wQU=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "3df3c47c19dc90fec35359e89ffb52b34d2b0e94",
+        "rev": "8c9fd3e564728e90829ee7dbac6edc972971cd0f",
         "type": "github"
       },
       "original": {
@@ -242,8 +278,10 @@
     },
     "root": {
       "inputs": {
+        "home-manager": "home-manager",
         "lanzaboote": "lanzaboote",
         "nix-minecraft": "nix-minecraft",
+        "nixos-hardware": "nixos-hardware",
         "nixpkgs-unstable": "nixpkgs-unstable"
       }
     },

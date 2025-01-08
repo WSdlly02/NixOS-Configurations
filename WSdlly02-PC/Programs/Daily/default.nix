@@ -6,6 +6,7 @@
   wayland-enable = {commandLineArgs = "--ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations,WebRTCPipeWireCapturer --enable-wayland-ime=true";};
 in {
   imports = [
+    ##./Home
     ##./envfs.nix
     ./fcitx5.nix
     ./lact.nix
@@ -49,7 +50,7 @@ in {
       enableVirtualCamera = true;
     };
     kdeconnect.enable = true;
-    ##partition-manager.enable = true;
+    partition-manager.enable = true;
     # appimage.enable = true;
   };
   services = {

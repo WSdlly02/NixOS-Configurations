@@ -4,7 +4,7 @@
   ...
 }: {
   networking = {
-    hostName = "WSdlly02-PC";
+    hostName = config.system.name;
     nftables.enable = lib.mkDefault false;
     tempAddresses = "disabled";
     firewall = {
