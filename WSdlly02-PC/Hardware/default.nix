@@ -34,6 +34,7 @@
       "quiet"
       "nowatchdog"
       "udev.log_level=3"
+      "amd_pstate=active"
       "amd_iommu=pt"
       "amdgpu.ppfeaturemask=0xffffffff"
     ];

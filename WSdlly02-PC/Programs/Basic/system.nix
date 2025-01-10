@@ -28,7 +28,7 @@
   /*
   nixpkgs.crossSystem = {
     # Target platform
-    system = "riscv64-linux";
+    system = "aarch64-linux";
   };
   Specifies the platform for which NixOS should be built.
   Specify this only if it is different from nixpkgs.localSystem,

@@ -36,7 +36,7 @@
   };
   services = {
     smartd.enable = true;
-    fstrim.enable = false;
+    fstrim.enable = true;
     btrfs.autoScrub = {
       enable = true;
       interval = "monthly";

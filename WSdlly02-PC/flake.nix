@@ -51,11 +51,21 @@
       };
       "WSdlly02-RaspberryPi5" = nixpkgs-unstable.lib.nixosSystem {
         inherit specialArgs;
-        system = "aarch64-linux";
+        system = "x86_64-linux"; # buildPlatform
         modules = [
           # TBD
           nix-minecraft.nixosModules.minecraft-servers
           nixos-hardware.nixosModules.raspberry-pi-5
+          {
+            users.users.nixosvmtest.isSystemUser = true;
+            users.users.nixosvmtest.initialPassword = "test";
+            users.users.nixosvmtest.group = "nixosvmtest";
+            users.groups.nixosvmtest = {};
+            nixpkgs.crossSystem = {
+              # Target platform, cross compiling
+              system = "aarch64-linux";
+            };
+          }
         ];
       };
       "Lily-PC" = nixpkgs-unstable.lib.nixosSystem {
