@@ -3,6 +3,7 @@
   inputs,
   ...
 }: {
+  programs.home-manager.enable = true;
   home = {
     username = "wsdlly02";
     homeDirectory = "/home/wsdlly02";

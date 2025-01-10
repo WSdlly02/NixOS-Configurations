@@ -1,5 +1,5 @@
 {
-  description = "WSdlly02-PC NixOS flake";
+  description = "WSdlly02's NixOS flake";
 
   inputs = {
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -37,7 +37,7 @@
         inherit specialArgs;
         system = "x86_64-linux";
         modules = [
-          ##home-manager.nixosModules.home-manager
+          home-manager.nixosModules.home-manager
           lanzaboote.nixosModules.lanzaboote
           nix-minecraft.nixosModules.minecraft-servers
           # TODO: nix-minecraft libvirt

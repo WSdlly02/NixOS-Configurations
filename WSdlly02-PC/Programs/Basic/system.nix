@@ -18,9 +18,15 @@
     hostPlatform = lib.mkDefault "x86_64-linux";
     config = {
       allowUnfree = true;
-      ##rocmSupport = true;
+      allowUnsupportedSystem = true;
+      enableParallelBuilding = true;
+      rocmSupport = true;
     };
   };
+  boot.binfmt.emulatedSystems = [
+    "x86_64-windows"
+    "aarch64-linux"
+  ];
   system = {
     name = "WSdlly02-PC";
     # nixos.tag = [];

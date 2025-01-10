@@ -6,11 +6,9 @@
   wayland-enable = {commandLineArgs = "--ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations,WebRTCPipeWireCapturer --enable-wayland-ime=true";};
 in {
   imports = [
-    ##./Home
-    ##./envfs.nix
+    ./Home
     ./fcitx5.nix
     ./lact.nix
-    ##./nur.nix
     ./plasma6.nix
     ./psd.nix
     ./sunshine.nix
