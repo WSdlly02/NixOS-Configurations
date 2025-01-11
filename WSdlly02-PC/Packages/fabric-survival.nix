@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   stdenv,
   fetchurl,
   zulu21,
@@ -13,7 +12,7 @@ in
     version = minecraftVersion + "-" + fabricVersion;
     src = fetchurl {
       url = "https://meta.fabricmc.net/v2/versions/loader/${minecraftVersion}/${fabricVersion}/1.0.1/server/jar";
-      sha256 = "e2fb76d0ca74a5557ff54bf8aac68eb6b12b741a785246772df72ddeadc4cbf8";
+      sha256 = "sha256-QreRti11yhe31QIBUGn9iv2mgkwUFKq0uf16MlGl/z0=";
     };
 
     preferLocalBuild = true;
@@ -24,7 +23,7 @@ in
 
       cat > $out/bin/fabric-server << EOF
       #!/bin/bash
-      exec ${pkgs.zulu21}/bin/java \$@ -jar $out/lib/minecraft/fabric-survival.jar nogui
+      exec ${zulu21}/bin/java \$@ -jar $out/lib/minecraft/fabric-survival.jar nogui
       EOF
 
       chmod +x $out/bin/fabric-server

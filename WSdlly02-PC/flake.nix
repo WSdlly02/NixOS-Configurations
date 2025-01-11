@@ -32,22 +32,30 @@
     my-codes,
   } @ inputs: {
     packages = {
-      "x86_64-linux" = {
+      "x86_64-linux" = let
+        pkgs = import nixpkgs-unstable {system = "x86_64-linux";};
+      in {
+        # WSdlly02's Codes Library
         inC = my-codes.packages."x86_64-linux".inC;
         inPython = my-codes.packages."x86_64-linux".inPython;
         inRust = {};
+        # Local pkgs
+        epson-inkjet-printer-201601w = pkgs.callPackage ./Packages/epson-inkjet-printer-201601w.nix {};
+        python312FHSEnv = pkgs.callPackage ./Packages/python312FHSEnv.nix {};
       };
       "aarch64-linux" = {};
     };
+
     devShells = {
       "x86_64-linux" = let
         pkgs = import nixpkgs-unstable {system = "x86_64-linux";};
       in {
         # rocm-python312-env = pkgs.mkShell {packages = [];};
-        nixfmt = import ./Packages/devShell-nixfmt.nix {inherit pkgs;};
+        nixfmt = pkgs.callPackage ./Packages/devShell-nixfmt.nix {};
       };
       "aarch64-linux" = {};
     };
+
     nixosConfigurations = let
       specialArgs = {inherit inputs;};
     in {

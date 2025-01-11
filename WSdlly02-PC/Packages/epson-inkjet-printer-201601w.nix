@@ -67,7 +67,7 @@ in
             drivers = [ pkgs.epson-inkjet-printer-201601w ];
           };
       '';
-      license = with licenses; [lgpl21 epson];
+      license = with licenses; [lgpl21];
       maintainers = [maintainers.romildo];
       platforms = ["x86_64-linux"];
     };

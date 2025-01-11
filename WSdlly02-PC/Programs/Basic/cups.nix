@@ -1,5 +1,5 @@
 {
-  callPackages,
+  inputs,
   pkgs,
   ...
 }: {
@@ -18,7 +18,7 @@
     defaultShared = true;
     openFirewall = true;
     drivers = with pkgs; [
-      (callPackage /etc/nixos/Packages/epson_201601w.nix {})
+      inputs.self.packages."x86_64-linux".epson-inkjet-printer-201601w
     ];
     */
   };

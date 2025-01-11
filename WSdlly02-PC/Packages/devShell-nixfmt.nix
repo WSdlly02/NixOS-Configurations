@@ -1,5 +1,5 @@
-{pkgs}:
-pkgs.mkShell {
+{mkShell}:
+mkShell {
   buildInputs = with pkgs; [
     nixpkgs-fmt
   ];
