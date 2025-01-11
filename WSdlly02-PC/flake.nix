@@ -16,6 +16,10 @@
       url = "github:Infinidoge/nix-minecraft";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    my-codes = {
+      url = "/home/wsdlly02/Documents/Codes";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs = {
@@ -25,10 +29,24 @@
     lanzaboote,
     nixos-hardware,
     nix-minecraft,
+    my-codes,
   } @ inputs: {
-    devShells."x86_64-linux" = {
-      # rocm-python312-env = let pkgs = import nixpkgs-unstable {system = "x86_64-linux";}; in pkgs.mkShell {packages = [];};
-      nixfmt = let pkgs = import nixpkgs-unstable {system = "x86_64-linux";}; in import ./Packages/devShell-nixfmt.nix {inherit pkgs;};
+    packages = {
+      "x86_64-linux" = {
+        inC = my-codes.packages."x86_64-linux".inC;
+        inPython = my-codes.packages."x86_64-linux".inPython;
+        inRust = {};
+      };
+      "aarch64-linux" = {};
+    };
+    devShells = {
+      "x86_64-linux" = let
+        pkgs = import nixpkgs-unstable {system = "x86_64-linux";};
+      in {
+        # rocm-python312-env = pkgs.mkShell {packages = [];};
+        nixfmt = import ./Packages/devShell-nixfmt.nix {inherit pkgs;};
+      };
+      "aarch64-linux" = {};
     };
     nixosConfigurations = let
       specialArgs = {inherit inputs;};
@@ -57,10 +75,6 @@
           nix-minecraft.nixosModules.minecraft-servers
           nixos-hardware.nixosModules.raspberry-pi-5
           {
-            users.users.nixosvmtest.isSystemUser = true;
-            users.users.nixosvmtest.initialPassword = "test";
-            users.users.nixosvmtest.group = "nixosvmtest";
-            users.groups.nixosvmtest = {};
             nixpkgs.crossSystem = {
               # Target platform, cross compiling
               system = "aarch64-linux";
