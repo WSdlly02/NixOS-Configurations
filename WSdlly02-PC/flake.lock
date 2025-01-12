@@ -186,7 +186,7 @@
         ]
       },
       "locked": {
-        "lastModified": 1736618918,
+        "lastModified": 1736656800,
         "narHash": "sha256-NWpsFZUrFcxmQVSYnvfOQ8noq51qTzgMg0TK3G+Mluc=",
         "path": "/home/wsdlly02/Documents/Codes",
         "type": "path"
@@ -205,11 +205,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1736473741,
-        "narHash": "sha256-mt/uzoQ9J7o4lEP1mBJSArE6jsXKhpbnBWFfeOu0CUc=",
+        "lastModified": 1736646923,
+        "narHash": "sha256-kU6J2zS90yskkmcbUcHKrDBxsUZWwLNMiCHnzJs2Rjg=",
         "owner": "Infinidoge",
         "repo": "nix-minecraft",
-        "rev": "39e804edbf69b926d25db2bb43b80995911d5776",
+        "rev": "cbd313bed852a2f277e7199ce060ac224bdce7da",
         "type": "github"
       },
       "original": {
