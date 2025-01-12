@@ -8,7 +8,7 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     ./bluetooth.nix
-    # ./bootloader.nix
+    ./bootloader.nix
     ./gpu.nix
     ./localdisksmount.nix
     ##./printer.nix
@@ -25,10 +25,11 @@
       systemd.enable = true; # Hibernate Required
     };
     consoleLogLevel = 3;
-    kernelPackages = pkgs.linuxPackages_xanmod_latest;
+    kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest; # pkgs.linuxPackages_xanmod_latest is deprecated
+    # Notice: pkgs.linuxKernel.packages."..." is an attribute set, pkgs.linuxKernel.kernels."..." is the real kernel package
     kernelModules = ["kvm-amd"];
-    extraModulePackages = with pkgs; [
-      linuxKernel.packages.linux_xanmod_latest.zenergy
+    extraModulePackages = with config.boot.kernelPackages; [
+      zenergy
     ];
     kernelParams = [
       "quiet"
@@ -46,52 +47,54 @@
     };
   };
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16";
-    fsType = "btrfs";
-    options = ["rw" "relatime" "ssd" "discard=async" "space_cache=v2" "subvol=@"];
-  };
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16";
+      fsType = "btrfs";
+      options = ["rw" "relatime" "ssd" "discard=async" "space_cache=v2" "subvol=@"];
+    };
 
-  fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16";
-    fsType = "btrfs";
-    options = ["rw" "relatime" "ssd" "discard=async" "space_cache=v2" "subvol=@home"];
-  };
+    "/home" = {
+      device = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16";
+      fsType = "btrfs";
+      options = ["rw" "relatime" "ssd" "discard=async" "space_cache=v2" "subvol=@home"];
+    };
 
-  fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16";
-    fsType = "btrfs";
-    options = ["rw" "relatime" "ssd" "discard=async" "space_cache=v2" "subvol=@nix"];
-  };
+    "/nix" = {
+      device = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16";
+      fsType = "btrfs";
+      options = ["rw" "relatime" "ssd" "discard=async" "space_cache=v2" "subvol=@nix"];
+    };
 
-  fileSystems."/var/cache" = {
-    device = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16";
-    fsType = "btrfs";
-    options = ["rw" "relatime" "ssd" "discard=async" "space_cache=v2" "subvol=@var-cache"];
-  };
+    "/var/cache" = {
+      device = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16";
+      fsType = "btrfs";
+      options = ["rw" "relatime" "ssd" "discard=async" "space_cache=v2" "subvol=@var-cache"];
+    };
 
-  fileSystems."/var/log" = {
-    device = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16";
-    fsType = "btrfs";
-    options = ["rw" "relatime" "ssd" "discard=async" "space_cache=v2" "subvol=@var-log"];
-  };
+    "/var/log" = {
+      device = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16";
+      fsType = "btrfs";
+      options = ["rw" "relatime" "ssd" "discard=async" "space_cache=v2" "subvol=@var-log"];
+    };
 
-  fileSystems."/var/tmp" = {
-    device = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16";
-    fsType = "btrfs";
-    options = ["rw" "relatime" "ssd" "discard=async" "space_cache=v2" "subvol=@var-tmp"];
-  };
+    "/var/tmp" = {
+      device = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16";
+      fsType = "btrfs";
+      options = ["rw" "relatime" "ssd" "discard=async" "space_cache=v2" "subvol=@var-tmp"];
+    };
 
-  fileSystems."/swap" = {
-    device = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16";
-    fsType = "btrfs";
-    options = ["rw" "relatime" "ssd" "discard=async" "space_cache=v2" "subvol=@swap"];
-  };
+    "/swap" = {
+      device = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16";
+      fsType = "btrfs";
+      options = ["rw" "relatime" "ssd" "discard=async" "space_cache=v2" "subvol=@swap"];
+    };
 
-  fileSystems."/efi" = {
-    device = "/dev/disk/by-uuid/18B2-C53C";
-    fsType = "vfat";
-    options = ["rw" "relatime" "fmask=0022" "dmask=0022" "codepage=437" "iocharset=ascii" "shortname=mixed" "errors=remount-ro"];
+    "/efi" = {
+      device = "/dev/disk/by-uuid/18B2-C53C";
+      fsType = "vfat";
+      options = ["rw" "relatime" "fmask=0022" "dmask=0022" "codepage=437" "iocharset=ascii" "shortname=mixed" "errors=remount-ro"];
+    };
   };
 
   swapDevices = [

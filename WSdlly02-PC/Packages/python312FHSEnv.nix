@@ -49,9 +49,9 @@ python3.withPackages (ps: with ps; [
       pandas
       uv
       virtualenv
-    ]);
-  /*
+    ]); # A derivation (package)
   usedRocmPackages = [
+    /*
     clr
     clr.icd
     # hipblas
@@ -63,13 +63,13 @@ python3.withPackages (ps: with ps; [
     # rocm-thunk
     rocm-comgr
     rocm-device-libs
-  ];
-  */
+    */
+  ]; # A list
 in
   buildFHSEnv {
     name = "python312FHSEnv";
-    targetPkgs = (
-      pkgs: [
+    targetPkgs = pkgs:
+      [
         # Common pkgs
         cmake
         gcc
@@ -83,7 +83,6 @@ in
         zstd
         usedPython312Packages
       ]
-      # ++ usedRocmPackages
-    );
+      ++ usedRocmPackages;
     runScript = "fish";
   }

@@ -68,7 +68,6 @@
           nix-minecraft.nixosModules.minecraft-servers
           # TODO: nix-minecraft libvirt
           ./Hardware
-          ./Hardware/bootloader.nix
           ./Programs/Basic
           ./Programs/Daily
           ./Programs/Development
