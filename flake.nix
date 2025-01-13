@@ -67,26 +67,21 @@
           lanzaboote.nixosModules.lanzaboote
           nix-minecraft.nixosModules.minecraft-servers
           # TODO: nix-minecraft libvirt
-          ./Hardware
-          ./Programs/Basic
-          ./Programs/Daily
-          ./Programs/Development
-          ./Programs/Gaming
+          ./WSdlly02-PC/Hardware
+          ./WSdlly02-PC/Programs/Basic
+          ./WSdlly02-PC/Programs/Daily
+          ./WSdlly02-PC/Programs/Development
+          ./WSdlly02-PC/Programs/Gaming
         ];
       };
       "WSdlly02-RaspberryPi5" = nixpkgs-unstable.lib.nixosSystem {
         inherit specialArgs;
-        system = "x86_64-linux"; # buildPlatform
+        system = "aarch64-linux"; # buildPlatform
         modules = [
           # TBD
           nix-minecraft.nixosModules.minecraft-servers
           nixos-hardware.nixosModules.raspberry-pi-5
-          {
-            nixpkgs.crossSystem = {
-              # Target platform, cross compiling
-              system = "aarch64-linux";
-            };
-          }
+          ./WSdlly02-RaspberryPi5/Hardware/nixos-pi-installer.nix
         ];
       };
       "Lily-PC" = nixpkgs-unstable.lib.nixosSystem {
