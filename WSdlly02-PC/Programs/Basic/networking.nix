@@ -10,8 +10,8 @@
     firewall = {
       enable = true;
       allowPing = false;
-      allowedTCPPorts = [7890];
-      allowedUDPPorts = [7890];
+      allowedTCPPorts = [7890 12024];
+      allowedUDPPorts = [7890 12024];
     };
     timeServers = [
       "ntp.ntsc.ac.cn"

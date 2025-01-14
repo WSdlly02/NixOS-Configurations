@@ -8,4 +8,7 @@
       package = pkgs.zulu21;
     };
   };
+  environment.defaultPackages = with pkgs; [
+    mcrcon
+  ];
 }

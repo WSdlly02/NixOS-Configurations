@@ -1,4 +1,7 @@
 {pkgs, ...}: {
+  imports = [
+    ./syncthing.nix
+  ];
   users.users.wsdlly02 = {
     isNormalUser = true;
     uid = 1000;
