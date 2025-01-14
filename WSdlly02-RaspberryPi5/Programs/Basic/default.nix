@@ -64,6 +64,7 @@
     nmap
     pciutils
     psmisc
+    raspberrypi-eeprom
     ripgrep
     rsync
     sshfs

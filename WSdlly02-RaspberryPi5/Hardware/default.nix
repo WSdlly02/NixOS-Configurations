@@ -21,6 +21,13 @@
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = lib.mkForce false;
     consoleLogLevel = 3;
+    /*
+    kernelPackages = pkgs.linuxKernel.packagesFor (pkgs.linuxKernel.kernels.linux_rpi4.override {
+      rpiVersion = 5;
+      argsOverride.defconfig = "bcm2712_defconfig";
+    });
+    # Already defined in the nixos-hardware.nixosModules.raspberry-pi-5
+    */
     kernelParams = [
       "quiet"
       "nowatchdog"
