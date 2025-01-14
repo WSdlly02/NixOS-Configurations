@@ -1,7 +1,7 @@
 {lib, ...}: {
   nix = {
     settings = {
-      max-jobs = 64;
+      max-jobs = 32;
       substituters = lib.mkForce [
         "https://mirrors.ustc.edu.cn/nix-channels/store"
         "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
@@ -19,15 +19,20 @@
     };
   };
   nixpkgs = {
-    hostPlatform = lib.mkDefault "x86_64-linux"; # specific this option blocks nixpkgs.crossSystem
+    hostPlatform = lib.mkDefault "aarch64-linux"; # specific this option blocks nixpkgs.crossSystem
     # localSystem = null; # equals to nixpkgs.buildPlatform
     # buildPlatform = config.nixpkgs.hostPlatform;
     config = {
       allowUnfree = true;
       allowUnsupportedSystem = true;
       enableParallelBuilding = true;
-      rocmSupport = true;
     };
+    overlays = [
+      (final: super: {
+        makeModulesClosure = x:
+          super.makeModulesClosure (x // {allowMissing = true;});
+      })
+    ];
   };
   /*
   nixpkgs.crossSystem = {
@@ -39,14 +44,9 @@
   the platform on which NixOS should be built.
   In other words, specify this to cross-compile NixOS.
   */
-  boot.binfmt.emulatedSystems = [
-    # use QEMU to emulate systems for compiling pkgs of different archs.
-    "x86_64-windows"
-    "aarch64-linux"
-  ];
   system = {
-    name = "WSdlly02-PC";
+    name = "WSdlly02-RaspberryPi5";
     # nixos.tag = [];
-    stateVersion = "24.11";
+    stateVersion = "25.05";
   };
 }

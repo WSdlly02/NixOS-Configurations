@@ -16,10 +16,6 @@
       url = "github:Infinidoge/nix-minecraft";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    my-codes = {
-      url = "/home/wsdlly02/Documents/Codes";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
   };
 
   outputs = {
@@ -29,29 +25,13 @@
     lanzaboote,
     nixos-hardware,
     nix-minecraft,
-    my-codes,
   } @ inputs: {
-    packages = {
-      "x86_64-linux" = let
-        pkgs = import nixpkgs-unstable {system = "x86_64-linux";};
-      in {
-        # WSdlly02's Codes Library
-        inC = my-codes.packages."x86_64-linux".inC;
-        inPython = my-codes.packages."x86_64-linux".inPython;
-        inRust = {};
-        # Local pkgs
-        epson-inkjet-printer-201601w = pkgs.callPackage ./Packages/epson-inkjet-printer-201601w.nix {};
-        python312FHSEnv = pkgs.callPackage ./Packages/python312FHSEnv.nix {};
-      };
-      "aarch64-linux" = {};
-    };
-
     devShells = {
       "x86_64-linux" = let
         pkgs = import nixpkgs-unstable {system = "x86_64-linux";};
       in {
         # rocm-python312-env = pkgs.mkShell {packages = [];};
-        nixfmt = pkgs.callPackage ./Packages/devShell-nixfmt.nix {};
+        nixfmt = pkgs.callPackage ./WSdlly02-PC/Packages/devShell-nixfmt.nix {};
       };
       "aarch64-linux" = {};
     };
@@ -81,7 +61,10 @@
           # TBD
           nix-minecraft.nixosModules.minecraft-servers
           nixos-hardware.nixosModules.raspberry-pi-5
-          ./WSdlly02-RaspberryPi5/Hardware/nixos-pi-installer.nix
+          ./WSdlly02-RaspberryPi5/Hardware
+          ./WSdlly02-RaspberryPi5/Programs/Basic
+          ./WSdlly02-RaspberryPi5/Programs/Daily
+          ./WSdlly02-RaspberryPi5/Programs/Gaming
         ];
       };
       "Lily-PC" = nixpkgs-unstable.lib.nixosSystem {

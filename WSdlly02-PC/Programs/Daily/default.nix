@@ -19,7 +19,8 @@ in {
     isNormalUser = true;
     uid = 1000;
     group = "wheel";
-    extraGroups = ["users" "adbusers"];
+    extraGroups = ["wsdlly02" "users" "adbusers"];
+    # openssh.authorizedKeys.keys = [];
   };
   # Fonts
   fonts = {
