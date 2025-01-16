@@ -1,6 +1,18 @@
 {
   description = "WSdlly02's NixOS flake";
-
+  /*
+  nixConfig = {
+    extra-substituters = [
+      # nix community's cache server
+      "https://nix-community.cachix.org"
+    ];
+    # will be appended to the system-level trusted-public-keys
+    extra-trusted-public-keys = [
+      # nix community's cache server public key
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
+  };
+  */
   inputs = {
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     home-manager = {
@@ -40,10 +52,14 @@
         inPython = my-codes.packages."x86_64-linux".inPython;
         inRust = {};
         # Local pkgs
-        epson-inkjet-printer-201601w = pkgs.callPackage ./WSdlly02-PC/Packages/epson-inkjet-printer-201601w.nix {};
-        python312FHSEnv = pkgs.callPackage ./WSdlly02-PC/Packages/python312FHSEnv.nix {};
+        epson-inkjet-printer-201601w = pkgs.callPackage ./pkgs/epson-inkjet-printer-201601w.nix {};
+        python312FHSEnv = pkgs.callPackage ./pkgs/python312FHSEnv.nix {};
       };
-      "aarch64-linux" = {};
+      "aarch64-linux" = let
+        pkgs = import nixpkgs-unstable {system = "aarch64-linux";};
+      in {
+        python312FHSEnv = pkgs.callPackage ./pkgs/python312FHSEnv.nix {};
+      };
     };
 
     devShells = {
@@ -51,7 +67,7 @@
         pkgs = import nixpkgs-unstable {system = "x86_64-linux";};
       in {
         # rocm-python312-env = pkgs.mkShell {packages = [];};
-        nixfmt = pkgs.callPackage ./WSdlly02-PC/Packages/devShell-nixfmt.nix {};
+        nixfmt = pkgs.callPackage ./pkgs/devShell-nixfmt.nix {};
       };
       "aarch64-linux" = {};
     };
@@ -67,11 +83,13 @@
           lanzaboote.nixosModules.lanzaboote
           nix-minecraft.nixosModules.minecraft-servers
           # TODO: nix-minecraft libvirt
-          ./WSdlly02-PC/Hardware
-          ./WSdlly02-PC/Programs/Basic
-          ./WSdlly02-PC/Programs/Daily
-          ./WSdlly02-PC/Programs/Development
-          ./WSdlly02-PC/Programs/Gaming
+          ./host-specific/WSdlly02-PC/Daily
+          ./host-specific/WSdlly02-PC/Gaming
+          ./host-specific/WSdlly02-PC/Infrastructure
+          ./modules/Infrastructure
+          ./modules/Daily
+          ./modules/Development
+          ./modules/Gaming
         ];
       };
       "WSdlly02-RaspberryPi5" = nixpkgs-unstable.lib.nixosSystem {
@@ -80,10 +98,12 @@
         modules = [
           nixos-hardware.nixosModules.raspberry-pi-5
           nix-minecraft.nixosModules.minecraft-servers
-          ./WSdlly02-RaspberryPi5/Hardware
-          ./WSdlly02-RaspberryPi5/Programs/Basic
-          ./WSdlly02-RaspberryPi5/Programs/Daily
-          ./WSdlly02-RaspberryPi5/Programs/Gaming
+          ./host-specific/WSdlly02-RaspberryPi5/Daily
+          ./host-specific/WSdlly02-RaspberryPi5/Infrastructure
+          ./modules/Infrastructure
+          ./modules/Daily
+          ./modules/Development
+          ./modules/Gaming
         ];
       };
       "Lily-PC" = nixpkgs-unstable.lib.nixosSystem {
