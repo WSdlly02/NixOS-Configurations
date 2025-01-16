@@ -22,6 +22,10 @@
       enable = true;
       capSysNice = true;
     };
+    java = {
+      enable = true;
+      package = pkgs.zulu21;
+    };
   };
   environment.defaultPackages = with pkgs; [
     (mindustry.override {jdk17 = zulu17;})

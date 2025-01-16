@@ -7,7 +7,7 @@
 }: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    ./system.nix
+    ./nixpkgs-aarch64.nix
   ];
 
   boot = {

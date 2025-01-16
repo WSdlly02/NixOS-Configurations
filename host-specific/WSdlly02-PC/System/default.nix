@@ -11,9 +11,9 @@
     ./cups.nix
     ./gpu.nix
     ./localdisksmount.nix
+    ./nixpkgs-x86_64.nix
     ./plymouth.nix
     ##./remotefsmount.nix
-    ./system.nix
     ./tpm.nix
   ];
 

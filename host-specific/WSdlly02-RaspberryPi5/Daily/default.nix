@@ -5,7 +5,6 @@
       fastfetch
       id-generator
       ncdu
-      mcrcon
     ];
   };
 }

@@ -14,7 +14,7 @@
   };
   */
   inputs = {
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -57,9 +57,7 @@
       };
       "aarch64-linux" = let
         pkgs = import nixpkgs-unstable {system = "aarch64-linux";};
-      in {
-        python312FHSEnv = pkgs.callPackage ./pkgs/python312FHSEnv.nix {};
-      };
+      in {};
     };
 
     devShells = {
@@ -69,7 +67,11 @@
         # rocm-python312-env = pkgs.mkShell {packages = [];};
         nixfmt = pkgs.callPackage ./pkgs/devShell-nixfmt.nix {};
       };
-      "aarch64-linux" = {};
+      "aarch64-linux" = let
+        pkgs = import nixpkgs-unstable {system = "aarch64-linux";};
+      in {
+        nixfmt = pkgs.callPackage ./pkgs/devShell-nixfmt.nix {};
+      };
     };
 
     nixosConfigurations = let
@@ -85,25 +87,24 @@
           # TODO: nix-minecraft libvirt
           ./host-specific/WSdlly02-PC/Daily
           ./host-specific/WSdlly02-PC/Gaming
-          ./host-specific/WSdlly02-PC/Infrastructure
+          ./host-specific/WSdlly02-PC/System
           ./modules/Infrastructure
           ./modules/Daily
           ./modules/Development
-          ./modules/Gaming
         ];
       };
       "WSdlly02-RaspberryPi5" = nixpkgs-unstable.lib.nixosSystem {
         inherit specialArgs;
-        system = "aarch64-linux"; # buildPlatform
+        system = "aarch64-linux";
         modules = [
           nixos-hardware.nixosModules.raspberry-pi-5
           nix-minecraft.nixosModules.minecraft-servers
           ./host-specific/WSdlly02-RaspberryPi5/Daily
-          ./host-specific/WSdlly02-RaspberryPi5/Infrastructure
-          ./modules/Infrastructure
+          ./host-specific/WSdlly02-RaspberryPi5/Gaming
+          ./host-specific/WSdlly02-RaspberryPi5/System
           ./modules/Daily
-          ./modules/Development
-          ./modules/Gaming
+          ##./modules/Development # Not required
+          ./modules/Infrastructure
         ];
       };
       "Lily-PC" = nixpkgs-unstable.lib.nixosSystem {
