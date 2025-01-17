@@ -14,13 +14,13 @@
     initrd = {
       supportedFilesystems = ["vfat" "btrfs"];
       availableKernelModules = [];
-      verbose = false;
+      # verbose = false;
       kernelModules = [];
       systemd.enable = true; # Hibernate Required
     };
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = lib.mkForce false;
-    consoleLogLevel = 3;
+    # consoleLogLevel = 3;
     /*
     kernelPackages = pkgs.linuxKernel.packagesFor (pkgs.linuxKernel.kernels.linux_rpi4.override {
       rpiVersion = 5;
@@ -29,9 +29,12 @@
     # Already defined in the nixos-hardware.nixosModules.raspberry-pi-5
     */
     kernelParams = [
-      "quiet"
+      # "quiet"
       "nowatchdog"
-      "udev.log_level=3"
+      # "udev.log_level=3"
+      "8250.nr_uarts=11"
+      "console=ttyAMA10,9600"
+      "console=tty0"
     ];
   };
   fileSystems = {

@@ -111,7 +111,9 @@
         inherit specialArgs;
         system = "x86_64-linux";
         modules = [
-          # TBD
+          ./modules/Daily
+          ##./modules/Development # Not required
+          ./modules/Infrastructure
         ];
       };
       "WSdlly02-LT-WSL" = nixpkgs-unstable.lib.nixosSystem {
