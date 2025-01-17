@@ -9,6 +9,7 @@
     # hsphfpd.enable = true; Conflicts with wireplumber
     settings = {
       General = {
+        ControllerMode = lib.mkIf (config.system.name == "WSdlly02-RaspberryPi5") "bredr";
         Enable = "Source,Sink,Media,Socket";
         FastConnectable = true;
         Experimental = true;
