@@ -111,6 +111,7 @@
         inherit specialArgs;
         system = "x86_64-linux";
         modules = [
+          {system.name = "Lily-PC";}
           ./modules/Daily
           ##./modules/Development # Not required
           ./modules/Infrastructure

@@ -8,7 +8,7 @@
     # hsphfpd.enable = true; Conflicts with wireplumber
     settings = {
       General = {
-        Enable = "Source,Sink,Media,Socket";
+        Enable = lib.mkIf (config.system.name == "WSdlly02-PC") "Source,Sink,Media,Socket";
         FastConnectable = true;
         Experimental = true;
       };
