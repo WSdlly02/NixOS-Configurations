@@ -13,5 +13,7 @@ in {
       Terminal: \l
     '';
     helpLine = lib.mkForce "";
+    autologinUser = lib.mkIf (config.system.name == "WSdlly02-RaspberryPi5") "wsdlly02";
+    autologinOnce = lib.mkIf (config.system.name == "WSdlly02-RaspberryPi5") true;
   };
 }
