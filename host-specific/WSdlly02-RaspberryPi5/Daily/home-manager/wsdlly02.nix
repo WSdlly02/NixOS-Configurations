@@ -20,7 +20,7 @@
             { cmd = "load-module" args = "module-zeroconf-publish" flags = [ ] }
           ]
         '';
-        target = .config/pipewire/pipewire-pulse.conf.d/remote-bluetooth-receiver.conf;
+        target = ".config/pipewire/pipewire-pulse.conf.d/remote-bluetooth-receiver.conf";
       };
     };
   };
