@@ -8,7 +8,7 @@
     nftables.enable = lib.mkDefault false;
     tempAddresses = "disabled";
     firewall = {
-      enable = true;
+      enable = lib.mkIf (config.system.name == "WSdlly02-RaspberryPi5") false;
       allowPing = false;
       allowedTCPPorts = [7890 12024];
       allowedUDPPorts = [7890 12024];
