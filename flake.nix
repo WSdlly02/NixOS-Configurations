@@ -97,6 +97,7 @@
         inherit specialArgs;
         system = "aarch64-linux";
         modules = [
+          home-manager.nixosModules.home-manager
           nixos-hardware.nixosModules.raspberry-pi-5
           nix-minecraft.nixosModules.minecraft-servers
           ./host-specific/WSdlly02-RaspberryPi5/Daily
