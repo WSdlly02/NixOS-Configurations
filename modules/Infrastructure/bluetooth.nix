@@ -5,11 +5,9 @@
 }: {
   hardware.bluetooth = {
     enable = lib.mkIf (config.system.name == "WSdlly02-PC" || config.system.name == "WSdlly02-RaspberryPi5") true;
-    powerOnBoot = lib.mkIf (config.system.name == "WSdlly02-RaspberryPi5") false;
     # hsphfpd.enable = true; Conflicts with wireplumber
     settings = {
       General = {
-        ControllerMode = lib.mkIf (config.system.name == "WSdlly02-RaspberryPi5") "bredr";
         Enable = "Source,Sink,Media,Socket";
         FastConnectable = true;
         Experimental = true;
