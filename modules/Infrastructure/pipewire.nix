@@ -29,7 +29,11 @@
     jack.enable = true;
   };
   systemd.user.services = lib.mkIf (config.system.name == "WSdlly02-RaspberryPi5") {
-    pipewire.wantedBy = ["default.target"];
+    pipewire = {
+      wantedBy = ["default.target"];
+      wants = ["NetworkManager-wait-online.service"];
+      after = ["NetworkManager-wait-online.service"];
+    };
     pipewire-pulse.wantedBy = ["default.target"];
     wireplumber.wantedBy = ["default.target"];
   };
