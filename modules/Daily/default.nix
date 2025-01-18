@@ -11,7 +11,6 @@
     isNormalUser = true;
     uid = 1000;
     group = "wheel";
-    linger = lib.mkIf (config.system.name == "WSdlly02-RaspberryPi5") true;
     extraGroups = [
       "wsdlly02"
       "users"
