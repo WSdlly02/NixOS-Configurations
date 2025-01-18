@@ -13,14 +13,27 @@
     ];
     stateVersion = "25.05";
     file = {
-      remote-bluetooth-receiver = {
+      roc-source = {
         text = ''
-          pulse.cmd = [
-            { cmd = "load-module" args = "module-native-protocol-tcp listen=10.42.0.2" flags = [ ] }
-            { cmd = "load-module" args = "module-zeroconf-publish" flags = [ ] }
+          context.modules = [
+            { name = libpipewire-module-roc-source
+              args = {
+                local.ip = 10.42.0.2
+                resampler.profile = high
+                fec.code = ldpc
+                sess.latency.msec = 50
+                local.source.port = 10001
+                local.repair.port = 10002
+                local.control.port = 10003
+                source.name = "ROC Source"
+                source.props = {
+                  node.name = "roc-source"
+                }
+              }
+            }
           ]
         '';
-        target = ".config/pipewire/pipewire-pulse.conf.d/remote-bluetooth-receiver.conf";
+        target = ".config/pipewire/pipewire.conf.d/roc-source.conf";
       };
     };
   };

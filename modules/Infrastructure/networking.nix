@@ -8,10 +8,19 @@
     nftables.enable = lib.mkDefault false;
     tempAddresses = "disabled";
     firewall = {
-      enable = lib.mkIf (config.system.name == "WSdlly02-RaspberryPi5") false;
+      enable = true;
       allowPing = false;
-      allowedTCPPorts = [7890 12024];
-      allowedUDPPorts = [7890 12024];
+      allowedTCPPorts =
+        [
+          7890 # Mihomo
+          12024 # Mincraft Server
+        ]
+        ++ lib.optionals (config.system.name == "WSdlly02-RaspberryPi5") [
+          10001
+          10002
+          10003
+        ];
+      allowedUDPPorts = config.networking.firewall.allowedTCPPorts;
     };
     timeServers = [
       "ntp.ntsc.ac.cn"
