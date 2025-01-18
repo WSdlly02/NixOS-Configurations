@@ -30,7 +30,11 @@
   };
   systemd.user.services = lib.mkIf (config.system.name == "WSdlly02-RaspberryPi5") {
     pipewire.wantedBy = ["default.target"];
-    pipewire-pulse.wantedBy = ["default.target"];
+    pipewire-pulse = {
+      wantedBy = ["default.target"];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
+    };
     wireplumber.wantedBy = ["default.target"];
   };
 }
