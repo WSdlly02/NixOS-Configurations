@@ -6,11 +6,9 @@
 }: {
   programs.ccache = {
     enable = true;
-    /*
     packageNames =
       [
       ]
-      ++ lib.optionals (config.system.name == "WSdlly02-RaspberryPi5") ["linux-rpi5"];
-    */
+      ++ lib.optionals (config.system.name == "WSdlly02-RaspberryPi5") ["linuxKernel.kernels.linux-rpi5"];
   };
 }

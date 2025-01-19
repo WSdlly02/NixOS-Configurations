@@ -14,14 +14,12 @@
         makeModulesClosure = x:
           super.makeModulesClosure (x // {allowMissing = true;});
       })
-      /*
       (self: super: {
-        linux_rpi5 = super.linux_rpi4.override {
+        linuxKernel.kernels.linux_rpi5 = super.linuxKernel.kernels.linux_rpi4.override {
           rpiVersion = 5;
           argsOverride.defconfig = "bcm2712_defconfig";
         };
       })
-      */
     ];
   };
   /*
