@@ -9,12 +9,11 @@
       enableParallelBuilding = true;
     };
     overlays = [
-      /*
+      # Very important!!! Don't delete!!!
       (final: super: {
         makeModulesClosure = x:
           super.makeModulesClosure (x // {allowMissing = true;});
       })
-      */
       /*
       (self: super: {
         linux_rpi5 = super.linux_rpi4.override {
