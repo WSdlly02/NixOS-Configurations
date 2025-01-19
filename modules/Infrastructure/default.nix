@@ -7,6 +7,7 @@
   imports = [
     ./avahi.nix
     ./bluetooth.nix
+    ./ccache.nix
     ./getty.nix
     ##./gitDaemon.nix
     ./gnupg.nix
@@ -14,6 +15,7 @@
     ./neovim.nix
     ./networking.nix
     ./networkmanager.nix
+    ./nix.nix
     ./openssh.nix
     ./pipewire.nix
     ./proxychains.nix

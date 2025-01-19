@@ -1,23 +1,4 @@
 {lib, ...}: {
-  nix = {
-    settings = {
-      max-jobs = 32;
-      substituters = lib.mkForce [
-        "https://mirrors.ustc.edu.cn/nix-channels/store"
-        "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
-        "https://mirror.sjtu.edu.cn/nix-channels/store"
-        "https://cache.nixos.org"
-      ];
-      trusted-users = [
-        "wsdlly02"
-      ];
-      auto-optimise-store = true;
-      experimental-features = lib.mkForce [
-        "nix-command"
-        "flakes"
-      ];
-    };
-  };
   nixpkgs = {
     hostPlatform = lib.mkDefault "aarch64-linux"; # specific this option blocks nixpkgs.crossSystem
     # localSystem = null; # equals to nixpkgs.buildPlatform
@@ -28,10 +9,20 @@
       enableParallelBuilding = true;
     };
     overlays = [
+      /*
       (final: super: {
         makeModulesClosure = x:
           super.makeModulesClosure (x // {allowMissing = true;});
       })
+      */
+      /*
+      (self: super: {
+        linux_rpi5 = super.linux_rpi4.override {
+          rpiVersion = 5;
+          argsOverride.defconfig = "bcm2712_defconfig";
+        };
+      })
+      */
     ];
   };
   /*

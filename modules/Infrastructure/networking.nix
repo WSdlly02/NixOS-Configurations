@@ -10,17 +10,22 @@
     firewall = {
       enable = true;
       allowPing = false;
-      allowedTCPPorts =
+      allowedTCPPorts = [
+        7890 # Mihomo
+        12024 # Mincraft Server
+      ];
+      allowedTCPPortRanges =
         [
-          7890 # Mihomo
-          12024 # Mincraft Server
         ]
         ++ lib.optionals (config.system.name == "WSdlly02-RaspberryPi5") [
-          10001
-          10002
-          10003
+          {
+            from = 10001;
+            to = 10003;
+            # ROC Source & Repair & Control ports
+          }
         ];
       allowedUDPPorts = config.networking.firewall.allowedTCPPorts;
+      allowedUDPPortRanges = config.networking.firewall.allowedTCPPortRanges;
     };
     timeServers = [
       "ntp.ntsc.ac.cn"
