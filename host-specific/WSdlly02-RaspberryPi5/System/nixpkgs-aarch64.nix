@@ -25,6 +25,7 @@
           argsOverride.defconfig = "bcm2712_defconfig";
         };
       })
+      /*
       (self: super: {
         ccacheWrapper = super.ccacheWrapper.override {
           extraConfig = ''
@@ -50,6 +51,7 @@
           '';
         };
       })
+      */
     ];
   };
   /*
