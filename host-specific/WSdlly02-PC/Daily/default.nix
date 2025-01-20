@@ -10,7 +10,6 @@ in {
     ./fcitx5.nix
     ./lact.nix
     ./plasma6.nix
-    ./psd.nix
     ./sunshine.nix
     ##./wine.nix
   ];
