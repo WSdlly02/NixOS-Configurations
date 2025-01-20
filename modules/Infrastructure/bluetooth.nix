@@ -10,11 +10,14 @@
       General = {
         Enable = "Source,Sink,Media,Socket";
         JustWorksRepairing = "always";
+        MultiProfile = "multiple";
         FastConnectable = true;
+        KernelExperimental = true;
         Experimental = true;
       };
     };
   };
+  # services.mpris-proxy.enable is defined in home-manager
   /*
   nixpkgs.overlays = [
     (final: prev: {

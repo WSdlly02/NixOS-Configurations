@@ -4,6 +4,7 @@
   ...
 }: {
   programs.home-manager.enable = true;
+  services.mpris-proxy.enable = true;
   home = {
     username = "wsdlly02";
     homeDirectory = "/home/wsdlly02";
@@ -33,7 +34,7 @@
             }
           ]
         '';
-        target = ".config/pipewire/pipewire.conf.d/roc-source.conf";
+        target = ".config/pipewire/pipewire.conf.d/20-roc-source.conf";
       };
     };
   };
