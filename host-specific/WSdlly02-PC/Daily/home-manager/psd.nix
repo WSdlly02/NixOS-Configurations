@@ -9,7 +9,7 @@
       glib
     ]);
   in {
-    psd.serviceConfig.Environment = ["PATH=$PATH:${envPath}"];
-    psd-resync.serviceConfig.Environment = ["PATH=$PATH:${envPath}"];
+    psd.Service.Environment = ["PATH=$PATH:${envPath}"];
+    psd-resync.Service.Environment = ["PATH=$PATH:${envPath}"];
   };
 }
