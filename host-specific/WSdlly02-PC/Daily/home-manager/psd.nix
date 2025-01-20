@@ -7,9 +7,15 @@
   systemd.user.services = let
     envPath = lib.makeBinPath (with pkgs; [
       glib
+      rsync
+      kmod
+      gawk
+      nettools
+      util-linux
+      profile-sync-daemon
     ]);
   in {
-    psd.Service.Environment = ["PATH=$PATH:${envPath}"];
-    psd-resync.Service.Environment = ["PATH=$PATH:${envPath}"];
+    psd.Service.Environment = lib.mkForce ["LAUNCHED_BY_SYSTEMD=1" "PATH=$PATH:${envPath}"];
+    psd-resync.Service.Environment = lib.mkForce ["LAUNCHED_BY_SYSTEMD=1" "PATH=$PATH:${envPath}"];
   };
 }
