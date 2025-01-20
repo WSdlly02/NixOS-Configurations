@@ -27,6 +27,7 @@ in {
         serif = ["Sarasa UI SC"];
         sansSerif = ["Sarasa UI SC"];
         monospace = ["Sarasa Fixed SC"];
+        emoji = ["Noto Color Emoji"];
       };
     };
   };
@@ -82,6 +83,11 @@ in {
       ];
   };
   nixpkgs.overlays = [
+    (final: prev: {
+      profile-sync-daemon = prev.profile-sync-daemon.overrideAttrs (finalAttrs: previousAttrs: {
+        installPhase = previousAttrs.installPhase + "cp $out/share/psd/contrib/microsoft-edge $out/share/psd/browsers"; # Add microsoft-edge support
+      });
+    })
     (final: prev: {
       mihomo-party = prev.mihomo-party.overrideAttrs (finalAttrs: previousAttrs: {
         # preFixup = previousAttrs.preFixup + "--add-flags ...";

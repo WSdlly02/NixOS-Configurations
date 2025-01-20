@@ -4,9 +4,6 @@
   config,
   ...
 }: {
-  imports = [
-    ./syncthing.nix
-  ];
   users.users.wsdlly02 = lib.mkIf (config.system.name != "Lily-PC") {
     isNormalUser = true;
     uid = 1000;
@@ -23,7 +20,6 @@
     ];
   };
   programs.lazygit.enable = true;
-  /*
   nixpkgs.overlays = [
     (self: super: {
       id-generator = pkgs.writeShellScriptBin "id-generator" ''
@@ -35,5 +31,4 @@
     })
   ];
   # It shouldn't be a global package
-  */
 }

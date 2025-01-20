@@ -12,6 +12,7 @@
       allowedTCPPorts = [
         7890 # Mihomo
         12024 # Mincraft Server
+        22000 # Syncthing
       ];
       allowedTCPPortRanges =
         [
@@ -23,7 +24,7 @@
             # ROC Source & Repair & Control ports
           }
         ];
-      allowedUDPPorts = config.networking.firewall.allowedTCPPorts;
+      allowedUDPPorts = config.networking.firewall.allowedTCPPorts ++ [21027 22000];
       allowedUDPPortRanges = config.networking.firewall.allowedTCPPortRanges;
     };
     timeServers = [

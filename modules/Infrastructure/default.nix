@@ -40,10 +40,7 @@
     adb.enable = true;
   };
   services = {
-    smartd.enable =
-      if pkgs.system == "x86_64-linux"
-      then true
-      else false;
+    smartd.enable = lib.mkIf (pkgs.system == "x86_64-linux") true;
     fstrim.enable = true;
     btrfs.autoScrub = {
       enable = true;
