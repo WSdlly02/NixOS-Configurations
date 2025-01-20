@@ -9,7 +9,6 @@
     tempAddresses = "disabled";
     firewall = {
       enable = true;
-      allowPing = false;
       allowedTCPPorts = [
         7890 # Mihomo
         12024 # Mincraft Server

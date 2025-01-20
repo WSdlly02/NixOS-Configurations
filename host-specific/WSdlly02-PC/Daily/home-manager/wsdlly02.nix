@@ -5,6 +5,7 @@
 }: {
   imports = [
     ./psd.nix
+    ./roc-sink.nix
   ];
   programs.home-manager.enable = true;
   services.mpris-proxy.enable = true;
@@ -27,27 +28,5 @@
       # inputs.self.packages."..."
     ];
     stateVersion = "24.11";
-    file = {
-      roc-sink = {
-        text = ''
-          context.modules = [
-            { name = libpipewire-module-roc-sink
-              args = {
-                remote.ip = 10.42.0.2
-                fec.code = ldpc
-                remote.source.port = 10001
-                remote.repair.port = 10002
-                remote.control.port = 10003
-                sink.name = "ROC Sink"
-                sink.props = {
-                  node.name = "roc-sink"
-                }
-              }
-            }
-          ]
-        '';
-        target = ".config/pipewire/pipewire.conf.d/20-roc-sink.conf";
-      };
-    };
   };
 }

@@ -1,18 +1,16 @@
-{pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   services.psd.enable = true;
-  systemd.user.services = {
-    psd = {
-      path = with pkgs; [
-        glib
-      ];
-      serviceConfig = {Environment = ["LAUNCHED_BY_SYSTEMD=1"];};
-    };
-    psd-resync = {
-      path = with pkgs; [
-        glib
-      ];
-      serviceConfig = {Environment = ["LAUNCHED_BY_SYSTEMD=1"];};
-    };
+  systemd.user.services = let
+    envPath = lib.makeBinPath (with pkgs; [
+      glib
+    ]);
+  in {
+    psd.serviceConfig.Environment = ["PATH=$PATH:${envPath}"];
+    psd-resync.serviceConfig.Environment = ["PATH=$PATH:${envPath}"];
   };
   nixpkgs.overlays = [
     (final: prev: {

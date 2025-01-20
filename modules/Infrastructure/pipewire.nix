@@ -12,13 +12,19 @@
     wireplumber = {
       enable = true;
       extraConfig = {
+        "10-allow-headless" = {
+          "wireplumber.profiles" = {
+            "main" = {
+              "monitor.bluez.seat-monitoring" = "disabled";
+            };
+          };
+        };
         # https://wiki.archlinux.org/title/Bluetooth_headset#Disable_PulseAudio_auto_switching_headset_to_HSP/HFP
         "20-bluetooth-settings" = {
           "wireplumber.settings" = {
             "bluetooth.autoswitch-to-headset-profile" = false;
           };
           "monitor.bluez.properties" = {
-            "bluez5.enable-hw-volume" = true;
             "bluez5.roles" = ["a2dp_sink" "a2dp_source"];
             "bluez5.auto-connect" = ["a2dp_sink" "a2dp_source"];
             # LDAC encoding quality
