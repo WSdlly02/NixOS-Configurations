@@ -62,7 +62,7 @@ in {
         fsearch
         gapless
         helvum
-        id-generator
+        # id-generator is in home-manager
         mihomo-party
         mpv
         ncdu

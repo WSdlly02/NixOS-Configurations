@@ -22,6 +22,7 @@
     ];
   };
   programs.lazygit.enable = true;
+  /*
   nixpkgs.overlays = [
     (self: super: {
       id-generator = pkgs.writeShellScriptBin "id-generator" ''
@@ -32,4 +33,6 @@
       '';
     })
   ];
+  # It shouldn't be a global package
+  */
 }

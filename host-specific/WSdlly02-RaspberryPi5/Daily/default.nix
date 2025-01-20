@@ -6,7 +6,7 @@
     localBinInPath = true;
     defaultPackages = with pkgs; [
       fastfetch
-      id-generator
+      # id-generator is in home-manager
       ncdu
     ];
   };

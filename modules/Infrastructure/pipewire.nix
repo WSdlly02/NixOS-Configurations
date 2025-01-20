@@ -20,6 +20,7 @@
           "monitor.bluez.properties" = {
             "bluez5.enable-hw-volume" = true;
             "bluez5.roles" = ["a2dp_sink" "a2dp_source"];
+            "bluez5.auto-connect" = ["a2dp_sink" "a2dp_source"];
             # LDAC encoding quality
             # Available values: auto (Adaptive Bitrate, default)
             #                   hq   (High Quality, 990/909kbps)
@@ -29,7 +30,6 @@
             # AAC variable bitrate mode
             # Available values: 0 (cbr, default), 1-5 (quality level)
             "bluez5.a2dp.aac.bitratemode" = 5;
-            # bluez5.auto-connect  = ["a2dp_sink" "a2dp_source"];
           };
         };
       };
