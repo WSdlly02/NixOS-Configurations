@@ -10,6 +10,8 @@
       rsync
       kmod
       gawk
+      coreutils-full
+      procps
       nettools
       util-linux
       profile-sync-daemon
