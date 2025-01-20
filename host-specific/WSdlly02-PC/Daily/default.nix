@@ -43,44 +43,44 @@ in {
     partition-manager.enable = true;
     # appimage.enable = true;
   };
-  services = {
-    power-profiles-daemon.enable = true;
-  };
+  services.power-profiles-daemon.enable = true;
   # services.flatpak.enable = true;
   environment = {
     localBinInPath = true;
-    defaultPackages = with pkgs; [
-      (bilibili.override wayland-enable)
-      (element-desktop.override wayland-enable)
-      (google-chrome.override wayland-enable)
-      (microsoft-edge.override wayland-enable)
-      (obsidian.override wayland-enable)
-      (qq.override wayland-enable)
-      (vscode.override wayland-enable)
-      alejandra
-      ddcutil # Required to control the brightness
-      fastfetch
-      fsearch
-      gapless
-      helvum
-      id-generator
-      kdePackages.filelight
-      kdePackages.sddm-kcm
-      kdePackages.yakuake
-      mihomo-party
-      mpv
-      ncdu
-      pass-wayland
-      qbittorrent-enhanced
-      qcm
-      scrcpy
-      sunshine
-      telegram-desktop
-      thunderbird
-      vlc
-      wechat-uos
-      wpsoffice-cn
-    ];
+    defaultPackages = with pkgs;
+      [
+        (bilibili.override wayland-enable)
+        (element-desktop.override wayland-enable)
+        (google-chrome.override wayland-enable)
+        (microsoft-edge.override wayland-enable)
+        (obsidian.override wayland-enable)
+        (qq.override wayland-enable)
+        (vscode.override wayland-enable)
+        alejandra
+        ddcutil # Required to control the brightness
+        fastfetch
+        fsearch
+        gapless
+        helvum
+        id-generator
+        mihomo-party
+        mpv
+        ncdu
+        pass-wayland
+        qbittorrent-enhanced
+        qcm
+        scrcpy
+        sunshine
+        telegram-desktop
+        thunderbird
+        vlc
+        wechat-uos
+        wpsoffice-cn
+      ]
+      ++ [
+        kdePackages.sddm-kcm
+        kdePackages.yakuake
+      ];
   };
   nixpkgs.overlays = [
     (final: prev: {

@@ -1,12 +1,7 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   services = {
     displayManager.sddm = {
       enable = true;
-      package = lib.mkForce pkgs.kdePackages.sddm;
       autoNumlock = true;
       wayland = {
         enable = true;
