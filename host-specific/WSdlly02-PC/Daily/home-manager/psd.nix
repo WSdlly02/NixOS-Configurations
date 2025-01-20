@@ -7,12 +7,15 @@
   systemd.user.services = let
     envPath = lib.makeBinPath (with pkgs; [
       glib
+      gnugrep
+      gnused
       rsync
       kmod
       gawk
       coreutils-full
       procps
       nettools
+      systemd
       util-linux
       profile-sync-daemon
     ]);
