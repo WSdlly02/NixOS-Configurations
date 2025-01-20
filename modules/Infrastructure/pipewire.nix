@@ -13,55 +13,55 @@
       enable = true;
       extraConfig = {
         "10-allow-headless" = {
-          "wireplumber.profiles" = {
-            "main" = {
-              "monitor.bluez.seat-monitoring" = "disabled";
+          wireplumber.profiles = {
+            main = {
+              monitor.bluez.seat-monitoring = "disabled";
             };
           };
         };
         # https://wiki.archlinux.org/title/Bluetooth_headset#Disable_PulseAudio_auto_switching_headset_to_HSP/HFP
         "20-bluetooth-settings" = {
-          "wireplumber.settings" = {
-            "bluetooth.autoswitch-to-headset-profile" = false;
+          wireplumber.settings = {
+            bluetooth.autoswitch-to-headset-profile = false;
           };
-          "monitor.bluez.properties" = {
-            "bluez5.roles" = ["a2dp_sink" "a2dp_source"];
-            "bluez5.auto-connect" = ["a2dp_sink" "a2dp_source"];
+          monitor.bluez.properties = {
+            bluez5.roles = ["a2dp_sink" "a2dp_source"];
+            bluez5.auto-connect = ["a2dp_sink" "a2dp_source"];
             # LDAC encoding quality
             # Available values: auto (Adaptive Bitrate, default)
             #                   hq   (High Quality, 990/909kbps)
             #                   sq   (Standard Quality, 660/606kbps)
             #                   mq   (Mobile use Quality, 330/303kbps)
-            "bluez5.a2dp.ldac.quality" = "hq";
+            bluez5.a2dp.ldac.quality = "hq";
             # AAC variable bitrate mode
             # Available values: 0 (cbr, default), 1-5 (quality level)
-            "bluez5.a2dp.aac.bitratemode" = 5;
+            bluez5.a2dp.aac.bitratemode = 5;
           };
         };
         # https://wiki.archlinux.org/title/PipeWire#Noticeable_audio_delay_or_audible_pop/crack_when_starting_playback
         "50-disable-suspension" = {
-          "monitor.alsa.rules" = [
+          monitor.alsa.rules = [
             {
-              "matches" = [
-                {"node.name" = ''"~alsa_input.*"'';}
-                {"node.name" = ''"~alsa_output.*"'';}
+              matches = [
+                {"node.name" = "~alsa_input.*";}
+                {"node.name" = "~alsa_output.*";}
               ];
-              "actions" = {
-                "update-props" = {
+              actions = {
+                update-props = {
                   "session.suspend-timeout-seconds" = 0;
                 };
               };
             }
           ];
           # bluetooth devices
-          "monitor.bluez.rules" = [
+          monitor.bluez.rules = [
             {
-              "matches" = [
-                {"node.name" = ''"~bluez_input.*"'';}
-                {"node.name" = ''"~bluez_output.*"'';}
+              matches = [
+                {"node.name" = "~bluez_input.*";}
+                {"node.name" = "~bluez_output.*";}
               ];
-              "actions" = {
-                "update-props" = {
+              actions = {
+                update-props = {
                   "session.suspend-timeout-seconds" = 0;
                 };
               };
