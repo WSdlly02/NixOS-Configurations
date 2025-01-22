@@ -16,20 +16,20 @@
   inputs = {
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.1";
-      # inputs.nixpkgs.follows = "nixpkgs-unstable";
+      url = "github:nix-community/lanzaboote/master";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nix-minecraft = {
-      url = "github:Infinidoge/nix-minecraft";
+      url = "github:Infinidoge/nix-minecraft/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     my-codes = {
-      url = "github:WSdlly02/my-codes";
+      url = "github:WSdlly02/my-codes/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     # Notice to add https://github.com/gytis-ivaskevicius/flake-utils-plus
