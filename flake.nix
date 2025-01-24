@@ -1,6 +1,6 @@
 {
   description = "WSdlly02's NixOS flake";
-  /*
+
   nixConfig = {
     extra-substituters = [
       # nix community's cache server
@@ -12,7 +12,7 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
   };
-  */
+
   inputs = {
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
