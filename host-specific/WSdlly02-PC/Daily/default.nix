@@ -91,20 +91,23 @@ in {
     (final: prev: {
       mihomo-party = prev.mihomo-party.overrideAttrs (finalAttrs: previousAttrs: {
         # preFixup = previousAttrs.preFixup + "--add-flags ...";
-        preFixup = ''
-          mkdir $out/bin
-          makeWrapper $out/mihomo-party/mihomo-party $out/bin/mihomo-party \
-            --prefix LD_LIBRARY_PATH : "${
-            lib.makeLibraryPath [
-              pkgs.libGL
-            ]
-          }" \
-          --add-flags "--ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations,WebRTCPipeWireCapturer --enable-wayland-ime=true"
-        ''; # Add wayland support
+        preFixup =
+          if prev.mihomo-party.version == "1.5.2"
+          then ''
+            mkdir $out/bin
+            makeWrapper $out/mihomo-party/mihomo-party $out/bin/mihomo-party \
+              --prefix LD_LIBRARY_PATH : "${
+              lib.makeLibraryPath [
+                pkgs.libGL
+              ]
+            }" \
+            --add-flags "--ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations,WebRTCPipeWireCapturer --enable-wayland-ime=true"
+          ''
+          else throw "The overlays' version is inconsistent with the current's ! Please update overlays."; # Add wayland support
       });
     })
     /*
-    (self: super: {foo=bar;})
+    (final: prev: {foo=bar;})
     */
   ];
 }

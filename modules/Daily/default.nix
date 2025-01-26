@@ -21,7 +21,7 @@
   };
   programs.lazygit.enable = true;
   nixpkgs.overlays = [
-    (self: super: {
+    (final: prev: {
       id-generator = pkgs.writeShellScriptBin "id-generator" ''
         sha512ID=$(echo -n $1 | sha512sum | head -zc 8)
         echo $1 >> ~/Documents/id-list.txt

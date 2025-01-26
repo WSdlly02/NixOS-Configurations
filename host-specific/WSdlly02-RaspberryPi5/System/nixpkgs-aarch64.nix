@@ -10,9 +10,9 @@
     };
     overlays = [
       # Very important!!! Don't delete!!!
-      (final: super: {
+      (final: prev: {
         makeModulesClosure = x:
-          super.makeModulesClosure (x // {allowMissing = true;});
+          prev.makeModulesClosure (x // {allowMissing = true;});
       })
       (final: prev: {
         linux_rpi5 = prev.linuxKernel.kernels.linux_rpi4.override {

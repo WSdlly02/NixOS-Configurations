@@ -10,9 +10,9 @@
   ];
 
   nixpkgs.overlays = [
-    (final: super: {
+    (final: prev: {
       makeModulesClosure = x:
-        super.makeModulesClosure (x // {allowMissing = true;});
+        prev.makeModulesClosure (x // {allowMissing = true;});
     })
   ];
 
