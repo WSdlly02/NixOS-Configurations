@@ -92,7 +92,7 @@ in {
       mihomo-party = prev.mihomo-party.overrideAttrs (finalAttrs: previousAttrs: {
         # preFixup = previousAttrs.preFixup + "--add-flags ...";
         preFixup =
-          if prev.mihomo-party.version == "1.5.2"
+          if prev.mihomo-party.version == "1.5.12"
           then ''
             mkdir $out/bin
             makeWrapper $out/mihomo-party/mihomo-party $out/bin/mihomo-party \
