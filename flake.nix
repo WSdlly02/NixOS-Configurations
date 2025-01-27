@@ -46,6 +46,15 @@
   } @ inputs: let
     forAllSystems = nixpkgs-unstable.lib.genAttrs ["x86_64-linux" "aarch64-linux"];
   in {
+    devShells = forAllSystems (system: let
+      pkgs = nixpkgs-unstable.legacyPackages.${system};
+    in {
+      # rocm-python312-env = pkgs.mkShell {packages = [];};
+      nixfmt = pkgs.callPackage ./pkgs/devShell-nixfmt.nix {};
+    });
+
+    formatter = forAllSystems (system: nixpkgs-unstable.legacyPackages.${system}.nixfmt-rfc-style);
+
     packages = forAllSystems (system: let
       pkgs = nixpkgs-unstable.legacyPackages.${system};
     in {
@@ -56,13 +65,6 @@
       # Local pkgs
       epson-inkjet-printer-201601w = pkgs.callPackage ./pkgs/epson-inkjet-printer-201601w.nix {}; # Do not work on aarch64
       python312FHSEnv = pkgs.callPackage ./pkgs/python312FHSEnv.nix {};
-    });
-
-    devShells = forAllSystems (system: let
-      pkgs = nixpkgs-unstable.legacyPackages.${system};
-    in {
-      # rocm-python312-env = pkgs.mkShell {packages = [];};
-      nixfmt = pkgs.callPackage ./pkgs/devShell-nixfmt.nix {};
     });
 
     nixosConfigurations = let

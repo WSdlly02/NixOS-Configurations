@@ -56,7 +56,6 @@ in {
         (obsidian.override wayland-enable)
         (qq.override wayland-enable)
         (vscode.override wayland-enable)
-        alejandra
         ddcutil # Required to control the brightness
         fastfetch
         fsearch

@@ -1,11 +1,11 @@
 {
   mkShell,
-  nixpkgs-fmt,
+  nixfmt-rfc-style,
   fish,
 }:
 mkShell {
   buildInputs = [
-    nixpkgs-fmt
+    nixfmt-rfc-style
   ];
   shellHook = ''
     fish

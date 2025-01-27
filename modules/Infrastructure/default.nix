@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ./avahi.nix
     ./bluetooth.nix
@@ -52,19 +53,19 @@
     dbus.implementation = "broker";
     journald = {
       storage = "auto";
-      extraConfig = let
-        systemLogsMaxUse =
-          if pkgs.system == "x86_64-linux"
-          then "512M"
-          else "256M";
-      in ''
-        Compress=true
-        SystemMaxUse=${systemLogsMaxUse}
-      '';
+      extraConfig =
+        let
+          systemLogsMaxUse = if pkgs.system == "x86_64-linux" then "512M" else "256M";
+        in
+        ''
+          Compress=true
+          SystemMaxUse=${systemLogsMaxUse}
+        '';
     };
   };
 
-  environment.defaultPackages = with pkgs;
+  environment.defaultPackages =
+    with pkgs;
     [
       # Drivers and detection tools
       aria2
@@ -76,6 +77,7 @@
       iperf
       lm_sensors
       lsof
+      nixfmt-rfc-style
       nix-output-monitor
       nix-tree
       nmap
