@@ -3,7 +3,8 @@
   lib,
   config,
   ...
-}: {
+}:
+{
   users.users.wsdlly02 = lib.mkIf (config.system.name != "Lily-PC") {
     isNormalUser = true;
     uid = 1000;

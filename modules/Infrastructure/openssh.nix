@@ -1,7 +1,8 @@
-{lib, ...}: {
+{ lib, ... }:
+{
   services.openssh = {
     enable = true;
-    ports = [10022];
+    ports = [ 10022 ];
     settings = {
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;

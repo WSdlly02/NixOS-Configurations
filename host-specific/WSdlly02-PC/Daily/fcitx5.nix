@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   i18n.inputMethod = {
     enable = true;
     type = "fcitx5";
@@ -10,7 +11,9 @@
         fcitx5-pinyin-minecraft
         fcitx5-gtk
       ];
-      settings.addons = {pinyin.globalSection.EmojiEnabled = "True";};
+      settings.addons = {
+        pinyin.globalSection.EmojiEnabled = "True";
+      };
     };
   };
 }

@@ -2,7 +2,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   boot = {
     loader = {
       systemd-boot = {
@@ -21,5 +22,5 @@
       pkiBundle = "/var/lib/sbctl/";
     };
   };
-  environment.systemPackages = [pkgs.sbctl];
+  environment.systemPackages = [ pkgs.sbctl ];
 }

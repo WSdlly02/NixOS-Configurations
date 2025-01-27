@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -23,7 +24,7 @@
           lazygit-nvim
         ];
         # manually loadable by calling `:packadd $plugin-name`
-        opt = [];
+        opt = [ ];
       };
     };
   };

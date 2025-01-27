@@ -2,9 +2,11 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   systemTags = lib.concatMapStringsSep " " (x: x) config.system.nixos.tags;
-in {
+in
+{
   services.getty = {
     greetingLine = ''
       ${config.system.name} (\m)

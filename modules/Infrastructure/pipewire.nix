@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -25,8 +26,14 @@
             "bluetooth.autoswitch-to-headset-profile" = false;
           };
           "monitor.bluez.properties" = {
-            "bluez5.roles" = ["a2dp_sink" "a2dp_source"];
-            "bluez5.auto-connect" = ["a2dp_sink" "a2dp_source"];
+            "bluez5.roles" = [
+              "a2dp_sink"
+              "a2dp_source"
+            ];
+            "bluez5.auto-connect" = [
+              "a2dp_sink"
+              "a2dp_source"
+            ];
             # LDAC encoding quality
             # Available values: auto (Adaptive Bitrate, default)
             #                   hq   (High Quality, 990/909kbps)
@@ -39,36 +46,36 @@
           };
         };
         /*
-        # https://wiki.archlinux.org/title/PipeWire#Noticeable_audio_delay_or_audible_pop/crack_when_starting_playback
-        "50-disable-suspension" = {
-          "monitor.alsa.rules" = [
-            {
-              "matches" = [
-                {"node.name" = "~alsa_input.*";}
-                {"node.name" = "~alsa_output.*";}
-              ];
-              "actions" = {
-                "update-props" = {
-                  "session.suspend-timeout-seconds" = 0;
+          # https://wiki.archlinux.org/title/PipeWire#Noticeable_audio_delay_or_audible_pop/crack_when_starting_playback
+          "50-disable-suspension" = {
+            "monitor.alsa.rules" = [
+              {
+                "matches" = [
+                  {"node.name" = "~alsa_input.*";}
+                  {"node.name" = "~alsa_output.*";}
+                ];
+                "actions" = {
+                  "update-props" = {
+                    "session.suspend-timeout-seconds" = 0;
+                  };
                 };
-              };
-            }
-          ];
-          # bluetooth devices
-          "monitor.bluez.rules" = [
-            {
-              "matches" = [
-                {"node.name" = "~bluez_input.*";}
-                {"node.name" = "~bluez_output.*";}
-              ];
-              "actions" = {
-                "update-props" = {
-                  "session.suspend-timeout-seconds" = 0;
+              }
+            ];
+            # bluetooth devices
+            "monitor.bluez.rules" = [
+              {
+                "matches" = [
+                  {"node.name" = "~bluez_input.*";}
+                  {"node.name" = "~bluez_output.*";}
+                ];
+                "actions" = {
+                  "update-props" = {
+                    "session.suspend-timeout-seconds" = 0;
+                  };
                 };
-              };
-            }
-          ];
-        };
+              }
+            ];
+          };
         */
       };
     };
@@ -82,9 +89,9 @@
   systemd.user.services = lib.mkIf (config.system.name == "WSdlly02-RaspberryPi5") {
     pipewire = {
       preStart = "${pkgs.networkmanager}/bin/nm-online -q"; # Fix up
-      wantedBy = ["default.target"];
+      wantedBy = [ "default.target" ];
     };
-    pipewire-pulse.wantedBy = ["default.target"];
-    wireplumber.wantedBy = ["default.target"];
+    pipewire-pulse.wantedBy = [ "default.target" ];
+    wireplumber.wantedBy = [ "default.target" ];
   };
 }

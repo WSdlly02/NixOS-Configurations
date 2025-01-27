@@ -2,13 +2,11 @@
   config,
   lib,
   ...
-}: {
+}:
+{
   nix = {
     settings = {
-      max-jobs =
-        if (config.system.name == "WSdlly02-PC")
-        then 64
-        else 32;
+      max-jobs = if (config.system.name == "WSdlly02-PC") then 64 else 32;
       substituters = lib.mkForce [
         "https://mirrors.ustc.edu.cn/nix-channels/store"
         "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
@@ -23,7 +21,7 @@
         "nix-command"
         "flakes"
       ];
-      extra-sandbox-paths = [config.programs.ccache.cacheDir];
+      extra-sandbox-paths = [ config.programs.ccache.cacheDir ];
     };
   };
 }

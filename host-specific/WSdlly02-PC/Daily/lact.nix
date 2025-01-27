@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   environment.etc.lact-config = {
     # source = (pkgs.formats.yaml {}).generate "lact-config" {}; Insolubility encountered
     text = ''
@@ -42,13 +43,13 @@
   systemd.services.lactd = {
     unitConfig = {
       Description = "AMDGPU Control Daemon";
-      After = ["multi-user.target"];
+      After = [ "multi-user.target" ];
     };
     serviceConfig = {
       ExecStart = "${pkgs.lact}/bin/lact daemon";
       Nice = -10;
       Restart = "on-failure";
     };
-    wantedBy = ["multi-user.target"];
+    wantedBy = [ "multi-user.target" ];
   };
 }

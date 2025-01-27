@@ -2,11 +2,16 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-  [ # Hardware and drivers configuration
+  imports = [
+    # Hardware and drivers configuration
     ./Hardware/hardware-configuration.nix
     ./Hardware/printer.nix
     # Basic programs configuration
@@ -25,7 +30,7 @@
     ./Programs/Basic/sudo.nix
     ./Programs/Basic/sysctl.nix
     ./Programs/Basic/tmux.nix
-    
+
     # Daily programs configuration
     ./Programs/Daily/daily.nix
     ##./Programs/Daily/syncthing.nix
@@ -72,15 +77,14 @@
 
   # Select internationalisation properties.
   #console = {
-     #font = "Lat2-Terminus16";
-     #keyMap = "us";
-     #useXkbConfig = true; # use xkb.options in tty.
+  #font = "Lat2-Terminus16";
+  #keyMap = "us";
+  #useXkbConfig = true; # use xkb.options in tty.
   #};
 
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
   # services.xserver.videoDrivers = [ "amdgpu" ];
-
 
   # Enable the Plasma 6 Desktop Environment.
   #services.xserver = {
@@ -178,7 +182,7 @@
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   nix = {
-    settings= {
+    settings = {
       max-jobs = 64;
       substituters = lib.mkForce [
         "https://mirrors.ustc.edu.cn/nix-channels/store"
@@ -197,4 +201,3 @@
   system.stateVersion = "24.05"; # Did you read the comment?
 
 }
-

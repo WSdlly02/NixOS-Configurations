@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   # check every 60 seconds if the server
   # need to be stopped
   frequency-check-players = "60s";
@@ -28,35 +29,32 @@
   # a script used by hook-minecraft.service
   # to start minecraft and the timer regularly
   # polling for stopping it
-  start-mc =
-    pkgs.writeShellScriptBin "start-mc"
-    ''
-      systemctl start minecraft-server.service
-      systemctl start stop-minecraft.timer
-      sleep 5s
-      systemctl start stop-minecraft.service
-    '';
+  start-mc = pkgs.writeShellScriptBin "start-mc" ''
+    systemctl start minecraft-server.service
+    systemctl start stop-minecraft.timer
+    sleep 5s
+    systemctl start stop-minecraft.service
+  '';
 
   # wait 60s for a TCP socket to be available
   # to wait in the proxifier
   # idea found in https://blog.developer.atlassian.com/docker-systemd-socket-activation/
-  wait-tcp =
-    pkgs.writeShellScriptBin "wait-tcp"
-    ''
-      for i in `seq 60`; do
-        if ${pkgs.libressl.nc}/bin/nc -z 127.0.0.1 ${toString minecraft-port} > /dev/null ; then
-          exit 0
-        fi
-        ${pkgs.busybox.out}/bin/sleep 1
-      done
-      exit 1
-    '';
-in {
+  wait-tcp = pkgs.writeShellScriptBin "wait-tcp" ''
+    for i in `seq 60`; do
+      if ${pkgs.libressl.nc}/bin/nc -z 127.0.0.1 ${toString minecraft-port} > /dev/null ; then
+        exit 0
+      fi
+      ${pkgs.busybox.out}/bin/sleep 1
+    done
+    exit 1
+  '';
+in
+{
   # use NixOS module to declare your Minecraft
   # rcon is mandatory for no-player-connected
   services.minecraft-server = {
     enable = true;
-    package = pkgs.callPackage ../../Packages/fabric-survivals.nix {};
+    package = pkgs.callPackage ../../Packages/fabric-survivals.nix { };
     jvmOpts = "-server -Xmx3072M -Xms3072M -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+UseNUMA -XX:NmethodSweepActivity=1 -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:-DontCompileHugeMethods -XX:MaxNodeLimit=240000 -XX:NodeLimitFudgeFactor=8000 -XX:+UseVectorCmov -XX:+PerfDisableSharedMem -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority -XX:ThreadPriorityPolicy=1 -XX:AllocatePrefetchStyle=3  -XX:+UseG1GC -XX:MaxGCPauseMillis=37 -XX:+PerfDisableSharedMem -XX:G1HeapRegionSize=16M -XX:G1NewSizePercent=23 -XX:G1ReservePercent=20 -XX:SurvivorRatio=32 -XX:G1MixedGCCountTarget=3 -XX:G1HeapWastePercent=20 -XX:InitiatingHeapOccupancyPercent=10 -XX:G1RSetUpdatingPauseTimePercent=0 -XX:MaxTenuringThreshold=1 -XX:G1SATBBufferEnqueueingThresholdPercent=30 -XX:G1ConcMarkStepDurationMillis=5.0 -XX:G1ConcRSHotCardLimit=16 -XX:G1ConcRefinementServiceIntervalMillis=150 -XX:GCTimeRatio=99 -XX:+UseLargePages -XX:LargePageSizeInBytes=2m";
     declarative = true;
     dataDir = "/srv/fabric-survival";
@@ -131,26 +129,32 @@ in {
 
   # don't start Minecraft on startup
   systemd.services.minecraft-server = {
-    wantedBy = lib.mkForce [];
+    wantedBy = lib.mkForce [ ];
   };
 
   # this waits for incoming connection on public-port
   # and triggers listen-minecraft.service upon connection
   systemd.sockets.listen-minecraft = {
     enable = true;
-    wantedBy = ["sockets.target"];
-    requires = ["network.target"];
-    listenStreams = ["${toString public-port}"];
+    wantedBy = [ "sockets.target" ];
+    requires = [ "network.target" ];
+    listenStreams = [ "${toString public-port}" ];
   };
 
   # this is triggered by a connection on TCP port public-port
   # start hook-minecraft if not running yet and wait for it to return
   # then, proxify the TCP connection to the real Minecraft port on localhost
   systemd.services.listen-minecraft = {
-    path = with pkgs; [systemd];
+    path = with pkgs; [ systemd ];
     enable = true;
-    requires = ["hook-minecraft.service" "listen-minecraft.socket"];
-    after = ["hook-minecraft.service" "listen-minecraft.socket"];
+    requires = [
+      "hook-minecraft.service"
+      "listen-minecraft.socket"
+    ];
+    after = [
+      "hook-minecraft.service"
+      "listen-minecraft.socket"
+    ];
     serviceConfig.ExecStart = "${pkgs.systemd}/lib/systemd/systemd-socket-proxyd 127.0.0.1:${toString minecraft-port}";
   };
 
@@ -158,7 +162,11 @@ in {
   # and wait for it to be available over TCP
   # to unlock listen-minecraft.service proxy
   systemd.services.hook-minecraft = {
-    path = with pkgs; [systemd libressl busybox];
+    path = with pkgs; [
+      systemd
+      libressl
+      busybox
+    ];
     enable = true;
     serviceConfig = {
       ExecStartPost = "${wait-tcp}/bin/wait-tcp";
@@ -175,7 +183,7 @@ in {
       OnUnitActiveSec = "${frequency-check-players}";
       Unit = "stop-minecraft.service";
     };
-    wantedBy = ["timers.target"];
+    wantedBy = [ "timers.target" ];
   };
 
   # run the script no-player-connected

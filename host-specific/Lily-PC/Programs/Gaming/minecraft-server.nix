@@ -1,4 +1,11 @@
-{ callPackage, config, lib, pkgs, modulesPath, ... }:
+{
+  callPackage,
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 let
 
   # check every 60 seconds if the server
@@ -29,8 +36,7 @@ let
   # a script used by hook-minecraft.service
   # to start minecraft and the timer regularly
   # polling for stopping it
-  start-mc = pkgs.writeShellScriptBin "start-mc"
-  ''
+  start-mc = pkgs.writeShellScriptBin "start-mc" ''
     systemctl start minecraft-server.service
     systemctl start stop-minecraft.timer
     sleep 5s
@@ -40,8 +46,7 @@ let
   # wait 60s for a TCP socket to be available
   # to wait in the proxifier
   # idea found in https://blog.developer.atlassian.com/docker-systemd-socket-activation/
-  wait-tcp = pkgs.writeShellScriptBin "wait-tcp"
-  ''
+  wait-tcp = pkgs.writeShellScriptBin "wait-tcp" ''
     for i in `seq 60`; do
       if ${pkgs.libressl.nc}/bin/nc -z 127.0.0.1 ${toString minecraft-port} > /dev/null ; then
         exit 0
@@ -105,7 +110,7 @@ in
       rate-limit = 0;
       "rcon.password" = rcon-password;
       "rcon.port" = 22024;
-      require-resource-pack=false;
+      require-resource-pack = false;
       ##resource-pack = ;
       ##resource-pack-prompt = ;
       ##resource-pack-sha1=;
@@ -132,7 +137,7 @@ in
 
   # don't start Minecraft on startup
   systemd.services.minecraft-server = {
-      wantedBy = pkgs.lib.mkForce [];
+    wantedBy = pkgs.lib.mkForce [ ];
   };
 
   # this waits for incoming connection on public-port
@@ -150,8 +155,14 @@ in
   systemd.services.listen-minecraft = {
     path = with pkgs; [ systemd ];
     enable = true;
-    requires = [ "hook-minecraft.service" "listen-minecraft.socket" ];
-    after =    [ "hook-minecraft.service" "listen-minecraft.socket"];
+    requires = [
+      "hook-minecraft.service"
+      "listen-minecraft.socket"
+    ];
+    after = [
+      "hook-minecraft.service"
+      "listen-minecraft.socket"
+    ];
     serviceConfig.ExecStart = "${pkgs.systemd.out}/lib/systemd/systemd-socket-proxyd 127.0.0.1:${toString minecraft-port}";
   };
 
@@ -159,11 +170,15 @@ in
   # and wait for it to be available over TCP
   # to unlock listen-minecraft.service proxy
   systemd.services.hook-minecraft = {
-    path = with pkgs; [ systemd libressl busybox ];
+    path = with pkgs; [
+      systemd
+      libressl
+      busybox
+    ];
     enable = true;
     serviceConfig = {
-        ExecStartPost = "${wait-tcp.out}/bin/wait-tcp";
-        ExecStart     = "${start-mc.out}/bin/start-mc";
+      ExecStartPost = "${wait-tcp.out}/bin/wait-tcp";
+      ExecStart = "${start-mc.out}/bin/start-mc";
     };
   };
 
@@ -187,8 +202,7 @@ in
   systemd.services.stop-minecraft = {
     enable = true;
     serviceConfig.Type = "oneshot";
-    script =
-    ''
+    script = ''
       currentTime=$(echo $(date "+%Y-%m-%d-%H:%M:%S"))
       currentPlayers=$(${pkgs.iproute2.out}/bin/ss -a | grep 12024 | grep  -o ESTAB | xargs)
       if [ -z $currentPlayers ];

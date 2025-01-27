@@ -2,20 +2,19 @@
   config,
   lib,
   ...
-}: {
+}:
+{
   networking = {
     hostName = config.system.name;
     nftables.enable = lib.mkDefault false;
     tempAddresses = "disabled";
     firewall = {
       enable = true;
-      allowedTCPPorts =
-        [
-          7890 # Mihomo
-          12024 # Mincraft Server
-          22000 # Syncthing
-        ]
-        ++ lib.optionals (config.system.name == "WSdlly02-RaspberryPi5") [8384];
+      allowedTCPPorts = [
+        7890 # Mihomo
+        12024 # Mincraft Server
+        22000 # Syncthing
+      ] ++ lib.optionals (config.system.name == "WSdlly02-RaspberryPi5") [ 8384 ];
       allowedTCPPortRanges =
         [
         ]
@@ -26,7 +25,10 @@
             # ROC Source & Repair & Control ports
           }
         ];
-      allowedUDPPorts = config.networking.firewall.allowedTCPPorts ++ [21027 22000];
+      allowedUDPPorts = config.networking.firewall.allowedTCPPorts ++ [
+        21027
+        22000
+      ];
       allowedUDPPortRanges = config.networking.firewall.allowedTCPPortRanges;
     };
     timeServers = [
@@ -34,10 +36,10 @@
       "cn.ntp.org.cn"
     ];
     /*
-    proxy = {
-      default = "http://127.0.0.1:7890/";
-      noProxy = "127.0.0.1,localhost,internal.domain";
-    };
+      proxy = {
+        default = "http://127.0.0.1:7890/";
+        noProxy = "127.0.0.1,localhost,internal.domain";
+      };
     */
   };
   services = {

@@ -2,7 +2,8 @@
   config,
   lib,
   ...
-}: {
+}:
+{
   networking.networkmanager = {
     enable = true;
     dns = "systemd-resolved";
@@ -11,7 +12,7 @@
       macAddress = "stable-ssid";
       powersave = lib.mkIf (config.system.name != "WSdlly02-PC") false;
     };
-    plugins = lib.mkForce [];
+    plugins = lib.mkForce [ ];
     # rc-manager has been set as unmanaged
   };
 }

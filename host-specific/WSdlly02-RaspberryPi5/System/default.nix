@@ -4,7 +4,8 @@
   pkgs,
   modulesPath,
   ...
-}: {
+}:
+{
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     ./nixpkgs-aarch64.nix
@@ -12,10 +13,13 @@
 
   boot = {
     initrd = {
-      supportedFilesystems = ["vfat" "btrfs"];
-      availableKernelModules = [];
+      supportedFilesystems = [
+        "vfat"
+        "btrfs"
+      ];
+      availableKernelModules = [ ];
       # verbose = false;
-      kernelModules = [];
+      kernelModules = [ ];
       systemd.enable = true; # Hibernate Required
     };
     loader.systemd-boot.enable = true;
@@ -23,11 +27,11 @@
     # consoleLogLevel = 3;
     kernelPackages = pkgs.linuxKernel.packagesFor pkgs.linux_rpi5;
     /*
-    kernelPackages = pkgs.linuxKernel.packagesFor (pkgs.linuxKernel.kernels.linux_rpi4.override {
-      rpiVersion = 5;
-      argsOverride.defconfig = "bcm2712_defconfig";
-    });
-    # Already defined in the nixos-hardware.nixosModules.raspberry-pi-5
+      kernelPackages = pkgs.linuxKernel.packagesFor (pkgs.linuxKernel.kernels.linux_rpi4.override {
+        rpiVersion = 5;
+        argsOverride.defconfig = "bcm2712_defconfig";
+      });
+      # Already defined in the nixos-hardware.nixosModules.raspberry-pi-5
     */
     kernelParams = [
       # "quiet"
@@ -42,43 +46,94 @@
     "/" = {
       device = "/dev/disk/by-uuid/2d53c0bf-e6c5-4ce5-af12-472c04d1b827";
       fsType = "btrfs";
-      options = ["rw" "relatime" "ssd" "discard=async" "space_cache=v2" "subvol=@"];
+      options = [
+        "rw"
+        "relatime"
+        "ssd"
+        "discard=async"
+        "space_cache=v2"
+        "subvol=@"
+      ];
     };
 
     "/home" = {
       device = "/dev/disk/by-uuid/2d53c0bf-e6c5-4ce5-af12-472c04d1b827";
       fsType = "btrfs";
-      options = ["rw" "relatime" "ssd" "discard=async" "space_cache=v2" "subvol=@home"];
+      options = [
+        "rw"
+        "relatime"
+        "ssd"
+        "discard=async"
+        "space_cache=v2"
+        "subvol=@home"
+      ];
     };
 
     "/nix" = {
       device = "/dev/disk/by-uuid/2d53c0bf-e6c5-4ce5-af12-472c04d1b827";
       fsType = "btrfs";
-      options = ["rw" "relatime" "ssd" "discard=async" "space_cache=v2" "subvol=@nix"];
+      options = [
+        "rw"
+        "relatime"
+        "ssd"
+        "discard=async"
+        "space_cache=v2"
+        "subvol=@nix"
+      ];
     };
 
     "/var/cache" = {
       device = "/dev/disk/by-uuid/2d53c0bf-e6c5-4ce5-af12-472c04d1b827";
       fsType = "btrfs";
-      options = ["rw" "relatime" "ssd" "discard=async" "space_cache=v2" "subvol=@var-cache"];
+      options = [
+        "rw"
+        "relatime"
+        "ssd"
+        "discard=async"
+        "space_cache=v2"
+        "subvol=@var-cache"
+      ];
     };
 
     "/var/log" = {
       device = "/dev/disk/by-uuid/2d53c0bf-e6c5-4ce5-af12-472c04d1b827";
       fsType = "btrfs";
-      options = ["rw" "relatime" "ssd" "discard=async" "space_cache=v2" "subvol=@var-log"];
+      options = [
+        "rw"
+        "relatime"
+        "ssd"
+        "discard=async"
+        "space_cache=v2"
+        "subvol=@var-log"
+      ];
     };
 
     "/var/tmp" = {
       device = "/dev/disk/by-uuid/2d53c0bf-e6c5-4ce5-af12-472c04d1b827";
       fsType = "btrfs";
-      options = ["rw" "relatime" "ssd" "discard=async" "space_cache=v2" "subvol=@var-tmp"];
+      options = [
+        "rw"
+        "relatime"
+        "ssd"
+        "discard=async"
+        "space_cache=v2"
+        "subvol=@var-tmp"
+      ];
     };
 
     "/boot" = {
       device = "/dev/disk/by-uuid/12CE-A600";
       fsType = "vfat";
-      options = ["rw" "relatime" "fmask=0077" "dmask=0077" "codepage=437" "iocharset=iso8859-1" "shortname=mixed" "errors=remount-ro"];
+      options = [
+        "rw"
+        "relatime"
+        "fmask=0077"
+        "dmask=0077"
+        "codepage=437"
+        "iocharset=iso8859-1"
+        "shortname=mixed"
+        "errors=remount-ro"
+      ];
     };
   };
 
