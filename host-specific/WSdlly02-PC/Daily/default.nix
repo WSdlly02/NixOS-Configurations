@@ -100,7 +100,7 @@ in
         finalAttrs: previousAttrs: {
           # preFixup = previousAttrs.preFixup + "--add-flags ...";
           preFixup =
-            if prev.mihomo-party.version == "1.5.12" then
+            if previousAttrs.version == "1.5.12" then
               ''
                 mkdir $out/bin
                 makeWrapper $out/mihomo-party/mihomo-party $out/bin/mihomo-party \

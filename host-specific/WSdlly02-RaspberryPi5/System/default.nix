@@ -22,8 +22,14 @@
       kernelModules = [ ];
       systemd.enable = true; # Hibernate Required
     };
-    loader.systemd-boot.enable = true;
-    loader.efi.canTouchEfiVariables = lib.mkForce false;
+    loader = {
+      efi.canTouchEfiVariables = lib.mkForce false;
+      timeout = 3;
+      systemd-boot = {
+        enable = true;
+        consoleMode = "auto";
+      };
+    };
     # consoleLogLevel = 3;
     kernelPackages = pkgs.linuxKernel.packagesFor pkgs.linux_rpi5;
     /*
@@ -41,6 +47,11 @@
       "console=ttyAMA10,9600"
       "console=tty0"
     ];
+    tmp = {
+      useTmpfs = true;
+      tmpfsSize = "100%";
+      cleanOnBoot = true;
+    };
   };
   fileSystems = {
     "/" = {

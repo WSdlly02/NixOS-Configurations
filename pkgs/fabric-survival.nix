@@ -17,6 +17,7 @@ stdenv.mkDerivation {
   };
 
   preferLocalBuild = true;
+  allowSubstitutes = false;
 
   installPhase = ''
     mkdir -p $out/bin $out/lib/minecraft

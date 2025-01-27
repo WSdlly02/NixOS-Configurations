@@ -22,6 +22,9 @@ stdenv.mkDerivation {
     sha256 = "sha256-BI1y3U3EvVqqFfQ7YnQxiuIby6GJ5B0TCC2jQH1Uos0=";
   };
 
+  preferLocalBuild = true;
+  allowSubstitutes = false;
+
   nativeBuildInputs = [
     rpmextract
     autoreconfHook
