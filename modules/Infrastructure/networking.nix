@@ -46,6 +46,7 @@
     timesyncd.servers = config.networking.timeServers;
     resolved = {
       enable = true; # which will disable resolvconf
+      domains = [ "~." ];
       fallbackDns = [
         "223.5.5.5"
         "119.29.29.29"
@@ -53,7 +54,10 @@
         "9.9.9.9"
       ];
       extraConfig = ''
-        MulticastDNS=no
+        Cache=yes
+        CacheFromLocalhost=no
+        ReadEtcHosts=yes
+        MulticastDNS=false
       '';
     };
   };

@@ -19,7 +19,7 @@
         else if config.system.name == "Lily-PC" then
           "192.168.71.64"
         else
-          "";
+          "127.0.0.1";
       port = 7890;
     };
   };

@@ -28,7 +28,7 @@
         echo $sha512ID >> ~/Documents/id-list.txt
         echo $sha512ID
       '';
+      # It shouldn't be a global package
     })
   ];
-  # It shouldn't be a global package
 }
