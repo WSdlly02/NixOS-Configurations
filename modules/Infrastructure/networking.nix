@@ -26,7 +26,7 @@
           }
         ];
       allowedUDPPorts = config.networking.firewall.allowedTCPPorts ++ [
-        21027
+        21027 # Syncthing
         22000
       ];
       allowedUDPPortRanges = config.networking.firewall.allowedTCPPortRanges;

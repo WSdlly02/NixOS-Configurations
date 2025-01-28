@@ -4,7 +4,7 @@
   ...
 }:
 let
-  systemTags = lib.concatMapStringsSep "\ " (x: x) config.system.nixos.tags;
+  systemTags = lib.concatMapStringsSep " " (x: x) config.system.nixos.tags;
 in
 {
   services.getty = {
