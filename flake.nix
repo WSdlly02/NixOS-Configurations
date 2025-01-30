@@ -47,6 +47,7 @@
     }@inputs:
     let
       forAllSystems = nixpkgs-unstable.lib.genAttrs [
+        # Currently supported systems
         "x86_64-linux"
         "aarch64-linux"
       ];
@@ -69,15 +70,14 @@
         system:
         let
           pkgs = nixpkgs-unstable.legacyPackages.${system};
+          inherit (pkgs) callPackage;
         in
         {
           # WSdlly02's Codes Library
-          inC = my-codes.packages.${system}.inC;
-          inPython = my-codes.packages.${system}.inPython;
-          inRust = { };
+          my-codes = my-codes.packages.${system};
           # Local pkgs
-          epson-inkjet-printer-201601w = pkgs.callPackage ./pkgs/epson-inkjet-printer-201601w.nix { }; # Do not work on aarch64
-          python312FHSEnv = pkgs.callPackage ./pkgs/python312FHSEnv.nix { };
+          epson-inkjet-printer-201601w = callPackage ./pkgs/epson-inkjet-printer-201601w.nix { }; # Not work on aarch64
+          python312FHSEnv = callPackage ./pkgs/python312FHSEnv.nix { };
         }
       );
 
