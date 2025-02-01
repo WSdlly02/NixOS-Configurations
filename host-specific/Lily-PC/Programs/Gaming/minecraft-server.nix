@@ -203,7 +203,7 @@ in
     enable = true;
     serviceConfig.Type = "oneshot";
     script = ''
-      currentTime=$(echo $(date "+%Y-%m-%d-%H:%M:%S"))
+      currentTime=$(date "+%Y-%m-%d-%H:%M:%S")
       currentPlayers=$(${pkgs.iproute2.out}/bin/ss -a | grep 12024 | grep  -o ESTAB | xargs)
       if [ -z $currentPlayers ];
       then
@@ -225,6 +225,7 @@ in
         ls -t | sed -n '6,$p' | xargs -I {} ${pkgs.btrfs-progs.out}/bin/btrfs subvolume delete {}
       fi
     '';
+    # !!! recommend to rewrite it with pkgs.runCommandLocal
   };
 
 }

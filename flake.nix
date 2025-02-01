@@ -48,7 +48,13 @@
           inherit (pkgs) callPackage mkShell;
         in
         {
-          # rocm-python312-env = mkShell {packages = [];};
+          # rocm-python312-env = mkShell {
+          #   packages = with pkgs; [
+          #   ];
+          #   shellHook = ''
+          #     #
+          #   '';
+          # };
           nixfmt = callPackage ./pkgs/devShell-nixfmt.nix { };
         }
       );
