@@ -45,10 +45,11 @@
         system:
         let
           pkgs = nixpkgs-unstable.legacyPackages.${system};
+          inherit (pkgs) callPackage mkShell;
         in
         {
-          # rocm-python312-env = pkgs.mkShell {packages = [];};
-          nixfmt = pkgs.callPackage ./pkgs/devShell-nixfmt.nix { };
+          # rocm-python312-env = mkShell {packages = [];};
+          nixfmt = callPackage ./pkgs/devShell-nixfmt.nix { };
         }
       );
 
@@ -64,64 +65,61 @@
           # WSdlly02's Codes Library
           my-codes = my-codes.packages.${system};
           # Local pkgs
-          epson-inkjet-printer-201601w = callPackage ./pkgs/epson-inkjet-printer-201601w.nix { }; # Not work on aarch64
-          python312FHSEnv = callPackage ./pkgs/python312FHSEnv.nix { };
+          epson-inkjet-printer-201601w = callPackage ./pkgs/epson-inkjet-printer-201601w.nix { };
+          python312Env = callPackage ./pkgs/python312Env.nix { };
+          python312FHSEnv = callPackage ./pkgs/python312FHSEnv.nix { inherit inputs; }; # depends on python312Env
         }
       );
 
-      nixosConfigurations =
-        let
+      nixosConfigurations = {
+        "WSdlly02-PC" = nixpkgs-unstable.lib.nixosSystem {
           specialArgs = { inherit inputs; };
-        in
-        {
-          "WSdlly02-PC" = nixpkgs-unstable.lib.nixosSystem {
-            inherit specialArgs;
-            system = "x86_64-linux";
-            modules = [
-              home-manager.nixosModules.home-manager
-              lanzaboote.nixosModules.lanzaboote
-              nix-minecraft.nixosModules.minecraft-servers
-              # TODO: nix-minecraft libvirt
-              ./host-specific/WSdlly02-PC/Daily
-              ./host-specific/WSdlly02-PC/Gaming
-              ./host-specific/WSdlly02-PC/System
-              ./modules/Infrastructure
-              ./modules/Daily
-              ./modules/Development
-            ];
-          };
-          "WSdlly02-RaspberryPi5" = nixpkgs-unstable.lib.nixosSystem {
-            inherit specialArgs;
-            system = "aarch64-linux";
-            modules = [
-              home-manager.nixosModules.home-manager
-              nixos-hardware.nixosModules.raspberry-pi-5
-              nix-minecraft.nixosModules.minecraft-servers
-              ./host-specific/WSdlly02-RaspberryPi5/Daily
-              ./host-specific/WSdlly02-RaspberryPi5/Gaming
-              ./host-specific/WSdlly02-RaspberryPi5/System
-              ./modules/Daily
-              ./modules/Development
-              ./modules/Infrastructure
-            ];
-          };
-          "Lily-PC" = nixpkgs-unstable.lib.nixosSystem {
-            inherit specialArgs;
-            system = "x86_64-linux";
-            modules = [
-              { system.name = "Lily-PC"; }
-              ./modules/Daily
-              ##./modules/Development # Not required
-              ./modules/Infrastructure
-            ];
-          };
-          "WSdlly02-LT-WSL" = nixpkgs-unstable.lib.nixosSystem {
-            inherit specialArgs;
-            system = "x86_64-linux";
-            modules = [
-              # TBD
-            ];
-          };
+          system = "x86_64-linux";
+          modules = [
+            home-manager.nixosModules.home-manager
+            lanzaboote.nixosModules.lanzaboote
+            nix-minecraft.nixosModules.minecraft-servers
+            # TODO: nix-minecraft libvirt
+            ./host-specific/WSdlly02-PC/Daily
+            ./host-specific/WSdlly02-PC/Gaming
+            ./host-specific/WSdlly02-PC/System
+            ./modules/Infrastructure
+            ./modules/Daily
+            ./modules/Development
+          ];
         };
+        "WSdlly02-RaspberryPi5" = nixpkgs-unstable.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          system = "aarch64-linux";
+          modules = [
+            home-manager.nixosModules.home-manager
+            nixos-hardware.nixosModules.raspberry-pi-5
+            nix-minecraft.nixosModules.minecraft-servers
+            ./host-specific/WSdlly02-RaspberryPi5/Daily
+            ./host-specific/WSdlly02-RaspberryPi5/Gaming
+            ./host-specific/WSdlly02-RaspberryPi5/System
+            ./modules/Daily
+            ./modules/Development
+            ./modules/Infrastructure
+          ];
+        };
+        "Lily-PC" = nixpkgs-unstable.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          system = "x86_64-linux";
+          modules = [
+            { system.name = "Lily-PC"; }
+            ./modules/Daily
+            ##./modules/Development # Not required
+            ./modules/Infrastructure
+          ];
+        };
+        "WSdlly02-LT-WSL" = nixpkgs-unstable.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          system = "x86_64-linux";
+          modules = [
+            # TBD
+          ];
+        };
+      };
     };
 }
