@@ -101,7 +101,7 @@
               ./host-specific/WSdlly02-RaspberryPi5/Gaming
               ./host-specific/WSdlly02-RaspberryPi5/System
               ./modules/Daily
-              ##./modules/Development # Not required
+              ./modules/Development
               ./modules/Infrastructure
             ];
           };

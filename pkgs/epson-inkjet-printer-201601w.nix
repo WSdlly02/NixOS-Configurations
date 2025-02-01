@@ -79,7 +79,10 @@ stdenv.mkDerivation {
         };
     '';
     license = with licenses; [ lgpl21 ];
-    maintainers = [ maintainers.romildo ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [ ];
+    platforms = [
+      "aarch64-linux"
+      "x86_64-linux"
+    ];
   };
 }

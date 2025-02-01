@@ -22,6 +22,9 @@ stdenv.mkDerivation {
     sha256 = "sha256-BI1y3U3EvVqqFfQ7YnQxiuIby6GJ5B0TCC2jQH1Uos0=";
   };
 
+  preferLocalBuild = true;
+  allowSubstitutes = false;
+
   nativeBuildInputs = [
     rpmextract
     autoreconfHook
@@ -75,11 +78,11 @@ stdenv.mkDerivation {
           drivers = [ pkgs.epson-inkjet-printer-201601w ];
         };
     '';
-    license = with licenses; [
-      lgpl21
-      epson
+    license = with licenses; [ lgpl21 ];
+    maintainers = [ ];
+    platforms = [
+      "aarch64-linux"
+      "x86_64-linux"
     ];
-    maintainers = [ maintainers.romildo ];
-    platforms = [ "x86_64-linux" ];
   };
 }
