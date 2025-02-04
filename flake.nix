@@ -72,8 +72,9 @@
           my-codes = my-codes.packages.${system};
           # Local pkgs
           epson-inkjet-printer-201601w = callPackage ./pkgs/epson-inkjet-printer-201601w.nix { };
-          python312Env = callPackage ./pkgs/python312Env.nix { };
-          python312FHSEnv = callPackage ./pkgs/python312FHSEnv.nix { inherit inputs; }; # depends on python312Env
+          fabric-survival = callPackage ./pkgs/fabric-survival.nix { };
+          ##python312Env = callPackage ./pkgs/python312Env.nix { }; Already defined
+          ##python312FHSEnv = callPackage ./pkgs/python312FHSEnv.nix { inherit inputs; }; # depends on python312Env
         }
       );
 
