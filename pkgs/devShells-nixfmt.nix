@@ -1,7 +1,7 @@
 {
+  fish,
   mkShell,
   nixfmt-rfc-style,
-  fish,
 }:
 mkShell {
   buildInputs = [

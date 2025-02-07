@@ -48,13 +48,7 @@
           inherit (pkgs) callPackage mkShell;
         in
         {
-          # rocm-python312-env = mkShell {
-          #   packages = with pkgs; [
-          #   ];
-          #   shellHook = ''
-          #     #
-          #   '';
-          # };
+          my-codes-devShells = my-codes.devShells.${system};
           nixfmt = callPackage ./pkgs/devShell-nixfmt.nix { };
         }
       );
@@ -69,12 +63,10 @@
         in
         {
           # WSdlly02's Codes Library
-          my-codes = my-codes.packages.${system};
+          my-codes-packages = my-codes.packages.${system};
           # Local pkgs
           epson-inkjet-printer-201601w = callPackage ./pkgs/epson-inkjet-printer-201601w.nix { };
           fabric-survival = callPackage ./pkgs/fabric-survival.nix { };
-          ##python312Env = callPackage ./pkgs/python312Env.nix { }; Already defined
-          ##python312FHSEnv = callPackage ./pkgs/python312FHSEnv.nix { inherit inputs; }; # depends on python312Env
         }
       );
 

@@ -55,7 +55,7 @@
       storage = "auto";
       extraConfig =
         let
-          systemLogsMaxUse = if pkgs.system == "x86_64-linux" then "512M" else "256M";
+          systemLogsMaxUse = if (pkgs.system == "x86_64-linux") then "512M" else "256M";
         in
         ''
           Compress=true
