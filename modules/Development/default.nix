@@ -22,7 +22,7 @@
       # Other pkgs
     ];
     variables = {
-      RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
+      RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
     };
   };
 }

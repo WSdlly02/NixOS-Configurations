@@ -47,11 +47,7 @@
       "console=ttyAMA10,9600"
       "console=tty0"
     ];
-    tmp = {
-      useTmpfs = true;
-      tmpfsSize = "100%";
-      cleanOnBoot = true;
-    };
+    # tmp.useTmpfs = true; # out of memory when compiling big derivations
   };
   fileSystems = {
     "/" = {
