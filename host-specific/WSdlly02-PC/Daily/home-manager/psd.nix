@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   ...
 }:
@@ -9,21 +10,29 @@
       envPath = lib.makeBinPath (
         with pkgs;
         [
+          coreutils-full
+          gawk
           glib
           gnugrep
           gnused
-          coreutils-full
+          kmod
+          nettools
           procps
+          profile-sync-daemon
+          rsync
           systemd
+          util-linux
         ]
       );
     in
     {
-      psd.Service.Environment = [
-        "PATH=$PATH:${envPath}"
+      psd.Service.Environment = lib.mkForce [
+        "LAUNCHED_BY_SYSTEMD=1"
+        "PATH=${envPath}"
       ];
-      psd-resync.Service.Environment = [
-        "PATH=$PATH:${envPath}"
+      psd-resync.Service.Environment = lib.mkForce [
+        "LAUNCHED_BY_SYSTEMD=1"
+        "PATH=${envPath}"
       ];
     };
 }
