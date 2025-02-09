@@ -12,10 +12,6 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    nix-minecraft = {
-      url = "github:Infinidoge/nix-minecraft/master";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
     my-codes = {
       url = "github:WSdlly02/my-codes/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -30,7 +26,6 @@
       home-manager,
       lanzaboote,
       nixos-hardware,
-      nix-minecraft,
       my-codes,
     }@inputs:
     let
@@ -77,8 +72,7 @@
           modules = [
             home-manager.nixosModules.home-manager
             lanzaboote.nixosModules.lanzaboote
-            nix-minecraft.nixosModules.minecraft-servers
-            # TODO: nix-minecraft libvirt
+            # TODO: libvirt
             ./host-specific/WSdlly02-PC/Daily
             ./host-specific/WSdlly02-PC/Gaming
             ./host-specific/WSdlly02-PC/System
@@ -93,7 +87,6 @@
           modules = [
             home-manager.nixosModules.home-manager
             nixos-hardware.nixosModules.raspberry-pi-5
-            nix-minecraft.nixosModules.minecraft-servers
             ./host-specific/WSdlly02-RaspberryPi5/Daily
             ./host-specific/WSdlly02-RaspberryPi5/Gaming
             ./host-specific/WSdlly02-RaspberryPi5/System

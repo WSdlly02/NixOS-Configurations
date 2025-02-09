@@ -96,6 +96,7 @@
       lact # AMDGPU Fan Control
       libva-utils
       ntfs3g
+      rar # ark required
       vdpauinfo
       vulkan-tools
     ]
