@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs-unstable";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -23,49 +27,15 @@
     {
       self,
       nixpkgs-unstable,
+      flake-parts,
       home-manager,
       lanzaboote,
       nixos-hardware,
       my-codes,
     }@inputs:
-    let
-      forAllSystems = nixpkgs-unstable.lib.genAttrs [
-        # Currently supported systems
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
-    in
-    {
-      devShells = forAllSystems (
-        system:
-        let
-          pkgs = nixpkgs-unstable.legacyPackages.${system};
-          inherit (pkgs) callPackage mkShell;
-        in
-        {
-          my-codes-devShells = my-codes.devShells.${system};
-          nixfmt = callPackage ./pkgs/devShell-nixfmt.nix { };
-        }
-      );
-
-      formatter = forAllSystems (system: nixpkgs-unstable.legacyPackages.${system}.nixfmt-rfc-style);
-
-      packages = forAllSystems (
-        system:
-        let
-          pkgs = nixpkgs-unstable.legacyPackages.${system};
-          inherit (pkgs) callPackage;
-        in
-        {
-          # WSdlly02's Codes Library
-          my-codes-packages = my-codes.packages.${system};
-          # Local pkgs
-          epson-inkjet-printer-201601w = callPackage ./pkgs/epson-inkjet-printer-201601w.nix { };
-          fabric-survival = callPackage ./pkgs/fabric-survival.nix { };
-        }
-      );
-
-      nixosConfigurations = {
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      ## These are the options of flake-parts
+      flake.nixosConfigurations = {
         "WSdlly02-PC" = nixpkgs-unstable.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           system = "x86_64-linux";
@@ -113,5 +83,32 @@
           ];
         };
       };
+
+      perSystem =
+        {
+          inputs',
+          ...
+        }:
+        let
+          pkgs = inputs'.nixpkgs-unstable.legacyPackages;
+          inherit (pkgs) callPackage;
+        in
+        {
+          devShells = inputs'.my-codes.devShells // {
+            nixfmt = callPackage ./pkgs/devShells-nixfmt.nix { };
+          };
+          formatter = pkgs.nixfmt-rfc-style;
+          legacyPackages = {
+            # WSdlly02's Codes Library
+            my-codes-packages = inputs'.my-codes.legacyPackages;
+            # Local pkgs
+            epson-inkjet-printer-201601w = callPackage ./pkgs/epson-inkjet-printer-201601w.nix { };
+            fabric-survival = callPackage ./pkgs/fabric-survival.nix { };
+          };
+        };
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
     };
 }

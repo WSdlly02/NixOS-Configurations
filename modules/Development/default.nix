@@ -17,8 +17,8 @@
       rustc
       rustfmt
       # Python 3.12
-      inputs.my-codes.packages."${pkgs.system}".python312Env
-      # inputs.my-codes.packages."${pkgs.system}".python312FHSEnv
+      inputs.my-codes.legacyPackages."${pkgs.system}".python312Env
+      # inputs.my-codes.legacyPackages."${pkgs.system}".python312FHSEnv
       # Other pkgs
     ];
     variables = {

@@ -37,13 +37,8 @@ stdenv.mkDerivation {
     description = "Minecraft Server with Fabric";
     homepage = "https://minecraft.net";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    license = licenses.unfreeRedistributable;
+    license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [
-      thoughtpolice
-      tomberek
-      costrouc
-      joelkoen
-    ];
+    maintainers = [ ];
   };
 }

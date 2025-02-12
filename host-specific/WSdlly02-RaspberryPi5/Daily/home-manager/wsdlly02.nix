@@ -16,7 +16,7 @@
     packages = with pkgs; [
       nnn
       id-generator
-      # inputs.self.packages."..."
+      # inputs.self.legacyPackages."..."
     ];
     stateVersion = "25.05";
   };
