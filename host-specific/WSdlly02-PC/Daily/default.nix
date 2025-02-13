@@ -100,7 +100,7 @@ in
         finalAttrs: previousAttrs: {
           # preFixup = previousAttrs.preFixup + "--add-flags ...";
           preFixup =
-            if previousAttrs.version == "1.5.12" then
+            if previousAttrs.version == "1.7.1" then
               ''
                 mkdir $out/bin
                 makeWrapper $out/mihomo-party/mihomo-party $out/bin/mihomo-party \
@@ -109,7 +109,7 @@ in
                       pkgs.libGL
                     ]
                   }" \
-                --add-flags "--ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations,WebRTCPipeWireCapturer --enable-wayland-ime=true"
+                --add-flags "${wayland-enable.commandLineArgs}"
               ''
             else
               throw "The overlays' version is inconsistent with the current's ! Please update overlays."; # Add wayland support
