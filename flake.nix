@@ -95,6 +95,8 @@
         in
         {
           devShells = inputs'.my-codes.devShells // {
+            # devShells cannot be recursively imported
+            # default = inputs'.my-codes.devShells.default;
             nixfmt = callPackage ./pkgs/devShells-nixfmt.nix { };
           };
           formatter = pkgs.nixfmt-rfc-style;

@@ -95,27 +95,29 @@ in
         }
       );
     })
-    (final: prev: {
-      mihomo-party = prev.mihomo-party.overrideAttrs (
-        finalAttrs: previousAttrs: {
-          # preFixup = previousAttrs.preFixup + "--add-flags ...";
-          preFixup =
-            if previousAttrs.version == "1.7.1" then
-              ''
-                mkdir $out/bin
-                makeWrapper $out/mihomo-party/mihomo-party $out/bin/mihomo-party \
-                  --prefix LD_LIBRARY_PATH : "${
-                    lib.makeLibraryPath [
-                      pkgs.libGL
-                    ]
-                  }" \
-                --add-flags "${wayland-enable.commandLineArgs}"
-              ''
-            else
-              throw "The overlays' version is inconsistent with the current's ! Please update overlays."; # Add wayland support
-        }
-      );
-    })
-    # (final: prev: {foo=bar;})
+    /*
+      # Notice: This overlay is deprecated due to some incompatible changes
+      (final: prev: {
+        mihomo-party = prev.mihomo-party.overrideAttrs (
+          finalAttrs: previousAttrs: {
+            # preFixup = previousAttrs.preFixup + "--add-flags ...";
+            preFixup =
+              if previousAttrs.version == "1.7.1" then
+                ''
+                  mkdir $out/bin
+                  makeWrapper $out/mihomo-party/mihomo-party $out/bin/mihomo-party \
+                    --prefix LD_LIBRARY_PATH : "${
+                      lib.makeLibraryPath [
+                        pkgs.libGL
+                      ]
+                    }" \
+                  --add-flags "${wayland-enable.commandLineArgs}"
+                ''
+              else
+                throw "The overlays' version is inconsistent with the current's ! Please update overlays."; # Add wayland support
+          }
+        );
+      })
+    */
   ];
 }
