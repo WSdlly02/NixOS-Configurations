@@ -7,7 +7,7 @@
     enable = true;
     package = pkgs.zulu21;
   };
-  environment.defaultPackages = with pkgs; [
+  environment.systemPackages = with pkgs; [
     mcrcon
   ];
 }

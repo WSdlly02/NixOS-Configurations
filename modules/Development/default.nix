@@ -11,6 +11,7 @@
   environment = {
     systemPackages = with pkgs; [
       gcc
+      gdb
       # Rust toolchains
       cargo
       clippy

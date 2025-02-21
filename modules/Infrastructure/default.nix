@@ -64,7 +64,7 @@
     };
   };
 
-  environment.defaultPackages =
+  environment.systemPackages =
     with pkgs;
     [
       # Drivers and detection tools

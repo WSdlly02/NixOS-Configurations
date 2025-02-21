@@ -28,7 +28,7 @@
       package = pkgs.zulu21;
     };
   };
-  environment.defaultPackages = with pkgs; [
+  environment.systemPackages = with pkgs; [
     (mindustry.override { jdk17 = zulu17; })
     (prismlauncher.override rec {
       jdk21 = zulu21; # Actually, it's useless, because Prismlauncher doesn't really need java.
