@@ -1,5 +1,5 @@
 {
-  home.file."fish-config" = {
+  xdg.configFile."fish/config.fish" = {
     text = ''
       if status is-interactive
         fastfetch
@@ -8,6 +8,5 @@
         alias exportproxy='export https_proxy=http://$WSdlly02_PC_hostname:7890 http_proxy=http://$WSdlly02_PC_hostname:7890 all_proxy=http://$WSdlly02_PC_hostname:7890'
       end
     '';
-    target = ".config/fish/config.fish";
   };
 }

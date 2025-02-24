@@ -1,5 +1,5 @@
 {
-  home.file."roc-source" = {
+  xdg.configFile."pipewire/pipewire.conf.d/20-roc-source.conf" = {
     text = ''
       context.modules = [
         { name = libpipewire-module-roc-source
@@ -19,6 +19,5 @@
         }
       ]
     '';
-    target = ".config/pipewire/pipewire.conf.d/20-roc-source.conf";
   };
 }

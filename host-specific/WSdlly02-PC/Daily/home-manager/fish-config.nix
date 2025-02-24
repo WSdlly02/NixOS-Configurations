@@ -1,5 +1,5 @@
 {
-  home.file."fish-config" = {
+  xdg.configFile."fish/config.fish" = {
     text = ''
       if status is-interactive
         fastfetch
@@ -10,6 +10,5 @@
         alias harvista-server-backup="rsync -aPHSzd -e 'ssh -p 10022 -i ~/.ssh/id_rsa' wsdlly02@$WSdlly02_RaspberryPi5_hostname:/home/wsdlly02/Harvista-Sever-v2.4/ /home/wsdlly02/Documents/Harvista-Sever-v2.4-backup/"
       end
     '';
-    target = ".config/fish/config.fish";
   };
 }

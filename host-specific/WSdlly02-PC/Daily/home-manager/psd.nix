@@ -1,8 +1,19 @@
 {
+  config,
   lib,
   pkgs,
   ...
 }:
+let
+  cfg = config.services.psd;
+  configFile = ''
+    USE_OVERLAYFS="yes"
+    USE_SUSPSYNC="yes"
+    ${lib.optionalString (cfg.browsers != [ ]) ''BROWSERS=(${lib.concatStringsSep " " cfg.browsers})''}
+    USE_BACKUP="${if cfg.useBackup then "yes" else "no"}"
+    BACKUP_LIMIT=${builtins.toString cfg.backupLimit}
+  '';
+in
 {
   services.psd = {
     enable = true;
@@ -12,7 +23,9 @@
       "microsoft-edge"
     ];
     backupLimit = 2;
+    resyncTimer = "30min";
   };
+  xdg.configFile."psd/psd.conf".text = lib.mkForce configFile;
   systemd.user.services =
     let
       envPath = lib.makeBinPath (

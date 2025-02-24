@@ -1,5 +1,5 @@
 {
-  home.file."roc-sink" = {
+  xdg.configFile."pipewire/pipewire.conf.d/20-roc-sink.conf" = {
     text = ''
       context.modules = [
         { name = libpipewire-module-roc-sink
@@ -17,6 +17,5 @@
         }
       ]
     '';
-    target = ".config/pipewire/pipewire.conf.d/20-roc-sink.conf";
   };
 }
