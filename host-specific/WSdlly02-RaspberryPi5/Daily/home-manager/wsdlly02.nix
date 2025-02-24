@@ -5,6 +5,7 @@
 }:
 {
   imports = [
+    ./fish-config.nix
     ./roc-source.nix
     ./syncthing.nix
   ];

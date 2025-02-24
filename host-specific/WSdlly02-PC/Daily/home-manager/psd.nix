@@ -4,7 +4,15 @@
   ...
 }:
 {
-  services.psd.enable = true;
+  services.psd = {
+    enable = true;
+    browsers = [
+      "firefox"
+      "google-chrome"
+      "microsoft-edge"
+    ];
+    backupLimit = 2;
+  };
   systemd.user.services =
     let
       envPath = lib.makeBinPath (

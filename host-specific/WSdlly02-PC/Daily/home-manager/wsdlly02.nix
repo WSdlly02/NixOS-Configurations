@@ -5,6 +5,7 @@
 }:
 {
   imports = [
+    ./fish-config.nix
     ./psd.nix
     ./roc-sink.nix
     ./syncthing.nix
