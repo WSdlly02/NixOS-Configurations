@@ -14,7 +14,7 @@
         7890 # Mihomo
         12024 # Mincraft Server
         22000 # Syncthing
-      ] ++ lib.optionals (config.system.name == "WSdlly02-RaspberryPi5") [ 8384 ];
+      ] ++ lib.optionals (config.system.name == "WSdlly02-RaspberryPi5") [ 8080 8384 ];
       allowedTCPPortRanges =
         [
         ]

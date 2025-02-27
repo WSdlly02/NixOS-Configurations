@@ -8,6 +8,7 @@
     ./fish-config.nix
     ./roc-source.nix
     ./syncthing.nix
+		./python-web-server.nix
   ];
   programs.home-manager.enable = true;
   services.mpris-proxy.enable = true;
