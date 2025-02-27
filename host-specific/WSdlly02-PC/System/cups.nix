@@ -19,7 +19,7 @@
       defaultShared = true;
       openFirewall = true;
       drivers = with pkgs; [
-        inputs.self.legacyPackages."${pkgs.system}".epson-inkjet-printer-201601w
+        inputs.self.legacyPackages."x86_64-linux".epson-inkjet-printer-201601w
       ];
     */
   };
