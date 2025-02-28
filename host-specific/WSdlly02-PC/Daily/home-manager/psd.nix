@@ -10,7 +10,7 @@ let
     USE_OVERLAYFS="yes"
     USE_SUSPSYNC="yes"
     ${lib.optionalString (cfg.browsers != [ ]) ''BROWSERS=(${lib.concatStringsSep " " cfg.browsers})''}
-    USE_BACKUP="${if cfg.useBackup then "yes" else "no"}"
+    USE_BACKUPS="${if cfg.useBackup then "yes" else "no"}"
     BACKUP_LIMIT=${builtins.toString cfg.backupLimit}
   '';
 in
