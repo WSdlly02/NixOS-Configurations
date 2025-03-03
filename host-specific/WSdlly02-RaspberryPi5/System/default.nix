@@ -19,7 +19,7 @@
       ];
       availableKernelModules = [ ];
       # verbose = false;
-      kernelModules = [ "i2c-dev" ];
+      kernelModules = [ "bcm2835-v4l2" ];
       systemd.enable = true; # Hibernate Required
     };
     loader = {
@@ -152,6 +152,7 @@
   ];
   hardware = {
     enableRedistributableFirmware = true;
+    i2c.enable = true;
     # enableAllHardware = true;
     # enableAllFirmware = true;
     firmwareCompression = "zstd";

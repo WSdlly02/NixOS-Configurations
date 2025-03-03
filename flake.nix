@@ -20,11 +20,6 @@
       url = "github:WSdlly02/my-codes/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    raspi-camera = {
-      # Notice to remove it
-      url = "github:sergei-mironov/nixos-raspi-camera";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
   };
 
   outputs =
@@ -36,7 +31,6 @@
       lanzaboote,
       nixos-hardware,
       my-codes,
-      raspi-camera,
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
       ## These are the options of flake-parts
@@ -62,7 +56,6 @@
           modules = [
             home-manager.nixosModules.home-manager
             nixos-hardware.nixosModules.raspberry-pi-5
-            raspi-camera.nixosModules.raspi-camera
             ./host-specific/WSdlly02-RaspberryPi5/Daily
             ./host-specific/WSdlly02-RaspberryPi5/Gaming
             ./host-specific/WSdlly02-RaspberryPi5/System
