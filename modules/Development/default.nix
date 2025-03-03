@@ -12,6 +12,7 @@
     systemPackages = with pkgs; [
       gcc
       gdb
+      ghc # Haskell
       # Rust toolchains
       cargo
       clippy

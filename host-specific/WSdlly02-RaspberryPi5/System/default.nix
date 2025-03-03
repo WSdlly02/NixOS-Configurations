@@ -19,7 +19,7 @@
       ];
       availableKernelModules = [ ];
       # verbose = false;
-      kernelModules = [ ];
+      kernelModules = [ "i2c-dev" ];
       systemd.enable = true; # Hibernate Required
     };
     loader = {

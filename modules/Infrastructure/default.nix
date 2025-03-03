@@ -102,6 +102,7 @@
     ]
     ++ lib.optionals (config.system.name == "WSdlly02-RaspberryPi5") [
       libraspberrypi
+      i2c-tools
       raspberrypi-eeprom
     ];
 }
