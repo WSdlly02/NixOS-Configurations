@@ -2,7 +2,6 @@
   description = "WSdlly02's NixOS flake";
 
   inputs = {
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs-unstable";
@@ -15,22 +14,28 @@
       url = "github:nix-community/lanzaboote/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     my-codes = {
       url = "github:WSdlly02/my-codes/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL/main";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
   outputs =
     {
-      self,
-      nixpkgs-unstable,
       flake-parts,
       home-manager,
       lanzaboote,
-      nixos-hardware,
       my-codes,
+      nixos-hardware,
+      nixos-wsl,
+      nixpkgs-unstable,
+      self,
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
       ## These are the options of flake-parts
@@ -78,6 +83,12 @@
           specialArgs = { inherit inputs; };
           system = "x86_64-linux";
           modules = [
+            home-manager.nixosModules.home-manager
+            nixos-wsl.nixosModules.default
+            ./host-specific/WSdlly02-LT-WSL/Daily
+            ./host-specific/WSdlly02-LT-WSL/System
+            ./modules/Daily
+            ./modules/Development
             # TBD
           ];
         };
