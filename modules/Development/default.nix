@@ -12,7 +12,12 @@
     systemPackages = with pkgs; [
       gcc
       gdb
-      ghc # Haskell
+      (haskellPackages.ghcWithPackages (
+        pkgs: with pkgs; [
+          cabal-install
+          stack
+        ]
+      )) # Haskell
       # Rust toolchains
       cargo
       clippy
