@@ -12,19 +12,13 @@
     systemPackages = with pkgs; [
       gcc
       gdb
-      (haskellPackages.ghcWithPackages (
-        pkgs: with pkgs; [
-          cabal-install
-          stack
-        ]
-      )) # Haskell
+      inputs.my-codes.legacyPackages."${pkgs.system}".haskellEnv # Haskell
       # Rust toolchains
       cargo
       clippy
       rustc
       rustfmt
-      # Python 3.12
-      inputs.my-codes.legacyPackages."${pkgs.system}".python312Env
+      inputs.my-codes.legacyPackages."${pkgs.system}".python312Env # Python 3.12
       # inputs.my-codes.legacyPackages."${pkgs.system}".python312FHSEnv
       # Other pkgs
     ];
