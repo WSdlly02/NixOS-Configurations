@@ -21,7 +21,7 @@ in
   fonts = {
     packages = with pkgs; [
       sarasa-gothic
-      noto-fonts-color-emoji
+      maple-mono-SC-NF
     ];
     fontconfig = {
       allowBitmaps = false;
@@ -30,8 +30,8 @@ in
       defaultFonts = {
         serif = [ "Sarasa UI SC" ];
         sansSerif = [ "Sarasa UI SC" ];
-        monospace = [ "Sarasa Fixed SC" ];
-        emoji = [ "Noto Color Emoji" ];
+        monospace = [ "Maple Mono SC NF" ];
+        emoji = [ "Maple Mono SC NF" ];
       };
     };
   };
