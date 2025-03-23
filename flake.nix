@@ -82,6 +82,10 @@
         "WSdlly02-LT-WSL" = nixpkgs-unstable.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           system = "x86_64-linux";
+          # pkgs = import inputs.nixpkgs-unstable { # We can use overlays here
+          #   inherit system;
+          #   overlays = [ inputs.self.overlays.id-generator-overlay ];
+          # };
           modules = [
             home-manager.nixosModules.home-manager
             nixos-wsl.nixosModules.default
@@ -94,13 +98,25 @@
         };
       };
 
+      flake.overlays = {
+        id-generator-overlay = final: prev: {
+          id-generator = prev.writeShellScriptBin "id-generator" ''
+            sha512ID=$(echo -n $1 | sha512sum | head -zc 8)
+            echo $1 >> ~/Documents/id-list.txt
+            echo $sha512ID >> ~/Documents/id-list.txt
+            echo $sha512ID
+          '';
+        };
+      };
+
       perSystem =
         {
           inputs',
+          system,
           ...
         }:
         let
-          pkgs = inputs'.nixpkgs-unstable.legacyPackages;
+          pkgs = import inputs.nixpkgs-unstable { inherit system; };
           inherit (pkgs) callPackage;
         in
         {

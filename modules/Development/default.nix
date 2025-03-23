@@ -12,14 +12,14 @@
     systemPackages = with pkgs; [
       gcc
       gdb
-      inputs.my-codes.legacyPackages."${pkgs.system}".haskellEnv # Haskell
+      inputs.my-codes.legacyPackages."${system}".haskellEnv # Haskell
       # Rust toolchains
       cargo
       clippy
       rustc
       rustfmt
-      inputs.my-codes.legacyPackages."${pkgs.system}".python312Env # Python 3.12
-      # inputs.my-codes.legacyPackages."${pkgs.system}".python312FHSEnv
+      inputs.my-codes.legacyPackages."${system}".python312Env # Python 3.12
+      # inputs.my-codes.legacyPackages."${system}".python312FHSEnv
       # Other pkgs
     ];
     variables = {
