@@ -116,7 +116,7 @@
           ...
         }:
         let
-          pkgs = import inputs.nixpkgs-unstable { inherit system; };
+          pkgs = import nixpkgs-unstable { inherit system; };
           inherit (pkgs) callPackage;
         in
         {

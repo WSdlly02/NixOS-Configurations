@@ -21,7 +21,7 @@ in
   fonts = {
     packages = with pkgs; [
       sarasa-gothic
-      maple-mono-SC-NF
+      maple-mono.Normal-NF-CN-unhinted
     ];
     fontconfig = {
       allowBitmaps = false;
@@ -30,8 +30,8 @@ in
       defaultFonts = {
         serif = [ "Sarasa UI SC" ];
         sansSerif = [ "Sarasa UI SC" ];
-        monospace = [ "Maple Mono SC NF" ];
-        emoji = [ "Maple Mono SC NF" ];
+        monospace = [ "Maple Mono Normal NF CN" ];
+        emoji = [ "Maple Mono Normal NF CN" ];
       };
     };
   };

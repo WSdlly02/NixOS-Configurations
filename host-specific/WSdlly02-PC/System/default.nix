@@ -69,7 +69,14 @@
         "subvol=@"
       ];
     };
-
+    "/nix" = {
+      device = "/dev/disk/by-uuid/a7715c2f-c6e1-48a9-b891-4fe319c6c727";
+      fsType = "ext4";
+      options = [
+        "rw"
+        "noatime"
+      ];
+    };
     "/home" = {
       device = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16";
       fsType = "btrfs";
@@ -82,20 +89,6 @@
         "subvol=@home"
       ];
     };
-
-    "/nix" = {
-      device = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16";
-      fsType = "btrfs";
-      options = [
-        "rw"
-        "relatime"
-        "ssd"
-        "discard=async"
-        "space_cache=v2"
-        "subvol=@nix"
-      ];
-    };
-
     "/var/cache" = {
       device = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16";
       fsType = "btrfs";
@@ -108,7 +101,6 @@
         "subvol=@var-cache"
       ];
     };
-
     "/var/log" = {
       device = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16";
       fsType = "btrfs";
@@ -121,7 +113,6 @@
         "subvol=@var-log"
       ];
     };
-
     "/var/tmp" = {
       device = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16";
       fsType = "btrfs";
@@ -134,20 +125,6 @@
         "subvol=@var-tmp"
       ];
     };
-
-    "/swap" = {
-      device = "/dev/disk/by-uuid/9c058d11-63b8-4a19-8884-28519aaa8b16";
-      fsType = "btrfs";
-      options = [
-        "rw"
-        "relatime"
-        "ssd"
-        "discard=async"
-        "space_cache=v2"
-        "subvol=@swap"
-      ];
-    };
-
     "/efi" = {
       device = "/dev/disk/by-uuid/18B2-C53C";
       fsType = "vfat";
@@ -166,7 +143,7 @@
 
   swapDevices = [
     {
-      device = "/swap/swapfile";
+      device = "/nix/swapfile";
       discardPolicy = "pages";
     }
   ];

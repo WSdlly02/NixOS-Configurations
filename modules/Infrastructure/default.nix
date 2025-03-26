@@ -73,7 +73,6 @@
       compsize
       cryptsetup
       dnsutils
-      e2fsprogs
       iperf
       lm_sensors
       lsof
