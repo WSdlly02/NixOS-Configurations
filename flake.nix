@@ -116,7 +116,13 @@
           ...
         }:
         let
-          pkgs = import nixpkgs-unstable { inherit system; };
+          pkgs = import nixpkgs-unstable {
+            inherit system;
+            config = {
+              allowUnfree = true;
+            };
+            overlays = [ self.overlays.id-generator-overlay ];
+          };
           inherit (pkgs) callPackage;
         in
         {

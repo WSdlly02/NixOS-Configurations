@@ -22,6 +22,7 @@
           LazyVim
           lazy-nvim
           lazygit-nvim
+          yazi-nvim
         ];
         # manually loadable by calling `:packadd $plugin-name`
         opt = [ ];

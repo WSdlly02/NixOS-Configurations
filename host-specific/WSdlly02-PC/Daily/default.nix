@@ -79,6 +79,7 @@ in
         thunderbird
         vlc
         wechat-uos
+        wemeet
         wpsoffice-cn
       ]
       ++ [

@@ -16,8 +16,8 @@
     username = "wsdlly02";
     homeDirectory = "/home/wsdlly02";
     packages = with pkgs; [
-      nnn
       id-generator
+      yazi
       # inputs.self.legacyPackages."..."
     ];
     stateVersion = "24.11";

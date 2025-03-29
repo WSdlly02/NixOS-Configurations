@@ -10,6 +10,7 @@
 {
   environment = {
     systemPackages = with pkgs; [
+      cloc # counts blank lines, comment lines, and physical lines of source code
       gcc
       gdb
       inputs.my-codes.legacyPackages."${system}".haskellEnv # Haskell
