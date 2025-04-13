@@ -1,5 +1,6 @@
 {
   lib,
+  inputs,
   pkgs,
   ...
 }:
@@ -55,7 +56,6 @@ in
       with pkgs;
       [
         (bilibili.override wayland-enable)
-        (element-desktop.override wayland-enable)
         (google-chrome.override wayland-enable)
         (microsoft-edge.override wayland-enable)
         (obsidian.override wayland-enable)
@@ -64,9 +64,9 @@ in
         ddcutil # Required to control the brightness
         fastfetch
         fsearch
+        floorp
         gapless
         helvum
-        # id-generator is in home-manager
         mihomo-party
         mpv
         ncdu
@@ -83,21 +83,15 @@ in
         wpsoffice-cn
       ]
       ++ [
+        kdePackages.kdenlive
         kdePackages.sddm-kcm
         kdePackages.wallpaper-engine-plugin
         kdePackages.yakuake
-      ];
+      ]
+      ++ [ inputs.my-codes.legacyPackages."${system}".ocs-desktop ];
   };
-  nixpkgs.overlays = [
-    (final: prev: {
-      profile-sync-daemon = prev.profile-sync-daemon.overrideAttrs (
-        finalAttrs: previousAttrs: {
-          installPhase =
-            previousAttrs.installPhase + "cp $out/share/psd/contrib/microsoft-edge $out/share/psd/browsers"; # Add microsoft-edge support
-        }
-      );
-    })
-    /*
+  /*
+    nixpkgs.overlays = [
       # Notice: This overlay is deprecated due to some incompatible changes
       (final: prev: {
         mihomo-party = prev.mihomo-party.overrideAttrs (
@@ -120,6 +114,6 @@ in
           }
         );
       })
-    */
-  ];
+    ];
+  */
 }

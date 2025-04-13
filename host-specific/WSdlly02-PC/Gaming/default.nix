@@ -7,17 +7,15 @@
     gamemode.enable = true;
     steam = {
       enable = true;
-      package = pkgs.steam.override {
-        extraEnv = {
-          MANGOHUD = true;
-        };
-      };
       extraPackages = with pkgs; [
         gamescope
+        (pkgs.writeShellScriptBin "steamos-session-select" ''
+          steam -shutdown
+        '')
       ];
       localNetworkGameTransfers.openFirewall = true;
-      extest.enable = true;
       gamescopeSession.enable = true;
+      protontricks.enable = true;
     };
     gamescope = {
       enable = true;
@@ -37,6 +35,7 @@
       jdks = [ jdk21 ]; # Add JAVA_PATH for Prismlauncher
       textToSpeechSupport = false;
     })
+    heroic
     mangohud
     mangojuice
     mcrcon

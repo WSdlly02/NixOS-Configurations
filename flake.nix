@@ -10,10 +10,6 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote/master";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
     my-codes = {
       url = "github:WSdlly02/my-codes/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -30,7 +26,6 @@
     {
       flake-parts,
       home-manager,
-      lanzaboote,
       my-codes,
       nixos-hardware,
       nixos-wsl,
@@ -45,7 +40,6 @@
           system = "x86_64-linux";
           modules = [
             home-manager.nixosModules.home-manager
-            lanzaboote.nixosModules.lanzaboote
             # TODO: libvirt
             ./host-specific/WSdlly02-PC/Daily
             ./host-specific/WSdlly02-PC/Gaming
