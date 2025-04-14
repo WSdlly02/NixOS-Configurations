@@ -1,26 +1,11 @@
 { pkgs, ... }:
 {
   imports = [
+    ./gamescope.nix
     ./openrazer.nix
   ];
   programs = {
     gamemode.enable = true;
-    steam = {
-      enable = true;
-      extraPackages = with pkgs; [
-        gamescope
-        (pkgs.writeShellScriptBin "steamos-session-select" ''
-          steam -shutdown
-        '')
-      ];
-      localNetworkGameTransfers.openFirewall = true;
-      gamescopeSession.enable = true;
-      protontricks.enable = true;
-    };
-    gamescope = {
-      enable = true;
-      capSysNice = true;
-    };
     java = {
       enable = true;
       package = pkgs.zulu21;

@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
   nixpkgs = {
     hostPlatform = lib.mkDefault "x86_64-linux"; # specific this option blocks nixpkgs.crossSystem
@@ -21,11 +21,15 @@
     the platform on which NixOS should be built.
     In other words, specify this to cross-compile NixOS.
   */
-  boot.binfmt.emulatedSystems = [
-    # use QEMU to emulate systems for compiling pkgs of different archs.
-    "x86_64-windows"
-    "aarch64-linux"
-  ];
+  boot.binfmt = {
+    emulatedSystems = [
+      # use QEMU to emulate systems for compiling pkgs of different archs.
+      "x86_64-windows"
+      "aarch64-linux"
+    ];
+    registrations."x86_64-windows".interpreter = "${pkgs.wine64Packages.waylandFull}/bin/wine64";
+    # Change the default emulator
+  };
   system = {
     name = "WSdlly02-PC";
     # nixos.tag = [ ];

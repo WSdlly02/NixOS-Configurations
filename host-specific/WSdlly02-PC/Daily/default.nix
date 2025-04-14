@@ -83,7 +83,6 @@ in
         wpsoffice-cn
       ]
       ++ [
-        kdePackages.kdenlive
         kdePackages.sddm-kcm
         kdePackages.wallpaper-engine-plugin
         kdePackages.yakuake
