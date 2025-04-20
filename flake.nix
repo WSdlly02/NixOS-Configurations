@@ -2,10 +2,6 @@
   description = "WSdlly02's NixOS flake";
 
   inputs = {
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs-unstable";
-    };
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -24,7 +20,6 @@
 
   outputs =
     {
-      flake-parts,
       home-manager,
       my-codes,
       nixos-hardware,
@@ -32,10 +27,33 @@
       nixpkgs-unstable,
       self,
     }@inputs:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      ## These are the options of flake-parts
-      flake.nixosConfigurations = {
-        "WSdlly02-PC" = nixpkgs-unstable.lib.nixosSystem {
+    let
+      inherit (nixpkgs-unstable) lib;
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+      forAllSystems = lib.genAttrs systems;
+      pkgs =
+        system:
+        nixpkgs-unstable.legacyPackages."${system}".appendOverlays [
+          (final: prev: {
+            config = prev.config // {
+              allowUnfree = true;
+              allowUnsupportedSystem = true;
+              enableParallelBuilding = true;
+              rocmSupport = true;
+            };
+          })
+          self.overlays.id-generator-overlay
+          self.overlays.legacyPackagesExposed
+          my-codes.overlays.legacyPackagesExposed
+        ];
+
+    in
+    {
+      nixosConfigurations = {
+        "WSdlly02-PC" = lib.nixosSystem {
           specialArgs = { inherit inputs; };
           system = "x86_64-linux";
           modules = [
@@ -49,7 +67,7 @@
             ./modules/Development
           ];
         };
-        "WSdlly02-RaspberryPi5" = nixpkgs-unstable.lib.nixosSystem {
+        "WSdlly02-RaspberryPi5" = lib.nixosSystem {
           specialArgs = { inherit inputs; };
           system = "aarch64-linux";
           modules = [
@@ -63,7 +81,7 @@
             ./modules/Infrastructure
           ];
         };
-        "Lily-PC" = nixpkgs-unstable.lib.nixosSystem {
+        "Lily-PC" = lib.nixosSystem {
           specialArgs = { inherit inputs; };
           system = "x86_64-linux";
           modules = [
@@ -73,13 +91,9 @@
             ./modules/Infrastructure
           ];
         };
-        "WSdlly02-LT-WSL" = nixpkgs-unstable.lib.nixosSystem {
+        "WSdlly02-LT-WSL" = lib.nixosSystem {
           specialArgs = { inherit inputs; };
           system = "x86_64-linux";
-          # pkgs = import inputs.nixpkgs-unstable { # We can use overlays here
-          #   inherit system;
-          #   overlays = [ inputs.self.overlays.id-generator-overlay ];
-          # };
           modules = [
             home-manager.nixosModules.home-manager
             nixos-wsl.nixosModules.default
@@ -91,8 +105,7 @@
           ];
         };
       };
-
-      flake.overlays = {
+      overlays = {
         id-generator-overlay = final: prev: {
           id-generator = prev.writeShellScriptBin "id-generator" ''
             sha512ID=$(echo -n $1 | sha512sum | head -zc 8)
@@ -101,42 +114,24 @@
             echo $sha512ID
           '';
         };
-      };
-
-      perSystem =
-        {
-          inputs',
-          system,
-          ...
-        }:
-        let
-          pkgs = import nixpkgs-unstable {
-            inherit system;
-            config = {
-              allowUnfree = true;
-            };
-            overlays = [ self.overlays.id-generator-overlay ];
-          };
-          inherit (pkgs) callPackage;
-        in
-        {
-          devShells = inputs'.my-codes.devShells // {
-            # devShells cannot be recursively imported
-            # default = inputs'.my-codes.devShells.default;
-            nixfmt = callPackage ./pkgs/devShells-nixfmt.nix { };
-          };
-          formatter = pkgs.nixfmt-rfc-style;
-          legacyPackages = {
-            # WSdlly02's Codes Library
-            my-codes-packages = inputs'.my-codes.legacyPackages;
-            # Local pkgs
-            epson-inkjet-printer-201601w = callPackage ./pkgs/epson-inkjet-printer-201601w.nix { };
-            fabric-survival = callPackage ./pkgs/fabric-survival.nix { };
-          };
+        legacyPackagesExposed = final: prev: {
+          epson-inkjet-printer-201601w = prev.callPackage ./pkgs/epson-inkjet-printer-201601w.nix { };
+          fabric-survival = prev.callPackage ./pkgs/fabric-survival.nix { };
         };
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
+      };
+      devShells = forAllSystems (
+        system: with (pkgs system); {
+          default = inputs.my-codes.devShells."${system}".default;
+          nixfmt = callPackage ./pkgs/devShells-nixfmt.nix { };
+        }
+      );
+      formatter = forAllSystems (system: (pkgs system).nixfmt-rfc-style);
+      legacyPackages = forAllSystems (
+        system: with (pkgs system); {
+          my-codesLegacyPackagesExposed = inputs.my-codes.legacyPackages."${system}";
+          epson-inkjet-printer-201601w = callPackage ./pkgs/epson-inkjet-printer-201601w.nix { };
+          fabric-survival = callPackage ./pkgs/fabric-survival.nix { };
+        }
+      );
     };
 }

@@ -6,7 +6,7 @@
       capSysNice = true;
     };
     opengamepadui = {
-      enable = true;
+      enable = false; # due to build failure
       extraPackages = with pkgs; [
         gamescope
       ];

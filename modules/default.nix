@@ -6,6 +6,7 @@
     ./modules/Infrastructure
   ];
   options.hostSpecific = {
+    Development = "";
     isDesktop = lib.mkOption {
       type = lib.types.boolean;
       default = False;

@@ -16,7 +16,7 @@
         filetype plugin indent on
         syntax on
       '';
-      packages.myVimPackage = with pkgs.vimPlugins; {
+      packages.vimPlugins = with pkgs.vimPlugins; {
         # loaded on launch
         start = [
           LazyVim

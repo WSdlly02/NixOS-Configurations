@@ -38,6 +38,7 @@
     aria2
     btop
     dnsutils
+    fzf
     e2fsprogs
     iperf
     lm_sensors
