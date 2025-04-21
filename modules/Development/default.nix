@@ -3,7 +3,6 @@
   pkgs.rustPlatform.buildRustPackage = pkgs.rust.packages.stable.rustPlatform.buildRustPackage
 */
 {
-  inputs,
   pkgs,
   ...
 }:
@@ -13,14 +12,14 @@
       cloc # counts blank lines, comment lines, and physical lines of source code
       gcc
       gdb
-      inputs.my-codes.legacyPackages."${system}".haskellEnv # Haskell
+      haskellEnv # Haskell
       # Rust toolchains
       cargo
       clippy
       rustc
       rustfmt
-      inputs.my-codes.legacyPackages."${system}".python312Env # Python 3.12
-      # inputs.my-codes.legacyPackages."${system}".python312FHSEnv
+      python312Env # Python 3.12
+      # python312FHSEnv
       # Other pkgs
     ];
     variables = {

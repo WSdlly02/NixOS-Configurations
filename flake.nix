@@ -42,21 +42,22 @@
               allowUnfree = true;
               allowUnsupportedSystem = true;
               enableParallelBuilding = true;
-              rocmSupport = true;
+              rocmSupport = if system == "x86_64-linux" then true else false;
             };
           })
+          my-codes.overlays.exposedPackages
+          self.overlays.exposedPackages
           self.overlays.id-generator-overlay
-          self.overlays.legacyPackagesExposed
-          my-codes.overlays.legacyPackagesExposed
         ];
 
     in
     {
       nixosConfigurations = {
-        "WSdlly02-PC" = lib.nixosSystem {
+        "WSdlly02-PC" = lib.nixosSystem rec {
           specialArgs = { inherit inputs; };
           system = "x86_64-linux";
           modules = [
+            ({ nixpkgs.pkgs = (pkgs system); })
             home-manager.nixosModules.home-manager
             # TODO: libvirt
             ./host-specific/WSdlly02-PC/Daily
@@ -67,10 +68,11 @@
             ./modules/Development
           ];
         };
-        "WSdlly02-RaspberryPi5" = lib.nixosSystem {
+        "WSdlly02-RaspberryPi5" = lib.nixosSystem rec {
           specialArgs = { inherit inputs; };
           system = "aarch64-linux";
           modules = [
+            ({ nixpkgs.pkgs = (pkgs system); })
             home-manager.nixosModules.home-manager
             nixos-hardware.nixosModules.raspberry-pi-5
             ./host-specific/WSdlly02-RaspberryPi5/Daily
@@ -106,6 +108,11 @@
         };
       };
       overlays = {
+        exposedPackages =
+          final: prev: with prev; {
+            epson-inkjet-printer-201601w = callPackage ./pkgs/epson-inkjet-printer-201601w.nix { };
+            fabric-survival = callPackage ./pkgs/fabric-survival.nix { };
+          };
         id-generator-overlay = final: prev: {
           id-generator = prev.writeShellScriptBin "id-generator" ''
             sha512ID=$(echo -n $1 | sha512sum | head -zc 8)
@@ -113,10 +120,6 @@
             echo $sha512ID >> ~/Documents/id-list.txt
             echo $sha512ID
           '';
-        };
-        legacyPackagesExposed = final: prev: {
-          epson-inkjet-printer-201601w = prev.callPackage ./pkgs/epson-inkjet-printer-201601w.nix { };
-          fabric-survival = prev.callPackage ./pkgs/fabric-survival.nix { };
         };
       };
       devShells = forAllSystems (
@@ -127,10 +130,11 @@
       );
       formatter = forAllSystems (system: (pkgs system).nixfmt-rfc-style);
       legacyPackages = forAllSystems (
-        system: with (pkgs system); {
-          my-codesLegacyPackagesExposed = inputs.my-codes.legacyPackages."${system}";
-          epson-inkjet-printer-201601w = callPackage ./pkgs/epson-inkjet-printer-201601w.nix { };
-          fabric-survival = callPackage ./pkgs/fabric-survival.nix { };
+        system:
+        with (pkgs system);
+        self.overlays.exposedPackages (pkgs system) (pkgs system)
+        // {
+          my-codesExposedPackages = inputs.my-codes.legacyPackages."${system}";
         }
       );
     };

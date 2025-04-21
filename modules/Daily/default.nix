@@ -29,9 +29,5 @@
     lazygit.enable = true;
     nix-ld.enable = true;
   };
-  nixpkgs.overlays = with inputs; [
-    self.overlays.id-generator-overlay
-    self.overlays.legacyPackagesExposed
-    my-codes.overlays.legacyPackagesExposed
-  ];
+  nixpkgs.overlays = with inputs; [ ];
 }

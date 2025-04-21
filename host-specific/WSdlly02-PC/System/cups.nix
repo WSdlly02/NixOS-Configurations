@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   ...
 }:
@@ -19,7 +18,7 @@
       defaultShared = true;
       openFirewall = true;
       drivers = with pkgs; [
-        inputs.self.legacyPackages."x86_64-linux".epson-inkjet-printer-201601w
+        epson-inkjet-printer-201601w # Has been exposed to pkgs
       ];
     */
   };

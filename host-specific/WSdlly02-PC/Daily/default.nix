@@ -1,6 +1,5 @@
 {
   lib,
-  inputs,
   pkgs,
   ...
 }:
@@ -70,6 +69,7 @@ in
         mihomo-party
         mpv
         ncdu
+        ocs-desktop
         pass-wayland
         qbittorrent-enhanced
         qcm
@@ -86,8 +86,7 @@ in
         kdePackages.sddm-kcm
         kdePackages.wallpaper-engine-plugin
         kdePackages.yakuake
-      ]
-      ++ [ inputs.my-codes.legacyPackages."${system}".ocs-desktop ];
+      ];
   };
   /*
     nixpkgs.overlays = [

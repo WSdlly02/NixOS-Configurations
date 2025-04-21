@@ -1,14 +1,16 @@
 { lib, ... }:
 {
   nixpkgs = {
-    hostPlatform = lib.mkDefault "aarch64-linux"; # specific this option blocks nixpkgs.crossSystem
-    # localSystem = null; # equals to nixpkgs.buildPlatform
-    # buildPlatform = config.nixpkgs.hostPlatform;
-    config = {
-      allowUnfree = true;
-      allowUnsupportedSystem = true;
-      enableParallelBuilding = true;
-    };
+    /*
+      hostPlatform = lib.mkDefault "aarch64-linux"; # specific this option blocks nixpkgs.crossSystem
+      # localSystem = null; # equals to nixpkgs.buildPlatform
+      # buildPlatform = config.nixpkgs.hostPlatform;
+      config = {
+        allowUnfree = true;
+        allowUnsupportedSystem = true;
+        enableParallelBuilding = true;
+      };
+    */
     overlays = [
       # Very important!!! Don't delete!!!
       (final: prev: {
