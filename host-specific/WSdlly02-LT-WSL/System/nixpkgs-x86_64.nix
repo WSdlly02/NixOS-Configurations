@@ -1,16 +1,16 @@
 { lib, ... }:
 {
-  nixpkgs = {
-    hostPlatform = lib.mkDefault "x86_64-linux"; # specific this option blocks nixpkgs.crossSystem
-    # localSystem = null; # equals to nixpkgs.buildPlatform
-    # buildPlatform = config.nixpkgs.hostPlatform;
-    config = {
-      allowUnfree = true;
-      allowUnsupportedSystem = true;
-      enableParallelBuilding = true;
-    };
-  };
   /*
+    nixpkgs = {
+      hostPlatform = lib.mkDefault "x86_64-linux"; # specific this option blocks nixpkgs.crossSystem
+      # localSystem = null; # equals to nixpkgs.buildPlatform
+      # buildPlatform = config.nixpkgs.hostPlatform;
+      config = {
+        allowUnfree = true;
+        allowUnsupportedSystem = true;
+        enableParallelBuilding = true;
+      };
+    };
     nixpkgs.crossSystem = {
       # Target platform
       system = "aarch64-linux";

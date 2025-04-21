@@ -44,11 +44,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1745222732,
-        "narHash": "sha256-ZX741HJpmr1/4L5Jv9Dw9gp2OKQFzqIiug+r1xERhQU=",
+        "lastModified": 1745241580,
+        "narHash": "sha256-4+VlRBEHQXUt+tuRn6ZzZPuaN5Va+uOKDCJ3E663MF8=",
         "owner": "WSdlly02",
         "repo": "my-codes",
-        "rev": "e46da0344b63e5f8efe7ff24c3ee64984d053b18",
+        "rev": "91e4de03ab4f3536cfc8dcce0c30dbd1eb6bd4a3",
         "type": "github"
       },
       "original": {

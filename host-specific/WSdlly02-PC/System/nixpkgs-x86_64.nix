@@ -16,10 +16,10 @@
       # Target platform
       system = "aarch64-linux";
     };
-    Specifies the platform for which NixOS should be built.
-    Specify this only if it is different from nixpkgs.localSystem,
-    the platform on which NixOS should be built.
-    In other words, specify this to cross-compile NixOS.
+    # Specifies the platform for which NixOS should be built.
+    # Specify this only if it is different from nixpkgs.localSystem,
+    # the platform on which NixOS should be built.
+    # In other words, specify this to cross-compile NixOS.
   */
   boot.binfmt = {
     emulatedSystems = [

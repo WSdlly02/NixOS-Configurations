@@ -29,35 +29,68 @@
     }@inputs:
     let
       inherit (nixpkgs-unstable) lib;
+      inherit (self) mkPkgs;
       systems = [
         "x86_64-linux"
         "aarch64-linux"
       ];
-      forAllSystems = lib.genAttrs systems;
-      pkgs =
-        system:
-        nixpkgs-unstable.legacyPackages."${system}".appendOverlays [
-          (final: prev: {
-            config = prev.config // {
-              allowUnfree = true;
-              allowUnsupportedSystem = true;
-              enableParallelBuilding = true;
-              rocmSupport = if system == "x86_64-linux" then true else false;
-            };
-          })
-          my-codes.overlays.exposedPackages
-          self.overlays.exposedPackages
-          self.overlays.id-generator-overlay
-        ];
-
+      forExposedSystems = lib.genAttrs systems;
     in
     {
+      devShells = forExposedSystems (
+        system: with (mkPkgs { inherit system; }); {
+          default = inputs.my-codes.devShells."${system}".default;
+          nixfmt = callPackage ./pkgs/devShells-nixfmt.nix { };
+        }
+      );
+
+      formatter = forExposedSystems (system: (mkPkgs { inherit system; }).nixfmt-rfc-style);
+
+      legacyPackages = forExposedSystems (
+        system:
+        with (mkPkgs { inherit system; });
+        {
+          my-codesExposedPackages = inputs.my-codes.legacyPackages."${system}";
+          nixpkgsExposedPackages = mkPkgs { inherit system; };
+        }
+        // self.overlays.exposedPackages null (mkPkgs {
+          inherit system;
+        })
+        // self.overlays.id-generator-overlay null (mkPkgs {
+          inherit system;
+        })
+      );
+
+      mkPkgs =
+        {
+          config ? { },
+          overlays ? [ ],
+          system,
+        }:
+        import nixpkgs-unstable {
+          inherit system;
+          config = {
+            allowUnfree = true;
+            enableParallelBuilding = true;
+            rocmSupport = true;
+          } // config;
+          overlays = [
+            my-codes.overlays.exposedPackages
+            self.overlays.exposedPackages
+            self.overlays.id-generator-overlay
+          ] ++ overlays;
+        };
+
       nixosConfigurations = {
         "WSdlly02-PC" = lib.nixosSystem rec {
           specialArgs = { inherit inputs; };
           system = "x86_64-linux";
           modules = [
-            ({ nixpkgs.pkgs = (pkgs system); })
+            {
+              nixpkgs.pkgs = mkPkgs {
+                inherit system;
+              };
+            }
             home-manager.nixosModules.home-manager
             # TODO: libvirt
             ./host-specific/WSdlly02-PC/Daily
@@ -72,7 +105,12 @@
           specialArgs = { inherit inputs; };
           system = "aarch64-linux";
           modules = [
-            ({ nixpkgs.pkgs = (pkgs system); })
+            {
+              nixpkgs.pkgs = mkPkgs {
+                config.rocmSupport = false;
+                inherit system;
+              };
+            }
             home-manager.nixosModules.home-manager
             nixos-hardware.nixosModules.raspberry-pi-5
             ./host-specific/WSdlly02-RaspberryPi5/Daily
@@ -83,20 +121,32 @@
             ./modules/Infrastructure
           ];
         };
-        "Lily-PC" = lib.nixosSystem {
+        "Lily-PC" = lib.nixosSystem rec {
           specialArgs = { inherit inputs; };
           system = "x86_64-linux";
           modules = [
+            {
+              nixpkgs.pkgs = mkPkgs {
+                config.rocmSupport = false;
+                inherit system;
+              };
+            }
             { system.name = "Lily-PC"; }
             ./modules/Daily
             ##./modules/Development # Not required
             ./modules/Infrastructure
           ];
         };
-        "WSdlly02-LT-WSL" = lib.nixosSystem {
+        "WSdlly02-LT-WSL" = lib.nixosSystem rec {
           specialArgs = { inherit inputs; };
           system = "x86_64-linux";
           modules = [
+            {
+              nixpkgs.pkgs = mkPkgs {
+                config.rocmSupport = false;
+                inherit system;
+              };
+            }
             home-manager.nixosModules.home-manager
             nixos-wsl.nixosModules.default
             ./host-specific/WSdlly02-LT-WSL/Daily
@@ -107,35 +157,22 @@
           ];
         };
       };
+
       overlays = {
         exposedPackages =
           final: prev: with prev; {
             epson-inkjet-printer-201601w = callPackage ./pkgs/epson-inkjet-printer-201601w.nix { };
             fabric-survival = callPackage ./pkgs/fabric-survival.nix { };
           };
-        id-generator-overlay = final: prev: {
-          id-generator = prev.writeShellScriptBin "id-generator" ''
-            sha512ID=$(echo -n $1 | sha512sum | head -zc 8)
-            echo $1 >> ~/Documents/id-list.txt
-            echo $sha512ID >> ~/Documents/id-list.txt
-            echo $sha512ID
-          '';
-        };
+        id-generator-overlay =
+          final: prev: with prev; {
+            id-generator = writeShellScriptBin "id-generator" ''
+              sha512ID=$(echo -n $1 | sha512sum | head -zc 8)
+              echo $1 >> ~/Documents/id-list.txt
+              echo $sha512ID >> ~/Documents/id-list.txt
+              echo $sha512ID
+            '';
+          };
       };
-      devShells = forAllSystems (
-        system: with (pkgs system); {
-          default = inputs.my-codes.devShells."${system}".default;
-          nixfmt = callPackage ./pkgs/devShells-nixfmt.nix { };
-        }
-      );
-      formatter = forAllSystems (system: (pkgs system).nixfmt-rfc-style);
-      legacyPackages = forAllSystems (
-        system:
-        with (pkgs system);
-        self.overlays.exposedPackages (pkgs system) (pkgs system)
-        // {
-          my-codesExposedPackages = inputs.my-codes.legacyPackages."${system}";
-        }
-      );
     };
 }
