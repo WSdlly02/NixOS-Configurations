@@ -1,4 +1,7 @@
 { config, lib, ... }:
+let
+  cfg = config.hostSpecific;
+in
 {
   imports = [
     ./modules/Daily
@@ -22,7 +25,7 @@
       default = False;
       description = "foo package to use.";
     };
-    bluetooth.nix.enable = lib.mkOption {
+    bluetooth.enable = lib.mkOption {
       type = lib.types.boolean;
       default = False;
       description = "foo package to use.";
@@ -32,6 +35,6 @@
       default = "";
       description = "foo package to use.";
     };
-
   };
+  config = lib.mkIf cfg.isDesktop { };
 }

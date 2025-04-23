@@ -53,7 +53,6 @@
 
       legacyPackages = forExposedSystems (
         system:
-        with (mkPkgs { inherit system; });
         {
           my-codesExposedPackages = inputs.my-codes.legacyPackages."${system}";
           nixpkgsExposedPackages = mkPkgs { inherit system; };

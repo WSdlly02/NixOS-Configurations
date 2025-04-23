@@ -1,6 +1,5 @@
 {
   config,
-  inputs,
   lib,
   ...
 }:
@@ -29,5 +28,4 @@
     lazygit.enable = true;
     nix-ld.enable = true;
   };
-  nixpkgs.overlays = with inputs; [ ];
 }

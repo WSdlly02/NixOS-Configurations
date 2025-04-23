@@ -1,4 +1,3 @@
-{ lib, ... }:
 {
   services.syncthing = {
     enable = true;

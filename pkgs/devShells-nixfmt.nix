@@ -1,5 +1,4 @@
 {
-  fish,
   mkShell,
   nixfmt-rfc-style,
 }:
