@@ -63,7 +63,6 @@ in
         ddcutil # Required to control the brightness
         fastfetch
         fsearch
-        floorp
         gapless
         helvum
         mihomo-party

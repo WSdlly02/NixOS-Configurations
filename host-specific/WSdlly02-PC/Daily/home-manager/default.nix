@@ -19,9 +19,9 @@
           installPhase =
             previousAttrs.installPhase
             + ''
-              cp $out/share/psd/contrib/floorp $out/share/psd/browsers
               cp $out/share/psd/contrib/microsoft-edge $out/share/psd/browsers
               cp $out/share/psd/contrib/vscode $out/share/psd/browsers
+              cp $out/share/psd/contrib/zen $out/share/psd/browsers
             '';
         }
       );

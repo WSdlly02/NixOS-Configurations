@@ -16,6 +16,10 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
@@ -26,6 +30,7 @@
       nixos-wsl,
       nixpkgs-unstable,
       self,
+      zen-browser,
     }@inputs:
     let
       inherit (nixpkgs-unstable) lib;
@@ -70,9 +75,10 @@
         import nixpkgs-unstable {
           inherit system;
           config = {
+            allowAliases = false;
             allowUnfree = true;
-            enableParallelBuilding = true;
             rocmSupport = true;
+            warnUndeclaredOptions = true;
           } // config;
           overlays = [
             my-codes.overlays.exposedPackages

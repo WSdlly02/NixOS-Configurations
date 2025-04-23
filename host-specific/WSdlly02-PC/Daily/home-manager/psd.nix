@@ -8,11 +8,11 @@
   services.psd = {
     enable = true;
     browsers = [
-      "floorp"
       "firefox"
       "google-chrome"
       "microsoft-edge"
       "vscode"
+      "zen"
     ];
     backupLimit = 2;
     resyncTimer = "30min";

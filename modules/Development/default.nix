@@ -11,11 +11,11 @@
     systemPackages = with pkgs; [
       cloc # counts blank lines, comment lines, and physical lines of source code
       gcc
-      gdb
       haskellEnv # Haskell
       # Rust toolchains
       cargo
       clippy
+      nil # Nix LSP
       rustc
       rustfmt
       python312Env # Python 3.12

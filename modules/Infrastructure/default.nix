@@ -41,7 +41,7 @@
     adb.enable = true;
   };
   services = {
-    smartd.enable = lib.mkIf (pkgs.system == "x86_64-linux") true;
+    smartd.enable = lib.mkIf (pkgs.stdenv.hostPlatform.system == "x86_64-linux") true;
     fstrim.enable = true;
     btrfs.autoScrub = {
       enable = true;
@@ -55,7 +55,7 @@
       storage = "auto";
       extraConfig =
         let
-          systemLogsMaxUse = if (pkgs.system == "x86_64-linux") then "512M" else "256M";
+          systemLogsMaxUse = if (pkgs.stdenv.hostPlatform.system == "x86_64-linux") then "512M" else "256M";
         in
         ''
           Compress=true
@@ -92,9 +92,9 @@
     ]
     ++ lib.optionals (config.system.name == "WSdlly02-PC") [
       amdgpu_top
-      glxinfo
       lact # AMDGPU Fan Control
       libva-utils
+      mesa-demos
       ntfs3g
       rar # ark required
       vdpauinfo
