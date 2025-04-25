@@ -1,18 +1,16 @@
 {
   config,
-  lib,
   pkgs,
-  modulesPath,
   ...
 }:
 {
   imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
     ./bootloader.nix
     ./cups.nix
     ./gpu.nix
     ./localdisksmount.nix
     ./nixpkgs-x86_64.nix
+    ./openrgb.nix
     ./plymouth.nix
     ##./remotefsmount.nix
     ./tpm.nix
@@ -154,9 +152,10 @@
     firmwareCompression = "zstd";
     cpu.amd = {
       ryzen-smu.enable = true;
-      updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+      updateMicrocode = true;
     };
     i2c.enable = true;
+    # uinput.enable = true; # Enable /dev/uinput
     xone.enable = true;
   };
 }

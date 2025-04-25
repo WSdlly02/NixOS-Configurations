@@ -6,7 +6,7 @@
   */
   hardware.amdgpu = {
     initrd.enable = true;
-    ##opencl.enable = true; # Add Rocm support to opencl driver
+    opencl.enable = true; # Add Rocm support to opencl driver
   };
   environment.variables = {
     HSA_OVERRIDE_GFX_VERSION = "10.3.0";

@@ -36,15 +36,27 @@ in
   };
   # Programs
   programs = {
-    firefox.enable = true;
+    # appimage.enable = true;
+    kdeconnect.enable = true;
     noisetorch.enable = true;
     obs-studio = {
       enable = true;
       enableVirtualCamera = true;
+      plugins = with pkgs.obs-studio-plugins; [
+        #droidcam-obs
+        obs-vkcapture
+        input-overlay
+      ];
     };
-    kdeconnect.enable = true;
     partition-manager.enable = true;
-    # appimage.enable = true;
+    thunderbird = {
+      enable = true;
+      policies = {
+        DisableAppUpdate = true;
+        DisableTelemetry = true;
+        # find more options here: https://mozilla.github.io/policy-templates/
+      };
+    };
   };
   services.power-profiles-daemon.enable = true;
   # services.flatpak.enable = true;
@@ -74,7 +86,6 @@ in
         scrcpy
         sunshine
         telegram-desktop
-        thunderbird
         vlc
         wechat-uos
         wemeet

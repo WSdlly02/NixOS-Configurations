@@ -44,7 +44,7 @@
     {
       devShells = forExposedSystems (
         system: with (mkPkgs { inherit system; }); {
-          default = inputs.my-codes.devShells."${system}".default;
+          default = my-codes.devShells."${system}".default;
           nixfmt = callPackage ./pkgs/devShells-nixfmt.nix { };
         }
       );
@@ -54,8 +54,10 @@
       legacyPackages = forExposedSystems (
         system:
         {
-          my-codesExposedPackages = inputs.my-codes.legacyPackages."${system}";
-          nixpkgsExposedPackages = mkPkgs { inherit system; };
+          my-codes.exposedPackages = my-codes.overlays.exposedPackages null (mkPkgs {
+            inherit system;
+          });
+          nixpkgs-unstable.exposedPackages = mkPkgs { inherit system; };
         }
         // self.overlays.exposedPackages null (mkPkgs {
           inherit system;
