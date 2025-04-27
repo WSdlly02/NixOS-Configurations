@@ -14,8 +14,6 @@
       # Very important!!! Don't delete!!!
       (final: prev: {
         makeModulesClosure = x: prev.makeModulesClosure (x // { allowMissing = true; });
-      })
-      (final: prev: {
         linux_rpi5 = prev.linuxKernel.kernels.linux_rpi4.override {
           rpiVersion = 5;
           argsOverride.defconfig = "bcm2712_defconfig";

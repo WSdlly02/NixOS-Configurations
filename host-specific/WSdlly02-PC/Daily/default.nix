@@ -3,7 +3,7 @@
   ...
 }:
 let
-  wayland-enable = {
+  enableWayland = {
     commandLineArgs = "--ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations,WebRTCPipeWireCapturer --enable-wayland-ime=true";
   };
 in
@@ -20,17 +20,17 @@ in
   fonts = {
     packages = with pkgs; [
       sarasa-gothic
-      maple-mono.Normal-NF-CN-unhinted
     ];
+    fontDir.enable = true;
     fontconfig = {
       allowBitmaps = false;
-      useEmbeddedBitmaps = true;
+      useEmbeddedBitmaps = true; # Display emoji required
       subpixel.rgba = "rgb";
       defaultFonts = {
         serif = [ "Sarasa UI SC" ];
         sansSerif = [ "Sarasa UI SC" ];
-        monospace = [ "Maple Mono Normal NF CN" ];
-        emoji = [ "Maple Mono Normal NF CN" ];
+        monospace = [ "Sarasa Mono SC" ];
+        emoji = [ "Noto Color Emoji" ];
       };
     };
   };
@@ -65,12 +65,12 @@ in
     defaultPackages =
       with pkgs;
       [
-        (bilibili.override wayland-enable)
-        (google-chrome.override wayland-enable)
-        (microsoft-edge.override wayland-enable)
-        (obsidian.override wayland-enable)
-        (qq.override wayland-enable)
-        (vscode.override wayland-enable)
+        (bilibili.override enableWayland)
+        (google-chrome.override enableWayland)
+        (microsoft-edge.override enableWayland)
+        (obsidian.override enableWayland)
+        (qq.override enableWayland)
+        (vscode.override enableWayland)
         ddcutil # Required to control the brightness
         fastfetch
         fsearch
@@ -114,7 +114,7 @@ in
                         pkgs.libGL
                       ]
                     }" \
-                  --add-flags "${wayland-enable.commandLineArgs}"
+                  --add-flags "${enableWayland.commandLineArgs}"
                 ''
               else
                 throw "The overlays' version is inconsistent with the current's ! Please update overlays."; # Add wayland support
