@@ -1,17 +1,20 @@
+{ lib, enableInfrastructure, ... }:
 {
-  services.avahi = {
-    enable = true;
-    publish = {
+  config = lib.mkIf enableInfrastructure {
+    services.avahi = {
       enable = true;
-      userServices = true;
+      publish = {
+        enable = true;
+        userServices = true;
+      };
+      nssmdns6 = true;
+      nssmdns4 = true;
+      ipv6 = true;
+      ipv4 = true;
+      extraConfig = ''
+        [server]
+        disallow-other-stacks=yes
+      '';
     };
-    nssmdns6 = true;
-    nssmdns4 = true;
-    ipv6 = true;
-    ipv4 = true;
-    extraConfig = ''
-      [server]
-      disallow-other-stacks=yes
-    '';
   };
 }

@@ -1,8 +1,11 @@
+{ lib, enableInfrastructure, ... }:
 {
-  services.gitDaemon = {
-    enable = true;
-    port = 19418;
-    basePath = "/srv/gitDaemon";
-    exportAll = true;
+  config = lib.mkIf enableInfrastructure {
+    services.gitDaemon = {
+      enable = true;
+      port = 19418;
+      basePath = "/srv/gitDaemon";
+      exportAll = true;
+    };
   };
 }

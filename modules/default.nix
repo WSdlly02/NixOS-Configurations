@@ -4,37 +4,36 @@ let
 in
 {
   imports = [
-    ./modules/Daily
-    ./modules/Development
-    ./modules/Infrastructure
+    ./Daily
+    ./Development
+    ./Infrastructure
   ];
   options.hostSpecific = {
-    Development = "";
-    isDesktop = lib.mkOption {
-      type = lib.types.boolean;
-      default = False;
-      description = "foo package to use.";
-    };
-    isLaptop = lib.mkOption {
-      type = lib.types.boolean;
-      default = False;
-      description = "foo package to use.";
-    };
-    powersave = lib.mkOption {
-      type = lib.types.boolean;
-      default = False;
-      description = "foo package to use.";
-    };
-    bluetooth.enable = lib.mkOption {
-      type = lib.types.boolean;
-      default = False;
-      description = "foo package to use.";
-    };
+    enableDevelopment = lib.mkEnableOption "foo package to use.";
+    enableInfrastructure = lib.mkEnableOption "foo package to use.";
+    # bluetooth = {
+    #   enable = lib.mkEnableOption {
+    #     type = lib.types.boolean;
+    #     default = false;
+    #     description = "foo package to use.";
+    #   };
+    #   powersave = lib.mkOption {
+    #     type = lib.types.boolean;
+    #     default = false;
+    #     description = "foo package to use.";
+    #   };
+    # };
     defaultUser = lib.mkOption {
-      type = lib.types.string;
-      default = "";
-      description = "foo package to use.";
+      type = lib.types.str;
+      default = "wsdlly02";
+      description = "default user to operate system";
     };
   };
-  config = lib.mkIf cfg.isDesktop { };
+  config = {
+    _module.args = {
+      # Add configs to specialArgs in order to accelerate eval
+      enableDevelopment = cfg.enableDevelopment;
+      enableInfrastructure = cfg.enableInfrastructure;
+    };
+  };
 }

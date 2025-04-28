@@ -4,7 +4,7 @@
   ...
 }:
 {
-  users.users.wsdlly02 = lib.mkIf (config.system.name != "Lily-PC") {
+  users.users."${config.hostSpecific.defaultUser}" = {
     isNormalUser = true;
     uid = 1000;
     group = "wheel";

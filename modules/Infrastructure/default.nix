@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  enableInfrastructure,
   ...
 }:
 {
@@ -28,81 +29,83 @@
     ./tmux.nix
   ];
 
-  programs = {
-    fuse.userAllowOther = true;
-    fish.enable = true;
-    git = {
-      enable = true;
-      lfs.enable = true;
+  config = lib.mkIf enableInfrastructure {
+    programs = {
+      fuse.userAllowOther = true;
+      fish.enable = true;
+      git = {
+        enable = true;
+        lfs.enable = true;
+      };
+      htop.enable = true;
+      bandwhich.enable = true;
+      usbtop.enable = true;
+      adb.enable = true;
     };
-    htop.enable = true;
-    bandwhich.enable = true;
-    usbtop.enable = true;
-    adb.enable = true;
-  };
-  services = {
-    smartd.enable = lib.mkIf (pkgs.stdenv.hostPlatform.system == "x86_64-linux") true;
-    fstrim.enable = true;
-    btrfs.autoScrub = {
-      enable = true;
-      interval = "monthly";
-      fileSystems = [
-        "/"
-      ];
+    services = {
+      smartd.enable = lib.mkIf (pkgs.stdenv.hostPlatform.system == "x86_64-linux") true;
+      fstrim.enable = true;
+      btrfs.autoScrub = {
+        enable = true;
+        interval = "monthly";
+        fileSystems = [
+          "/"
+        ];
+      };
+      dbus.implementation = "broker";
+      journald = {
+        storage = "auto";
+        extraConfig =
+          let
+            systemLogsMaxUse = if (pkgs.stdenv.hostPlatform.system == "x86_64-linux") then "512M" else "256M";
+          in
+          ''
+            Compress=true
+            SystemMaxUse=${systemLogsMaxUse}
+          '';
+      };
     };
-    dbus.implementation = "broker";
-    journald = {
-      storage = "auto";
-      extraConfig =
-        let
-          systemLogsMaxUse = if (pkgs.stdenv.hostPlatform.system == "x86_64-linux") then "512M" else "256M";
-        in
-        ''
-          Compress=true
-          SystemMaxUse=${systemLogsMaxUse}
-        '';
-    };
-  };
 
-  environment.systemPackages =
-    with pkgs;
-    [
-      # Drivers and detection tools
-      aria2
-      btop
-      compsize
-      cryptsetup
-      dnsutils
-      fzf
-      iperf
-      lm_sensors
-      lsof
-      nixfmt-rfc-style
-      nix-output-monitor
-      nix-tree
-      nmap
-      pciutils
-      psmisc
-      ripgrep
-      rsync
-      sshfs
-      tree
-      usbutils
-      wget
-    ]
-    ++ lib.optionals (config.system.name == "WSdlly02-PC") [
-      amdgpu_top
-      lact # AMDGPU Fan Control
-      libva-utils
-      mesa-demos
-      ntfs3g
-      rar # ark required
-      vdpauinfo
-      vulkan-tools
-    ]
-    ++ lib.optionals (config.system.name == "WSdlly02-RaspberryPi5") [
-      libraspberrypi
-      i2c-tools
-      raspberrypi-eeprom
-    ];
+    environment.systemPackages =
+      with pkgs;
+      [
+        # Drivers and detection tools
+        aria2
+        btop
+        compsize
+        cryptsetup
+        dnsutils
+        fzf
+        iperf
+        lm_sensors
+        lsof
+        nixfmt-rfc-style
+        nix-output-monitor
+        nix-tree
+        nmap
+        pciutils
+        psmisc
+        ripgrep
+        rsync
+        sshfs
+        tree
+        usbutils
+        wget
+      ]
+      ++ lib.optionals (config.system.name == "WSdlly02-PC") [
+        amdgpu_top
+        lact # AMDGPU Fan Control
+        libva-utils
+        mesa-demos
+        ntfs3g
+        rar # ark required
+        vdpauinfo
+        vulkan-tools
+      ]
+      ++ lib.optionals (config.system.name == "WSdlly02-RaspberryPi5") [
+        libraspberrypi
+        i2c-tools
+        raspberrypi-eeprom
+      ];
+  };
 }

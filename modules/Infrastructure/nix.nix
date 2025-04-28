@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   inputs,
   ...
 }:
@@ -31,7 +32,9 @@
         "flakes"
         "nix-command"
       ];
-      extra-sandbox-paths = [ config.programs.ccache.cacheDir ];
+      extra-sandbox-paths = lib.optionals config.programs.ccache.enable [
+        config.programs.ccache.cacheDir
+      ];
       fsync-metadata = false;
       http-connections = 64;
       max-jobs = if (config.system.name == "WSdlly02-PC") then 64 else 32;

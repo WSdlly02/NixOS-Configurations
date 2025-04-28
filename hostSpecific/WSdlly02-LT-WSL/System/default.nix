@@ -1,13 +1,13 @@
 { pkgs, ... }:
 {
   imports = [
-    ./i18n.nix
-    ./neovim.nix
+    #./i18n.nix
+    #./neovim.nix
     ./networking.nix
-    ./nix.nix
+    #./nix.nix
     ./nixpkgs-x86_64.nix
-    ./sudo.nix
-    ./tmux.nix
+    #./sudo.nix
+    #./tmux.nix
   ];
   wsl = {
     enable = true;

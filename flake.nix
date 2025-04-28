@@ -99,13 +99,9 @@
               };
             }
             home-manager.nixosModules.home-manager
+            self.nixosModules.default
+            ./host-specific/WSdlly02-PC
             # TODO: libvirt
-            ./host-specific/WSdlly02-PC/Daily
-            ./host-specific/WSdlly02-PC/Gaming
-            ./host-specific/WSdlly02-PC/System
-            ./modules/Infrastructure
-            ./modules/Daily
-            ./modules/Development
           ];
         };
         "WSdlly02-RaspberryPi5" = lib.nixosSystem rec {
@@ -120,28 +116,8 @@
             }
             home-manager.nixosModules.home-manager
             nixos-hardware.nixosModules.raspberry-pi-5
-            ./host-specific/WSdlly02-RaspberryPi5/Daily
-            ./host-specific/WSdlly02-RaspberryPi5/Gaming
-            ./host-specific/WSdlly02-RaspberryPi5/System
-            ./modules/Daily
-            ./modules/Development
-            ./modules/Infrastructure
-          ];
-        };
-        "Lily-PC" = lib.nixosSystem rec {
-          specialArgs = { inherit inputs; };
-          system = "x86_64-linux";
-          modules = [
-            {
-              nixpkgs.pkgs = mkPkgs {
-                config.rocmSupport = false;
-                inherit system;
-              };
-            }
-            { system.name = "Lily-PC"; }
-            ./modules/Daily
-            ##./modules/Development # Not required
-            ./modules/Infrastructure
+            self.nixosModules.default
+            ./hostSpecific/WSdlly02-RaspberryPi5
           ];
         };
         "WSdlly02-LT-WSL" = lib.nixosSystem rec {
@@ -156,15 +132,28 @@
             }
             home-manager.nixosModules.home-manager
             nixos-wsl.nixosModules.default
-            ./host-specific/WSdlly02-LT-WSL/Daily
-            ./host-specific/WSdlly02-LT-WSL/System
-            ./modules/Daily
-            ./modules/Development
-            # TBD
+            self.nixosModules.default
+            ./host-specific/WSdlly02-LT-WSL
           ];
         };
       };
-
+      "Lily-PC" = lib.nixosSystem rec {
+        specialArgs = { inherit inputs; };
+        system = "x86_64-linux";
+        modules = [
+          {
+            nixpkgs.pkgs = mkPkgs {
+              config.rocmSupport = false;
+              inherit system;
+            };
+          }
+          { system.name = "Lily-PC"; }
+          self.nixosModules.default
+        ];
+      };
+      nixosModules.default = {
+        imports = [ ./modules ];
+      };
       overlays = {
         exposedPackages =
           final: prev: with prev; {
