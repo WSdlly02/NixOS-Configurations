@@ -29,17 +29,17 @@
     ./tmux.nix
   ];
 
-  config =
-    lib.mkIf enableInfrastructure {
+  config = lib.mkMerge [
+    (lib.mkIf enableInfrastructure {
       programs = {
+        fuse.userAllowOther = true;
         bandwhich.enable = true;
         usbtop.enable = true;
         adb.enable = true;
       };
-    }
-    // {
+    })
+    ({
       programs = {
-        fuse.userAllowOther = true;
         fish.enable = true;
         git = {
           enable = true;
@@ -98,5 +98,6 @@
           wget
         ]
         ++ config.hostSpecific.environment.extraSystemPackages;
-    };
+    })
+  ];
 }

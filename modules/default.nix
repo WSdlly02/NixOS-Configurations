@@ -10,20 +10,20 @@ in
   ];
   options.hostSpecific = {
     boot.kernel.sysctl."vm.swappiness" = lib.mkOption {
-      type = lib.types.int;
       default = 20;
+      type = lib.types.int;
       description = ''
         This option defines the value of vm.swappiness
       '';
     };
     enableBtrfsScrub = lib.mkEnableOption "Enable Btrfs scrub";
-    enableDevelopment = lib.mkEnableOption "Enable Development Env";
+    enableDevelopment = lib.mkEnableOption "Install development softwares";
     enableInfrastructure = lib.mkEnableOption "Install infrastructure softwares";
     enableBluetooth = lib.mkEnableOption "Enable bluetooth";
     enableSmartd = lib.mkEnableOption "Enable smart daemon";
     environment.extraSystemPackages = lib.mkOption {
-      type = lib.types.listOf lib.types.package;
       default = [ ];
+      type = lib.types.listOf lib.types.package;
       description = ''
         The set of packages that appear in
         /run/current-system/sw
@@ -31,21 +31,21 @@ in
     };
     defaultUser = {
       name = lib.mkOption {
-        type = lib.types.str;
         default = "wsdlly02";
+        type = lib.types.str;
         description = "default user to operate system";
       };
-      linger = lib.mkEnableOption "set linger in logind";
+      linger = lib.mkEnableOption "set enable-linger in logind";
       extraGroups = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
         default = [ ];
+        type = lib.types.listOf lib.types.str;
         description = "The user's auxiliary groups.";
       };
     };
     networking.firewall = {
       extraAllowedPorts = lib.mkOption {
-        type = lib.types.listOf lib.types.port;
         default = [ ];
+        type = lib.types.listOf lib.types.port;
         apply = ports: lib.unique (builtins.sort builtins.lessThan ports);
         description = ''
           List of ports on which incoming connections are
@@ -53,8 +53,8 @@ in
         '';
       };
       extraAllowedPortRanges = lib.mkOption {
-        type = lib.types.listOf (lib.types.attrsOf lib.types.port);
         default = [ ];
+        type = lib.types.listOf (lib.types.attrsOf lib.types.port);
         description = ''
           A range of ports on which incoming connections are
           accepted.
@@ -62,8 +62,8 @@ in
       };
     };
     nix.settings.max-jobs = lib.mkOption {
-      type = lib.types.int;
       default = 32;
+      type = lib.types.int;
       description = ''
         This option defines the maximum number of jobs that Nix will try to
         build in parallel.
@@ -71,17 +71,23 @@ in
     };
     programs = {
       ccache.extraPackageNames = lib.mkOption {
+        default = [ ];
         type = lib.types.listOf lib.types.str;
         description = "Nix top-level packages to be compiled using CCache";
-        default = [ ];
       };
       proxychains.proxies.host = lib.mkOption {
-        type = lib.types.str;
         default = "127.0.0.1";
+        type = lib.types.str;
         description = "default proxy addr";
       };
     };
-    services.pipewire.socketActivation = lib.mkEnableOption "Enable socketActivation";
+    services.pipewire.socketActivation = lib.mkOption {
+      default = true;
+      type = lib.types.bool;
+      description = ''
+        Automatically run PipeWire when connections are made to the PipeWire socket.
+      '';
+    };
   };
   config = {
     _module.args = {

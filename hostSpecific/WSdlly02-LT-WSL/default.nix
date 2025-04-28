@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   imports = [
     ./Daily
@@ -6,6 +7,7 @@
   hostSpecific = {
     enableDevelopment = true;
     enableInfrastructure = false;
+    environment.extraSystemPackages = with pkgs; [ wsl-open ];
     defaultUser = {
       name = "wsdlly02";
       linger = false;
