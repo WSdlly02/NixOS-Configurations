@@ -37,7 +37,7 @@
       ];
       fsync-metadata = false;
       http-connections = 64;
-      max-jobs = if (config.system.name == "WSdlly02-PC") then 64 else 32;
+      max-jobs = config.hostSpecific.nix.settings.max-jobs;
       substituters = [
         "https://mirrors.ustc.edu.cn/nix-channels/store"
         "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"

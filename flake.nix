@@ -100,7 +100,7 @@
             }
             home-manager.nixosModules.home-manager
             self.nixosModules.default
-            ./host-specific/WSdlly02-PC
+            ./hostSpecific/WSdlly02-PC
             # TODO: libvirt
           ];
         };
@@ -133,7 +133,7 @@
             home-manager.nixosModules.home-manager
             nixos-wsl.nixosModules.default
             self.nixosModules.default
-            ./host-specific/WSdlly02-LT-WSL
+            ./hostSpecific/WSdlly02-LT-WSL
           ];
         };
       };

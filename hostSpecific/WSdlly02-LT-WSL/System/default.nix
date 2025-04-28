@@ -15,42 +15,4 @@
     interop.register = true;
     useWindowsDriver = true;
   };
-  programs = {
-    fish.enable = true;
-    git = {
-      enable = true;
-      lfs.enable = true;
-    };
-    htop.enable = true;
-  };
-  services = {
-    dbus.implementation = "broker";
-    journald = {
-      storage = "auto";
-      extraConfig = ''
-        Compress=true
-        SystemMaxUse=512M
-      '';
-    };
-  };
-  environment.systemPackages = with pkgs; [
-    # Drivers and detection tools
-    aria2
-    btop
-    dnsutils
-    fzf
-    e2fsprogs
-    iperf
-    lm_sensors
-    lsof
-    nixfmt-rfc-style
-    nix-output-monitor
-    nix-tree
-    nmap
-    psmisc
-    ripgrep
-    rsync
-    tree
-    wget
-  ];
 }

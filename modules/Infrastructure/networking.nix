@@ -12,27 +12,13 @@
       tempAddresses = "disabled";
       firewall = rec {
         enable = true;
-        allowedTCPPorts =
-          [
-            7890 # Mihomo
-            12024 # Mincraft Server
-            21027 # Syncthing
-            22000 # Syncthing
-          ]
-          ++ lib.optionals (config.system.name == "WSdlly02-RaspberryPi5") [
-            8080
-            8384
-          ];
-        allowedTCPPortRanges =
-          [
-          ]
-          ++ lib.optionals (config.system.name == "WSdlly02-RaspberryPi5") [
-            {
-              from = 10001;
-              to = 10003;
-              # ROC Source & Repair & Control ports
-            }
-          ];
+        allowedTCPPorts = [
+          7890 # Mihomo
+          12024 # Mincraft Server
+          21027 # Syncthing
+          22000 # Syncthing
+        ] ++ config.hostSpecific.networking.firewall.extraAllowedPorts;
+        allowedTCPPortRanges = [ ] ++ config.hostSpecific.networking.firewall.extraAllowedPortRanges;
         allowedUDPPorts = allowedTCPPorts;
         allowedUDPPortRanges = allowedTCPPortRanges;
       };

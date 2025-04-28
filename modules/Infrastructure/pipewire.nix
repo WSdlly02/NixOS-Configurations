@@ -10,7 +10,7 @@
     security.rtkit.enable = true;
     services.pipewire = {
       enable = true;
-      socketActivation = lib.mkIf (config.system.name == "WSdlly02-RaspberryPi5") false;
+      socketActivation = config.hostSpecific.services.pipewire.socketActivation;
       audio.enable = true;
       wireplumber = {
         enable = true;

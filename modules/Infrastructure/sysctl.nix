@@ -30,7 +30,7 @@
       "net.ipv6.conf.all.forwarding" = 1;
       # System
       "vm.max_map_count" = 2147483642;
-      "vm.swappiness" = if (config.system.name == "WSdlly02-PC") then 10 else 20;
+      "vm.swappiness" = config.hostSpecific.boot.kernel.sysctl."vm.swappiness";
     };
   };
 }
