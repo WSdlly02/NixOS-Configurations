@@ -22,4 +22,8 @@
     lazygit.enable = true;
     nix-ld.enable = true;
   };
+  environment = {
+    homeBinInPath = true;
+    localBinInPath = true;
+  };
 }

@@ -61,7 +61,6 @@ in
   services.power-profiles-daemon.enable = true;
   # services.flatpak.enable = true;
   environment = {
-    localBinInPath = true;
     defaultPackages =
       with pkgs;
       [

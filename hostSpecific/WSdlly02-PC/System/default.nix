@@ -10,7 +10,6 @@
     ./gpu.nix
     ./localdisksmount.nix
     ./nixpkgs-x86_64.nix
-    ./openrgb.nix
     ./plymouth.nix
     ##./remotefsmount.nix
     ./tpm.nix

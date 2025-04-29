@@ -1,13 +1,28 @@
 {
   config,
-  lib,
   inputs,
+  lib,
   ...
 }:
 {
   nix = {
     channel.enable = false;
+    nixPath = [
+      "home-manager=${inputs.home-manager}"
+      "nixpkgs=${inputs.nixpkgs-unstable}"
+      "my-codes=${inputs.my-codes}"
+    ];
     registry = {
+      "home-manager" = {
+        from = {
+          id = "home-manager";
+          type = "indirect";
+        };
+        to = {
+          path = inputs.home-manager;
+          type = "path";
+        };
+      };
       "my-codes" = {
         from = {
           id = "my-codes";
@@ -36,7 +51,7 @@
         config.programs.ccache.cacheDir
       ];
       fsync-metadata = false;
-      http-connections = 64;
+      http-connections = 0;
       max-jobs = config.hostSpecific.nix.settings.max-jobs;
       substituters = [
         "https://mirrors.ustc.edu.cn/nix-channels/store"
@@ -45,7 +60,6 @@
       trusted-users = [
         "wsdlly02"
       ];
-      pure-eval = true;
     };
   };
 }

@@ -136,21 +136,22 @@
             ./hostSpecific/WSdlly02-LT-WSL
           ];
         };
+        "Lily-PC" = lib.nixosSystem rec {
+          specialArgs = { inherit inputs; };
+          system = "x86_64-linux";
+          modules = [
+            {
+              nixpkgs.pkgs = mkPkgs {
+                config.rocmSupport = false;
+                inherit system;
+              };
+            }
+            { system.name = "Lily-PC"; }
+            self.nixosModules.default
+          ];
+        };
       };
-      "Lily-PC" = lib.nixosSystem rec {
-        specialArgs = { inherit inputs; };
-        system = "x86_64-linux";
-        modules = [
-          {
-            nixpkgs.pkgs = mkPkgs {
-              config.rocmSupport = false;
-              inherit system;
-            };
-          }
-          { system.name = "Lily-PC"; }
-          self.nixosModules.default
-        ];
-      };
+
       nixosModules.default = {
         imports = [ ./modules ];
       };

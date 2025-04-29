@@ -5,6 +5,10 @@
 {
   boot.loader = {
     timeout = 6;
+    efi = {
+      canTouchEfiVariables = true;
+      efiSysMountPoint = "/efi";
+    };
     grub = {
       enable = true;
       device = "nodev";
@@ -33,10 +37,6 @@
           }
         fi
       '';
-    };
-    efi = {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = "/efi";
     };
   };
 }

@@ -27,7 +27,7 @@
       "x86_64-windows"
       "aarch64-linux"
     ];
-    registrations."x86_64-windows".interpreter = "${pkgs.wine64Packages.waylandFull}/bin/wine64";
+    registrations."x86_64-windows".interpreter = "${pkgs.wineWow64Packages.waylandFull}/bin/wine";
     # Change the default emulator
   };
   system = {

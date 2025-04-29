@@ -1,12 +1,10 @@
 {
   lib,
   pkgs,
-  modulesPath,
   ...
 }:
 {
   imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
     ./nixpkgs-aarch64.nix
   ];
 

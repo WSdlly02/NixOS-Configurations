@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   enableInfrastructure,
@@ -38,7 +39,7 @@
         adb.enable = true;
       };
     })
-    ({
+    {
       programs = {
         fish.enable = true;
         git = {
@@ -70,7 +71,7 @@
             '';
         };
       };
-
+      environment.pathsToLink = [ "${inputs.self}" ];
       environment.systemPackages =
         with pkgs;
         [
@@ -98,6 +99,6 @@
           wget
         ]
         ++ config.hostSpecific.environment.extraSystemPackages;
-    })
+    }
   ];
 }
