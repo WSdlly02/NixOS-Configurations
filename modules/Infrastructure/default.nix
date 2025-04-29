@@ -71,7 +71,6 @@
             '';
         };
       };
-      environment.pathsToLink = [ "${inputs.self}" ];
       environment.systemPackages =
         with pkgs;
         [
@@ -80,6 +79,7 @@
           btop
           compsize
           cryptsetup
+          currentSystemConfiguration
           dnsutils
           fzf
           iperf

@@ -158,6 +158,7 @@
       overlays = {
         exposedPackages =
           final: prev: with prev; {
+            currentSystemConfiguration = callPackage ./pkgs/currentSystemConfiguration.nix { inherit inputs; };
             epson-inkjet-printer-201601w = callPackage ./pkgs/epson-inkjet-printer-201601w.nix { };
             fabric-survival = callPackage ./pkgs/fabric-survival.nix { };
           };
