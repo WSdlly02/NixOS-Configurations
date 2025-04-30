@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  environment.etc.lact-config = {
+  environment.etc."lact/config.yaml" = {
     # source = (pkgs.formats.yaml {}).generate "lact-config" {}; Insolubility encountered
     text = ''
       daemon:
@@ -38,7 +38,6 @@
             - 3
       current_profile: null
     '';
-    target = "lact/config.yaml";
   };
   systemd.services.lactd = {
     unitConfig = {

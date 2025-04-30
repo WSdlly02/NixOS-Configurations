@@ -2,7 +2,7 @@
 stdenvNoCC.mkDerivation {
   pname = "currentSystemConfiguration";
   version = inputs.self.lastModifiedDate;
-  src = inputs.self;
+  src = "${inputs.self}";
   preferLocalBuild = true;
   allowSubstitutes = false;
   installPhase = ''

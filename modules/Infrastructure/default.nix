@@ -1,6 +1,5 @@
 {
   config,
-  inputs,
   lib,
   pkgs,
   enableInfrastructure,
@@ -47,6 +46,10 @@
           lfs.enable = true;
         };
         htop.enable = true;
+        nh = {
+          enable = true;
+          flake = "/etc/nixos";
+        };
       };
       services = {
         smartd.enable = config.hostSpecific.enableSmartd;
@@ -85,7 +88,9 @@
           iperf
           lm_sensors
           lsof
+          nixd
           nixfmt-rfc-style
+          nix-diff
           nix-output-monitor
           nix-tree
           nmap

@@ -17,7 +17,7 @@
     };
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
+      url = "github:0xc000022070/zen-browser-flake/main";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
@@ -92,12 +92,10 @@
         "WSdlly02-PC" = lib.nixosSystem rec {
           specialArgs = { inherit inputs; };
           system = "x86_64-linux";
+          pkgs = mkPkgs {
+            inherit system;
+          };
           modules = [
-            {
-              nixpkgs.pkgs = mkPkgs {
-                inherit system;
-              };
-            }
             home-manager.nixosModules.home-manager
             self.nixosModules.default
             ./hostSpecific/WSdlly02-PC
@@ -107,13 +105,11 @@
         "WSdlly02-RaspberryPi5" = lib.nixosSystem rec {
           specialArgs = { inherit inputs; };
           system = "aarch64-linux";
+          pkgs = mkPkgs {
+            config.rocmSupport = false;
+            inherit system;
+          };
           modules = [
-            {
-              nixpkgs.pkgs = mkPkgs {
-                config.rocmSupport = false;
-                inherit system;
-              };
-            }
             home-manager.nixosModules.home-manager
             nixos-hardware.nixosModules.raspberry-pi-5
             self.nixosModules.default
@@ -123,13 +119,11 @@
         "WSdlly02-LT-WSL" = lib.nixosSystem rec {
           specialArgs = { inherit inputs; };
           system = "x86_64-linux";
+          pkgs = mkPkgs {
+            config.rocmSupport = false;
+            inherit system;
+          };
           modules = [
-            {
-              nixpkgs.pkgs = mkPkgs {
-                config.rocmSupport = false;
-                inherit system;
-              };
-            }
             home-manager.nixosModules.home-manager
             nixos-wsl.nixosModules.default
             self.nixosModules.default
@@ -139,13 +133,11 @@
         "Lily-PC" = lib.nixosSystem rec {
           specialArgs = { inherit inputs; };
           system = "x86_64-linux";
+          pkgs = mkPkgs {
+            config.rocmSupport = false;
+            inherit system;
+          };
           modules = [
-            {
-              nixpkgs.pkgs = mkPkgs {
-                config.rocmSupport = false;
-                inherit system;
-              };
-            }
             { system.name = "Lily-PC"; }
             self.nixosModules.default
           ];

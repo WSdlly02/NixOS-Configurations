@@ -19,7 +19,7 @@
           type = "indirect";
         };
         to = {
-          path = inputs.home-manager;
+          path = "${inputs.home-manager}";
           type = "path";
         };
       };
@@ -29,12 +29,12 @@
           type = "indirect";
         };
         to = {
-          path = inputs.my-codes;
+          path = "${inputs.my-codes}";
           type = "path";
         };
       };
       "nixpkgs".to = {
-        path = inputs.nixpkgs-unstable;
+        path = "${inputs.nixpkgs-unstable}";
         type = "path";
       };
     };

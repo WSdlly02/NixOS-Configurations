@@ -18,7 +18,6 @@
         # Rust toolchains
         cargo
         clippy
-        nixd # Nix LSP
         rustc
         rustfmt
         python312Env # Python 3.12
