@@ -1,26 +1,23 @@
 {
-  inputs,
   pkgs,
   ...
 }:
 {
   imports = [
-    inputs.zen-browser.homeModules.beta
     ./fish-config.nix
-    ./psd.nix
-    ./roc-sink.nix
+    ./roc-source.nix
     ./syncthing.nix
   ];
   programs = {
     home-manager.enable = true;
-    zen-browser = {
+    lazygit.enable = true;
+    nh = {
       enable = true;
-      nativeMessagingHosts = [ pkgs.firefoxpwa ];
-      policies = {
-        DisableAppUpdate = true;
-        DisableTelemetry = true;
-        # find more options here: https://mozilla.github.io/policy-templates/
-      };
+      flake = "/home/wsdlly02/Documents/NixOS-Configurations";
+    };
+    java = {
+      enable = true;
+      package = pkgs.zulu21;
     };
   };
   services.mpris-proxy.enable = true;
@@ -28,10 +25,17 @@
     username = "wsdlly02";
     homeDirectory = "/home/wsdlly02";
     packages = with pkgs; [
+      fastfetch
+      currentSystemConfiguration
+      nixd
+      nixfmt-rfc-style
+      nix-diff
+      nix-output-monitor
+      nix-tree
       id-generator
       yazi
       # inputs.self.legacyPackages."..."
     ];
-    stateVersion = "24.11";
+    stateVersion = "25.05";
   };
 }

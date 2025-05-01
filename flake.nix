@@ -51,6 +51,22 @@
 
       formatter = forExposedSystems (system: (mkPkgs { inherit system; }).nixfmt-rfc-style);
 
+      homeConfigurations = {
+        "wsdlly02@WSdlly02-PC" = home-manager.lib.homeManagerConfiguration {
+          extraSpecialArgs = { inherit inputs; };
+          modules = [
+            ./hostSpecific/WSdlly02-PC/Home
+          ];
+          pkgs = mkPkgs { system = "x86_64-linux"; };
+        };
+        "wsdlly02@WSdlly02-RaspberryPi5" = home-manager.lib.homeManagerConfiguration {
+          extraSpecialArgs = { inherit inputs; };
+          modules = [
+            ./hostSpecific/WSdlly02-RaspberryPi5/Home
+          ];
+          pkgs = mkPkgs { system = "aarch64-linux"; };
+        };
+      };
       legacyPackages = forExposedSystems (
         system:
         {
@@ -96,7 +112,6 @@
             inherit system;
           };
           modules = [
-            home-manager.nixosModules.home-manager
             self.nixosModules.default
             ./hostSpecific/WSdlly02-PC
             # TODO: libvirt
@@ -110,7 +125,6 @@
             inherit system;
           };
           modules = [
-            home-manager.nixosModules.home-manager
             nixos-hardware.nixosModules.raspberry-pi-5
             self.nixosModules.default
             ./hostSpecific/WSdlly02-RaspberryPi5
@@ -124,7 +138,6 @@
             inherit system;
           };
           modules = [
-            home-manager.nixosModules.home-manager
             nixos-wsl.nixosModules.default
             self.nixosModules.default
             ./hostSpecific/WSdlly02-LT-WSL
