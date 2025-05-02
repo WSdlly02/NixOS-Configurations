@@ -6,12 +6,16 @@
 {
   imports = [
     inputs.zen-browser.homeModules.beta
-    ./fish-config.nix
+    ./fish.nix
     ./psd.nix
     ./roc-sink.nix
     ./syncthing.nix
   ];
   programs = {
+    command-not-found = {
+      enable = true;
+      dbPath = "/nix/programs.sqlite";
+    };
     home-manager.enable = true;
     nh = {
       enable = true;
@@ -33,6 +37,7 @@
     homeDirectory = "/home/wsdlly02";
     packages = with pkgs; [
       id-generator
+      ocs-desktop
       yazi
       # inputs.self.legacyPackages."..."
     ];

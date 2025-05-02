@@ -77,12 +77,10 @@ in
         mihomo-party
         mpv
         ncdu
-        ocs-desktop
         pass-wayland
         qbittorrent-enhanced
         qcm
         scrcpy
-        sunshine
         telegram-desktop
         vlc
         wechat-uos

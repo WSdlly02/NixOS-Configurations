@@ -40,6 +40,7 @@
     })
     {
       programs = {
+        command-not-found.enable = false;
         fish.enable = true;
         git = {
           enable = true;

@@ -4,11 +4,15 @@
 }:
 {
   imports = [
-    ./fish-config.nix
-    ./roc-source.nix
+    ./fish.nix
+    ##./roc-source.nix cannot work !!!
     ./syncthing.nix
   ];
   programs = {
+    command-not-found = {
+      enable = true;
+      dbPath = "/nix/programs.sqlite";
+    };
     home-manager.enable = true;
     lazygit.enable = true;
     nh = {
