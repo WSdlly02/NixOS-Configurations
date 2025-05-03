@@ -4,8 +4,8 @@
 }:
 {
   imports = [
-    ./fish.nix
     ##./roc-source.nix cannot work !!!
+    ./sh.nix
     ./syncthing.nix
   ];
   programs = {
@@ -42,4 +42,5 @@
     ];
     stateVersion = "25.05";
   };
+  targets.genericLinux.enable = true;
 }

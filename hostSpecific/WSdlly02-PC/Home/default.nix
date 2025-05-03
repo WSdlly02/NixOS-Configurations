@@ -6,9 +6,9 @@
 {
   imports = [
     inputs.zen-browser.homeModules.beta
-    ./fish.nix
     ./psd.nix
     ./roc-sink.nix
+    ./sh.nix
     ./syncthing.nix
   ];
   programs = {

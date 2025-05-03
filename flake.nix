@@ -95,7 +95,6 @@
             allowAliases = false;
             allowUnfree = true;
             rocmSupport = true;
-            warnUndeclaredOptions = true;
           } // config;
           overlays = [
             my-codes.overlays.exposedPackages
@@ -110,6 +109,9 @@
           system = "x86_64-linux";
           pkgs = mkPkgs {
             inherit system;
+            config.permittedInsecurePackages = [
+              "mihomo-party-1.7.2"
+            ]; # !!!
           };
           modules = [
             self.nixosModules.default
