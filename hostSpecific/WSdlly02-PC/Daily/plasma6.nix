@@ -1,19 +1,22 @@
 { pkgs, ... }:
 {
   services = {
-    displayManager.sddm = {
-      enable = true;
-      autoNumlock = true;
-      wayland = {
+    displayManager = {
+      sddm = {
         enable = true;
-        compositor = "kwin";
+        autoNumlock = true;
+        extraPackages = with pkgs; [ sddm-astronaut ];
+        wayland = {
+          enable = true;
+          compositor = "kwin";
+        };
+        theme = "sddm-astronaut-theme";
+        settings.General.InputMethod = "qtvirtualkeyboard";
       };
     };
     desktopManager.plasma6.enable = true;
   };
-  environment.plasma6.excludePackages = with pkgs.kdePackages; [
-    khelpcenter
-  ];
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [ khelpcenter ];
   xdg.portal = {
     enable = true;
     xdgOpenUsePortal = true;

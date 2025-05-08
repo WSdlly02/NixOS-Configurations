@@ -91,32 +91,14 @@ in
         kdePackages.sddm-kcm
         kdePackages.wallpaper-engine-plugin
         kdePackages.yakuake
+        sddm-astronaut
       ];
   };
-  /*
-    nixpkgs.overlays = [
-      # Notice: This overlay is deprecated due to some incompatible changes
-      (final: prev: {
-        mihomo-party = prev.mihomo-party.overrideAttrs (
-          finalAttrs: previousAttrs: {
-            # preFixup = previousAttrs.preFixup + "--add-flags ...";
-            preFixup =
-              if previousAttrs.version == "1.7.1" then
-                ''
-                  mkdir $out/bin
-                  makeWrapper $out/mihomo-party/mihomo-party $out/bin/mihomo-party \
-                    --prefix LD_LIBRARY_PATH : "${
-                      lib.makeLibraryPath [
-                        pkgs.libGL
-                      ]
-                    }" \
-                  --add-flags "${enableWayland.commandLineArgs}"
-                ''
-              else
-                throw "The overlays' version is inconsistent with the current's ! Please update overlays."; # Add wayland support
-          }
-        );
-      })
-    ];
-  */
+
+  nixpkgs.overlays = [
+    # Notice: This overlay is deprecated due to some incompatible changes
+    (final: prev: {
+      sddm-astronaut = prev.sddm-astronaut.override { embeddedTheme = "black_hole"; };
+    })
+  ];
 }
