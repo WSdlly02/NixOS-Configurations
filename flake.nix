@@ -59,6 +59,13 @@
           ];
           pkgs = mkPkgs { system = "x86_64-linux"; };
         };
+        "wsdlly02@WSdlly02-LT-WSL" = home-manager.lib.homeManagerConfiguration {
+          extraSpecialArgs = { inherit inputs; };
+          modules = [
+            ./hostSpecific/WSdlly02-LT-WSL/Home
+          ];
+          pkgs = mkPkgs { system = "x86_64-linux"; };
+        };
         "wsdlly02@WSdlly02-RaspberryPi5" = home-manager.lib.homeManagerConfiguration {
           extraSpecialArgs = { inherit inputs; };
           modules = [
