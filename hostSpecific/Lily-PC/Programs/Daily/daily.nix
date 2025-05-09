@@ -13,7 +13,7 @@
   environment = {
     localBinInPath = true;
     ##variables =
-    defaultPackages = with pkgs; [
+    systemPackages = with pkgs; [
       fastfetch
       mcrcon
     ];

@@ -5,7 +5,12 @@
       sddm = {
         enable = true;
         autoNumlock = true;
-        extraPackages = with pkgs; [ sddm-astronaut ];
+        extraPackages = with pkgs; [
+          kdePackages.qtsvg
+          kdePackages.qtmultimedia
+          kdePackages.qtvirtualkeyboard
+          sddm-astronaut
+        ];
         wayland = {
           enable = true;
           compositor = "kwin";

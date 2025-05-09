@@ -60,7 +60,7 @@ in
   services.power-profiles-daemon.enable = true;
   # services.flatpak.enable = true;
   environment = {
-    defaultPackages =
+    systemPackages =
       with pkgs;
       [
         (bilibili.override enableWayland)
@@ -96,9 +96,8 @@ in
   };
 
   nixpkgs.overlays = [
-    # Notice: This overlay is deprecated due to some incompatible changes
     (final: prev: {
-      sddm-astronaut = prev.sddm-astronaut.override { embeddedTheme = "black_hole"; };
+      sddm-astronaut = prev.sddm-astronaut.override { embeddedTheme = "purple_leaves"; };
     })
   ];
 }

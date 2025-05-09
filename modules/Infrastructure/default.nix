@@ -47,6 +47,8 @@
           lfs.enable = true;
         };
         htop.enable = true;
+        lazygit.enable = true;
+        nix-ld.enable = true;
       };
       services = {
         smartd.enable = config.hostSpecific.enableSmartd;

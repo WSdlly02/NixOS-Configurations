@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   environment = {
-    defaultPackages = with pkgs; [
+    systemPackages = with pkgs; [
       fastfetch
       ncdu
     ];
