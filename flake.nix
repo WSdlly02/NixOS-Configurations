@@ -74,6 +74,11 @@
           pkgs = mkPkgs { system = "aarch64-linux"; };
         };
       };
+
+      homeModules.default = {
+        imports = [ ./modules/homeModules ];
+      };
+
       legacyPackages = forExposedSystems (
         system:
         {
@@ -167,8 +172,9 @@
       };
 
       nixosModules.default = {
-        imports = [ ./modules ];
+        imports = [ ./modules/nixosModules ];
       };
+
       overlays = {
         exposedPackages =
           final: prev: with prev; {
