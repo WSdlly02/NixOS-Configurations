@@ -3,7 +3,7 @@ stdenvNoCC.mkDerivation {
   pname = "currentSystemConfiguration";
   version = inputs.self.lastModifiedDate;
   src = "${inputs.self}";
-  preferLocalBuild = true;
+  dontFixup = true;
   allowSubstitutes = false;
   installPhase = ''
     mkdir -p $out/share/currentSystemConfiguration

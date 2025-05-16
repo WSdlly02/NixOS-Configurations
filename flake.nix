@@ -34,12 +34,12 @@
     }@inputs:
     let
       inherit (nixpkgs-unstable) lib;
-      inherit (self) mkPkgs;
-      systems = [
+      inherit (self.lib) mkPkgs;
+      exposedSystems = [
         "x86_64-linux"
         "aarch64-linux"
       ];
-      forExposedSystems = lib.genAttrs systems;
+      forExposedSystems = lib.genAttrs exposedSystems;
     in
     {
       devShells = forExposedSystems (
@@ -95,7 +95,7 @@
         })
       );
 
-      mkPkgs =
+      lib.mkPkgs =
         {
           config ? { },
           overlays ? [ ],

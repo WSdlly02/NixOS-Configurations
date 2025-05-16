@@ -35,9 +35,11 @@
     username = "wsdlly02";
     homeDirectory = "/home/wsdlly02";
     packages = with pkgs; [
+      discord
       id-generator
       ncmdump
       ocs-desktop
+      telegram-desktop
       yazi
       # inputs.self.legacyPackages."..."
     ];
