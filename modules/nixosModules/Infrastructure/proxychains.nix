@@ -14,7 +14,7 @@
       proxies."mihomo-party" = {
         enable = true;
         type = "http";
-        host = config.hostSpecific.programs.proxychains.proxies.host;
+        host = config.hostSystemSpecific.programs.proxychains.proxies.host;
         port = 7890;
       };
     };

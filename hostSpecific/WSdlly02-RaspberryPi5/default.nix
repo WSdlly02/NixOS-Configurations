@@ -5,7 +5,7 @@
     ./Gaming
     ./System
   ];
-  hostSpecific = {
+  hostSystemSpecific = {
     enableBluetooth = true;
     enableDevelopment = true;
     enableInfrastructure = true;

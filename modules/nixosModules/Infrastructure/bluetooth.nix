@@ -7,7 +7,7 @@
 {
   config = lib.mkIf enableInfrastructure {
     hardware.bluetooth = {
-      enable = config.hostSpecific.enableBluetooth;
+      enable = config.hostSystemSpecific.enableBluetooth;
       settings = {
         General = {
           Enable = "Source,Sink,Media,Socket";

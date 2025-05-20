@@ -4,7 +4,7 @@
     ./Daily
     ./System
   ];
-  hostSpecific = {
+  hostSystemSpecific = {
     enableDevelopment = true;
     enableInfrastructure = false;
     environment.extraSystemPackages = with pkgs; [ wsl-open ];

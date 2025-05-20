@@ -5,7 +5,7 @@
     ./Gaming
     ./System
   ];
-  hostSpecific = {
+  hostSystemSpecific = {
     boot.kernel.sysctl."vm.swappiness" = 10;
     enableBtrfsScrub = true;
     enableBluetooth = true;

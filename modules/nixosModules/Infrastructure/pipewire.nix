@@ -83,7 +83,7 @@
           */
         };
       };
-      socketActivation = config.hostSpecific.services.pipewire.socketActivation;
+      socketActivation = config.hostSystemSpecific.services.pipewire.socketActivation;
       extraConfig = {
         pipewire."92-low-latency" = {
           "context.properties" = {

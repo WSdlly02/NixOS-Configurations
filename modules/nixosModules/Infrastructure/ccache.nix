@@ -8,7 +8,7 @@
   config = lib.mkIf enableInfrastructure {
     programs.ccache = {
       enable = true;
-      packageNames = [ ] ++ config.hostSpecific.programs.ccache.extraPackageNames;
+      packageNames = [ ] ++ config.hostSystemSpecific.programs.ccache.extraPackageNames;
       # Which adds ccacheStdenv to overlays
     };
   };

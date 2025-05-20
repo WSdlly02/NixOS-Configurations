@@ -51,9 +51,9 @@
         nix-ld.enable = true;
       };
       services = {
-        smartd.enable = config.hostSpecific.enableSmartd;
+        smartd.enable = config.hostSystemSpecific.enableSmartd;
         fstrim.enable = true;
-        btrfs.autoScrub = lib.mkIf config.hostSpecific.enableBtrfsScrub {
+        btrfs.autoScrub = lib.mkIf config.hostSystemSpecific.enableBtrfsScrub {
           enable = true;
           interval = "monthly";
           fileSystems = [
@@ -103,7 +103,7 @@
           usbutils
           wget
         ]
-        ++ config.hostSpecific.environment.extraSystemPackages;
+        ++ config.hostSystemSpecific.environment.extraSystemPackages;
     }
   ];
 }

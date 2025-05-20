@@ -1,6 +1,6 @@
 { config, lib, ... }:
 let
-  cfg = config.hostSpecific;
+  cfg = config.hostSystemSpecific;
 in
 {
   imports = [
@@ -8,7 +8,7 @@ in
     ./Development
     ./Infrastructure
   ];
-  options.hostSpecific = {
+  options.hostSystemSpecific = {
     boot.kernel.sysctl."vm.swappiness" = lib.mkOption {
       default = 20;
       type = lib.types.int;
