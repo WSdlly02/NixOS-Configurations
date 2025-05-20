@@ -65,7 +65,8 @@
           storage = "auto";
           extraConfig =
             let
-              systemLogsMaxUse = if (pkgs.stdenv.hostPlatform.system == "x86_64-linux") then "512M" else "256M";
+              systemLogsMaxUse =
+                if ("${pkgs.stdenv.hostPlatform.system}" == "x86_64-linux") then "512M" else "256M";
             in
             ''
               Compress=true

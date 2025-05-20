@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   ...
 }:
@@ -17,7 +18,7 @@
     lazygit.enable = true;
     nh = {
       enable = true;
-      flake = "/home/wsdlly02/Documents/NixOS-Configurations";
+      flake = "${config.home.homeDirectory}/Documents/NixOS-Configurations";
     };
     java = {
       enable = true;
@@ -25,9 +26,9 @@
     };
   };
   services.mpris-proxy.enable = true;
-  home = {
+  home = rec {
     username = "wsdlly02";
-    homeDirectory = "/home/wsdlly02";
+    homeDirectory = "/home/${username}";
     packages = with pkgs; [
       fastfetch
       currentSystemConfiguration

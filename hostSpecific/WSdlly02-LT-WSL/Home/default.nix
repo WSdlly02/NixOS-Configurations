@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   ...
 }:
@@ -14,12 +15,12 @@
     home-manager.enable = true;
     nh = {
       enable = true;
-      flake = "/etc/nixos";
+      flake = "${config.home.homeDirectory}/Documents/NixOS-Configurations";
     };
   };
-  home = {
+  home = rec {
     username = "wsdlly02";
-    homeDirectory = "/home/wsdlly02";
+    homeDirectory = "/home/${username}";
     packages = with pkgs; [
       ncmdump
       id-generator

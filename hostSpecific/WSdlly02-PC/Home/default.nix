@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   pkgs,
   ...
@@ -18,7 +19,7 @@
     home-manager.enable = true;
     nh = {
       enable = true;
-      flake = "/etc/nixos";
+      flake = "${config.home.homeDirectory}/Documents/NixOS-Configurations";
     };
     zen-browser = {
       enable = true;
@@ -31,9 +32,9 @@
     };
   };
   services.mpris-proxy.enable = true;
-  home = {
+  home = rec {
     username = "wsdlly02";
-    homeDirectory = "/home/wsdlly02";
+    homeDirectory = "/home/${username}";
     packages = with pkgs; [
       discord
       id-generator

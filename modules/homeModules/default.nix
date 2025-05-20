@@ -5,33 +5,55 @@
   ...
 }:
 let
-  cfg = config.hostSpecific;
+  cfg = config.hostUserSpecific;
 in
 {
   imports = [ ./sh.nix ];
-  options.hostSpecific = {
+  options.hostUserSpecific = {
     username = lib.mkOption {
       default = "wsdlly02";
       type = lib.types.str;
-      description = "default user to operate system";
+      description = "user managed by home-manager";
+    };
+    extraPackages = lib.mkOption {
+      default = [ ];
+      type = lib.types.listOf lib.types.package;
+      description = ''
+        The set of packages that appear in home
+      '';
     };
   };
   config = {
-    home = {
+    programs = {
+      command-not-found = {
+        enable = true;
+        dbPath = "/nix/programs.sqlite";
+      };
+      home-manager.enable = true;
+      lazygit.enable = true; # Already defined in system wide !!!
+      nh = {
+        enable = true;
+        flake = "${config.home.homeDirectory}/Documents/NixOS-Configurations";
+      };
+    };
+    home = rec {
       username = cfg.username;
-      homeDirectory = "/home/${cfg.username}";
-      packages = with pkgs; [
-        fastfetch
-        currentSystemConfiguration
-        nixd
-        nixfmt-rfc-style
-        nix-diff
-        nix-output-monitor
-        nix-tree
-        id-generator
-        yazi
-        # inputs.self.legacyPackages."..."
-      ];
+      homeDirectory = "/home/${username}";
+      packages =
+        with pkgs;
+        [
+          fastfetch
+          currentSystemConfiguration
+          nixd
+          nixfmt-rfc-style
+          nix-diff
+          nix-output-monitor
+          nix-tree
+          id-generator
+          yazi
+          # inputs.self.legacyPackages."..."
+        ]
+        ++ cfg.extraPackages;
       stateVersion = "25.05";
     };
   };

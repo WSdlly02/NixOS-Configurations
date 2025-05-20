@@ -82,10 +82,10 @@
       legacyPackages = forExposedSystems (
         system:
         {
-          my-codes.exposedPackages = my-codes.overlays.exposedPackages null (mkPkgs {
+          my-codes-exposedPackages = my-codes.overlays.exposedPackages null (mkPkgs {
             inherit system;
           });
-          nixpkgs-unstable.exposedPackages = mkPkgs { inherit system; };
+          nixpkgs-unstable-exposedPackages = mkPkgs { inherit system; };
         }
         // self.overlays.exposedPackages null (mkPkgs {
           inherit system;
@@ -97,11 +97,12 @@
 
       lib.mkPkgs =
         {
+          nixpkgsInstance ? nixpkgs-unstable,
           config ? { },
           overlays ? [ ],
           system,
         }:
-        import nixpkgs-unstable {
+        import nixpkgsInstance {
           inherit system;
           config = {
             allowAliases = false;
