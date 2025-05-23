@@ -11,6 +11,7 @@
       "home-manager=${inputs.home-manager}"
       "nixpkgs=${inputs.nixpkgs-unstable}"
       "my-codes=${inputs.my-codes}"
+      "self=${inputs.self}"
     ];
     registry = {
       "home-manager" = {
@@ -36,6 +37,16 @@
       "nixpkgs".to = {
         path = "${inputs.nixpkgs-unstable}";
         type = "path";
+      };
+      "self" = {
+        from = {
+          id = "self";
+          type = "indirect";
+        };
+        to = {
+          path = "${inputs.self}";
+          type = "path";
+        };
       };
     };
     settings = {

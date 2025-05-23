@@ -1,12 +1,10 @@
 {
   config,
-  inputs,
   pkgs,
   ...
 }:
 {
   imports = [
-    inputs.zen-browser.homeModules.beta
     ./roc-sink.nix
     ./sh.nix
     ./syncthing.nix
@@ -44,6 +42,5 @@
       yazi
       # inputs.self.legacyPackages."..."
     ];
-    stateVersion = "24.11";
   };
 }
