@@ -64,12 +64,14 @@
         };
         "wsdlly02@WSdlly02-LT-WSL" = home-manager.lib.homeManagerConfiguration {
           modules = [
+            self.homeModules.default
             ./hostSpecific/WSdlly02-LT-WSL/Home
           ];
           pkgs = mkPkgs { system = "x86_64-linux"; };
         };
         "wsdlly02@WSdlly02-RaspberryPi5" = home-manager.lib.homeManagerConfiguration {
           modules = [
+            self.homeModules.default
             ./hostSpecific/WSdlly02-RaspberryPi5/Home
           ];
           pkgs = mkPkgs { system = "aarch64-linux"; };
@@ -180,7 +182,7 @@
       overlays = {
         exposedPackages =
           final: prev: with prev; {
-            currentSystemConfiguration = callPackage ./pkgs/currentSystemConfiguration.nix { inherit inputs; };
+            currentNixConfig = callPackage ./pkgs/currentNixConfig.nix { inherit inputs; };
             epson-inkjet-printer-201601w = callPackage ./pkgs/epson-inkjet-printer-201601w.nix { };
             fabric-survival = callPackage ./pkgs/fabric-survival.nix { };
           };

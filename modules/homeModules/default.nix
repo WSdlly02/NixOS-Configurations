@@ -30,10 +30,10 @@ in
         dbPath = "/nix/programs.sqlite";
       };
       home-manager.enable = true;
-      lazygit.enable = true; # Already defined in system wide !!!
+      lazygit.enable = true;
       nh = {
         enable = true;
-        flake = "${config.home.homeDirectory}/Documents/NixOS-Configurations";
+        flake = "${config.home.homeDirectory}/Documents/nix-config";
       };
     };
     home = rec {
@@ -43,7 +43,7 @@ in
         with pkgs;
         [
           fastfetch
-          currentSystemConfiguration
+          currentNixConfig
           nixd
           nixfmt-rfc-style
           nix-diff
@@ -51,10 +51,8 @@ in
           nix-tree
           id-generator
           yazi
-          # inputs.self.legacyPackages."..."
         ]
         ++ cfg.extraPackages;
-      stateVersion = "25.05";
     };
   };
 }

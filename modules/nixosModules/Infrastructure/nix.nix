@@ -9,9 +9,9 @@
     channel.enable = false;
     nixPath = [
       "home-manager=${inputs.home-manager}"
+      "nix-config=${inputs.self}"
       "nixpkgs=${inputs.nixpkgs-unstable}"
       "my-codes=${inputs.my-codes}"
-      "self=${inputs.self}"
     ];
     registry = {
       "home-manager" = {
@@ -34,19 +34,19 @@
           type = "path";
         };
       };
-      "nixpkgs".to = {
-        path = "${inputs.nixpkgs-unstable}";
-        type = "path";
-      };
-      "self" = {
+      "nix-config" = {
         from = {
-          id = "self";
+          id = "nix-config";
           type = "indirect";
         };
         to = {
           path = "${inputs.self}";
           type = "path";
         };
+      };
+      "nixpkgs".to = {
+        path = "${inputs.nixpkgs-unstable}";
+        type = "path";
       };
     };
     settings = {

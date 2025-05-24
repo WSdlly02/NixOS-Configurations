@@ -1,24 +1,23 @@
 {
-  config,
   pkgs,
   ...
 }:
 {
   imports = [
-    ./roc-sink.nix
+    # ./roc-sink.nix
     ./sh.nix
     ./syncthing.nix
   ];
+  hostUserSpecific = {
+    username = "wsdlly02";
+    extraPackages = with pkgs; [
+      discord
+      ncmdump
+      ocs-desktop
+      telegram-desktop
+    ];
+  };
   programs = {
-    command-not-found = {
-      enable = true;
-      dbPath = "/nix/programs.sqlite";
-    };
-    home-manager.enable = true;
-    nh = {
-      enable = true;
-      flake = "${config.home.homeDirectory}/Documents/NixOS-Configurations";
-    };
     zen-browser = {
       enable = true;
       nativeMessagingHosts = [ pkgs.firefoxpwa ];
@@ -29,18 +28,6 @@
       };
     };
   };
+  home.stateVersion = "24.11";
   services.mpris-proxy.enable = true;
-  home = rec {
-    username = "wsdlly02";
-    homeDirectory = "/home/${username}";
-    packages = with pkgs; [
-      discord
-      id-generator
-      ncmdump
-      ocs-desktop
-      telegram-desktop
-      yazi
-      # inputs.self.legacyPackages."..."
-    ];
-  };
 }

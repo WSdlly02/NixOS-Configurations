@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   ...
 }:
@@ -9,39 +8,17 @@
     ./sh.nix
     ./syncthing.nix
   ];
+  hostUserSpecific = {
+    username = "wsdlly02";
+    extraPackages = with pkgs; [ ];
+  };
   programs = {
-    command-not-found = {
-      enable = true;
-      dbPath = "/nix/programs.sqlite";
-    };
-    home-manager.enable = true;
-    lazygit.enable = true;
-    nh = {
-      enable = true;
-      flake = "${config.home.homeDirectory}/Documents/NixOS-Configurations";
-    };
     java = {
       enable = true;
       package = pkgs.zulu21;
     };
   };
   services.mpris-proxy.enable = true;
-  home = rec {
-    username = "wsdlly02";
-    homeDirectory = "/home/${username}";
-    packages = with pkgs; [
-      fastfetch
-      currentSystemConfiguration
-      nixd
-      nixfmt-rfc-style
-      nix-diff
-      nix-output-monitor
-      nix-tree
-      id-generator
-      yazi
-      # inputs.self.legacyPackages."..."
-    ];
-    stateVersion = "25.05";
-  };
+  home.stateVersion = "25.05";
   targets.genericLinux.enable = true;
 }

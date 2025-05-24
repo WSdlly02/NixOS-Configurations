@@ -82,17 +82,17 @@
           btop
           compsize
           cryptsetup
-          currentSystemConfiguration
+          currentNixConfig
           dnsutils
           fzf
           iperf
           lm_sensors
           lsof
-          nixd
-          nixfmt-rfc-style
-          nix-diff
-          nix-output-monitor
-          nix-tree
+          # nixd
+          # nixfmt-rfc-style
+          # nix-diff
+          # nix-output-monitor
+          # nix-tree
           nmap
           pciutils
           psmisc
