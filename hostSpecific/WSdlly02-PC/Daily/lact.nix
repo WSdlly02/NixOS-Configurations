@@ -3,11 +3,10 @@
   environment.etc."lact/config.yaml" = {
     # source = (pkgs.formats.yaml {}).generate "lact-config" {}; Insolubility encountered
     text = ''
+      version: 5
       daemon:
         log_level: info
-        admin_groups:
-        - wheel
-        - sudo
+        admin_group: wheel
         disable_clocks_cleanup: false
       apply_settings_timer: 5
       gpus:
@@ -37,6 +36,7 @@
             - 2
             - 3
       current_profile: null
+      auto_switch_profiles: false
     '';
   };
   systemd.services.lactd = {

@@ -15,8 +15,8 @@
       url = "github:nix-community/NixOS-WSL/main";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-25_05.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-unstable.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
+    nixpkgs-25_05.url = "github:NixOS/nixpkgs/309871725f09fffa92d7d97a213c3a9f88672265";
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake/main";
       inputs.nixpkgs.follows = "nixpkgs-unstable";

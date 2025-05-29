@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  inputs,
   pkgs,
   ...
 }:
@@ -27,7 +28,7 @@ in
     programs = {
       command-not-found = {
         enable = true;
-        dbPath = "/nix/programs.sqlite";
+        dbPath = "${inputs.nixpkgs-unstable}/programs.sqlite";
       };
       home-manager.enable = true;
       lazygit.enable = true;

@@ -1,7 +1,7 @@
 { inputs, stdenvNoCC }:
 stdenvNoCC.mkDerivation {
   pname = "currentNixConfig";
-  version = inputs.self.lastModifiedDate;
+  version = "${inputs.self.lastModifiedDate}";
   src = "${inputs.self}";
   dontFixup = true;
   allowSubstitutes = false;
