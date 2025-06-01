@@ -195,12 +195,16 @@
           };
         id-generator-overlay =
           final: prev: with prev; {
-            id-generator = writeShellScriptBin "id-generator" ''
-              sha512ID=$(echo -n $1 | sha512sum | head -zc 8)
-              echo $1 >> ~/Documents/id-list.txt
-              echo $sha512ID >> ~/Documents/id-list.txt
-              echo $sha512ID
-            '';
+            id-generator = writeShellApplication {
+              name = "id-generator";
+              runtimeInputs = [ ];
+              text = ''
+                sha512ID=$(echo -n $1 | sha512sum | head -zc 8)
+                echo $1 >> ~/Documents/id-list.txt
+                echo $sha512ID >> ~/Documents/id-list.txt
+                echo $sha512ID
+              '';
+            };
           };
       };
     };

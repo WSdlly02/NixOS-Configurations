@@ -37,9 +37,9 @@ in
         flake = "${config.home.homeDirectory}/Documents/nix-config";
       };
     };
-    home = rec {
+    home = {
       username = cfg.username;
-      homeDirectory = "/home/${username}";
+      homeDirectory = "/home/${cfg.username}";
       packages =
         with pkgs;
         [

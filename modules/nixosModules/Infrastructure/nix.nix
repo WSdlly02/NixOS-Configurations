@@ -2,6 +2,7 @@
   config,
   inputs,
   lib,
+  pkgs,
   ...
 }:
 {
@@ -9,9 +10,9 @@
     channel.enable = false;
     nixPath = [
       "home-manager=${inputs.home-manager}"
-      "nix-config=${inputs.self}"
+      "my-codes=${config.home.homeDirectory}/Documents/my-codes"
+      "nix-config=${config.home.homeDirectory}/Documents/nix-config"
       "nixpkgs=${inputs.nixpkgs-unstable}"
-      "my-codes=${inputs.my-codes}"
     ];
     registry = {
       "home-manager" = {
@@ -30,7 +31,7 @@
           type = "indirect";
         };
         to = {
-          path = "${inputs.my-codes}";
+          path = "${config.home.homeDirectory}/Documents/my-codes";
           type = "path";
         };
       };
@@ -40,7 +41,7 @@
           type = "indirect";
         };
         to = {
-          path = "${inputs.self}";
+          path = "${config.home.homeDirectory}/Documents/nix-config";
           type = "path";
         };
       };
@@ -55,6 +56,7 @@
       auto-allocate-uids = true; # Experimental
       experimental-features = [
         "auto-allocate-uids"
+        "ca-derivations"
         "flakes"
         "nix-command"
       ];
@@ -73,4 +75,5 @@
       ];
     };
   };
+  package = pkgs.lixPackageSets.latest.lix;
 }

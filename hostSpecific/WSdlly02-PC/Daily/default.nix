@@ -11,6 +11,7 @@ in
   imports = [
     ./fcitx5.nix
     ./lact.nix
+    # ./paperless.nix
     ./plasma6.nix
     ./sunshine.nix
     ##./wine.nix
