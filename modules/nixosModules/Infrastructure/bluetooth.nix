@@ -10,9 +10,7 @@
       enable = config.hostSystemSpecific.enableBluetooth;
       settings = {
         General = {
-          Enable = "Source,Sink,Media,Socket";
           JustWorksRepairing = "always";
-          MultiProfile = "multiple";
           FastConnectable = true;
           KernelExperimental = true;
           Experimental = true;

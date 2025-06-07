@@ -24,31 +24,73 @@
               };
             };
           };
-          # https://wiki.archlinux.org/title/Bluetooth_headset#Disable_PulseAudio_auto_switching_headset_to_HSP/HFP
-          "20-bluetooth-settings" = {
-            "wireplumber.settings" = {
-              "bluetooth.autoswitch-to-headset-profile" = false;
-            };
+          "20-disable-hfp" = {
+            "monitor.bluez.rules" = [
+              {
+                matches = [ { "device.name" = "~bluez_card.*"; } ];
+                actions = {
+                  update-props = {
+                    "bluez5.auto-connect" = [
+                      "a2dp_sink"
+                      "a2dp_source"
+                    ];
+                    "bluez5.hw-volume" = [
+                      "a2dp_sink"
+                      "a2dp_source"
+                    ];
+                  };
+                };
+              }
+            ];
             "monitor.bluez.properties" = {
               "bluez5.roles" = [
                 "a2dp_sink"
                 "a2dp_source"
+                "bap_sink"
+                "bap_source"
               ];
-              "bluez5.auto-connect" = [
-                "a2dp_sink"
-                "a2dp_source"
+              "bluez5.codecs" = [
+                "ldac"
+                "aptx"
+                "aptx_ll_duplex"
+                "aptx_ll"
+                "aptx_hd"
+                "opus_05_pro"
+                "opus_05_71"
+                "opus_05_51"
+                "opus_05"
+                "opus_05_duplex"
+                "aac"
+                "sbc_xq"
               ];
-              # LDAC encoding quality
-              # Available values: auto (Adaptive Bitrate, default)
-              #                   hq   (High Quality, 990/909kbps)
-              #                   sq   (Standard Quality, 660/606kbps)
-              #                   mq   (Mobile use Quality, 330/303kbps)
-              "bluez5.a2dp.ldac.quality" = "hq";
-              # AAC variable bitrate mode
-              # Available values: 0 (cbr, default), 1-5 (quality level)
-              "bluez5.a2dp.aac.bitratemode" = 5;
+              "bluez5.hfphsp-backend" = "none";
             };
           };
+          # https://wiki.archlinux.org/title/Bluetooth_headset#Disable_PulseAudio_auto_switching_headset_to_HSP/HFP
+          # "20-bluetooth-settings" = {
+          #   "wireplumber.settings" = {
+          #     "bluetooth.autoswitch-to-headset-profile" = false;
+          #   };
+          #   "monitor.bluez.properties" = {
+          #     "bluez5.roles" = [
+          #       "a2dp_sink"
+          #       "a2dp_source"
+          #     ];
+          #     "bluez5.auto-connect" = [
+          #       "a2dp_sink"
+          #       "a2dp_source"
+          #     ];
+          #     # LDAC encoding quality
+          #     # Available values: auto (Adaptive Bitrate, default)
+          #     #                   hq   (High Quality, 990/909kbps)
+          #     #                   sq   (Standard Quality, 660/606kbps)
+          #     #                   mq   (Mobile use Quality, 330/303kbps)
+          #     "bluez5.a2dp.ldac.quality" = "hq";
+          #     # AAC variable bitrate mode
+          #     # Available values: 0 (cbr, default), 1-5 (quality level)
+          #     "bluez5.a2dp.aac.bitratemode" = 5;
+          #   };
+          # };
           /*
             # https://wiki.archlinux.org/title/PipeWire#Noticeable_audio_delay_or_audible_pop/crack_when_starting_playback
             "50-disable-suspension" = {

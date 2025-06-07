@@ -15,8 +15,8 @@
       url = "github:nix-community/NixOS-WSL/main";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    nixpkgs-3098717.url = "github:NixOS/nixpkgs/309871725f09fffa92d7d97a213c3a9f88672265";
     nixpkgs-unstable.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
-    nixpkgs-25_05.url = "github:NixOS/nixpkgs/309871725f09fffa92d7d97a213c3a9f88672265";
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake/main";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -29,8 +29,8 @@
       my-codes,
       nixos-hardware,
       nixos-wsl,
+      nixpkgs-3098717,
       nixpkgs-unstable,
-      nixpkgs-25_05,
       self,
       zen-browser,
     }@inputs:
@@ -90,8 +90,8 @@
             inherit system;
           });
           nixpkgs-unstable = mkPkgs { inherit system; };
-          nixpkgs-25_05 = mkPkgs {
-            nixpkgsInstance = nixpkgs-25_05;
+          nixpkgs-3098717 = mkPkgs {
+            nixpkgsInstance = nixpkgs-3098717;
             inherit system;
           };
         }
@@ -121,6 +121,9 @@
             my-codes.overlays.exposedPackages
             self.overlays.exposedPackages
             self.overlays.id-generator-overlay
+            (final: prev: {
+              self.outPath = "${nixpkgsInstance}";
+            })
           ] ++ overlays;
         };
 
@@ -129,7 +132,7 @@
           system = "x86_64-linux";
           pkgs = mkPkgs {
             inherit system;
-            overlays = [ self.overlays.nixpkgs-25_05-overlay ];
+            overlays = [ self.overlays.nixpkgs-3098717-overlay ];
           };
           modules = [
             self.nixosModules.default
@@ -186,10 +189,10 @@
             epson-inkjet-printer-201601w = callPackage ./pkgs/epson-inkjet-printer-201601w.nix { };
             fabric-survival = callPackage ./pkgs/fabric-survival.nix { };
           };
-        nixpkgs-25_05-overlay =
+        nixpkgs-3098717-overlay =
           final: prev: with prev; {
-            pkgs-25_05 = mkPkgs {
-              nixpkgsInstance = nixpkgs-25_05;
+            pkgs-3098717 = mkPkgs {
+              nixpkgsInstance = nixpkgs-3098717;
               system = "${stdenv.hostPlatform.system}";
             };
           };
@@ -199,10 +202,12 @@
               name = "id-generator";
               runtimeInputs = [ ];
               text = ''
-                sha512ID=$(echo -n $1 | sha512sum | head -zc 8)
-                echo $1 >> ~/Documents/id-list.txt
-                echo $sha512ID >> ~/Documents/id-list.txt
-                echo $sha512ID
+                if [[ $# == 0 ]]; then
+                  exit 1
+                fi
+                sha512ID=$(echo -n "$1" | sha512sum | head -c 8)
+                echo "$1 -> $sha512ID" >> ~/Documents/id-list.txt
+                echo "$1 -> $sha512ID"
               '';
             };
           };

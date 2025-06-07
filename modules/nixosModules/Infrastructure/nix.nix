@@ -5,14 +5,17 @@
   pkgs,
   ...
 }:
+let
+  defaultUsername = config.hostSystemSpecific.defaultUser.name;
+in
 {
   nix = {
     channel.enable = false;
     nixPath = [
       "home-manager=${inputs.home-manager}"
-      "my-codes=${config.home.homeDirectory}/Documents/my-codes"
-      "nix-config=${config.home.homeDirectory}/Documents/nix-config"
-      "nixpkgs=${inputs.nixpkgs-unstable}"
+      "my-codes=/home/${defaultUsername}/Documents/my-codes"
+      "nix-config=/home/${defaultUsername}/Documents/nix-config"
+      "nixpkgs=${pkgs.self.outPath}"
     ];
     registry = {
       "home-manager" = {
@@ -31,7 +34,7 @@
           type = "indirect";
         };
         to = {
-          path = "${config.home.homeDirectory}/Documents/my-codes";
+          path = "/home/${defaultUsername}/Documents/my-codes";
           type = "path";
         };
       };
@@ -41,12 +44,12 @@
           type = "indirect";
         };
         to = {
-          path = "${config.home.homeDirectory}/Documents/nix-config";
+          path = "/home/${defaultUsername}/Documents/nix-config";
           type = "path";
         };
       };
       "nixpkgs".to = {
-        path = "${inputs.nixpkgs-unstable}";
+        path = "${pkgs.self.outPath}";
         type = "path";
       };
     };
@@ -74,6 +77,6 @@
         "wsdlly02"
       ];
     };
+    package = pkgs.lixPackageSets.latest.lix;
   };
-  package = pkgs.lixPackageSets.latest.lix;
 }

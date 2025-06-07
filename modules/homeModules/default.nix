@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  inputs,
   pkgs,
   ...
 }:
@@ -28,7 +27,7 @@ in
     programs = {
       command-not-found = {
         enable = true;
-        dbPath = "${inputs.nixpkgs-unstable}/programs.sqlite";
+        dbPath = "${pkgs.self.outPath}/programs.sqlite";
       };
       home-manager.enable = true;
       lazygit.enable = true;
@@ -54,6 +53,10 @@ in
           yazi
         ]
         ++ cfg.extraPackages;
+      sessionVariables = {
+        my-codes = "${config.home.homeDirectory}/Documents/my-codes";
+        nix-config = "${config.home.homeDirectory}/Documents/nix-config";
+      };
     };
   };
 }

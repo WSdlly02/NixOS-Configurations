@@ -66,7 +66,7 @@ in
       [
         (bilibili.override enableWayland)
         (google-chrome.override enableWayland)
-        (pkgs-25_05.microsoft-edge.override enableWayland)
+        (pkgs-3098717.microsoft-edge.override enableWayland)
         (obsidian.override enableWayland)
         (qq.override enableWayland)
         (vscode.override enableWayland)

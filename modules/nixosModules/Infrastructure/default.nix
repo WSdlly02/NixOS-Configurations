@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  inputs,
   pkgs,
   enableInfrastructure,
   ...
@@ -41,7 +40,7 @@
     })
     {
       programs = {
-        command-not-found.dbPath = "${inputs.nixpkgs-unstable}/programs.sqlite";
+        command-not-found.dbPath = "${pkgs.self.outPath}/programs.sqlite";
         fish.enable = true;
         git = {
           enable = true;
