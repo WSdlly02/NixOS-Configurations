@@ -5,7 +5,7 @@
 {
   imports = [
     ./eye-care-reminder.nix
-    # ./roc-sink.nix
+    ./rtp-sink.nix
     ./sh.nix
     ./syncthing.nix
   ];

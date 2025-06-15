@@ -173,6 +173,7 @@
           modules = [
             { system.name = "Lily-PC"; }
             self.nixosModules.default
+            ./hostSpecific/Lily-PC
           ];
         };
       };

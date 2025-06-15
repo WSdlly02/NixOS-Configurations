@@ -54,8 +54,8 @@ in
         ]
         ++ cfg.extraPackages;
       sessionVariables = {
-        my-codes = "${config.home.homeDirectory}/Documents/my-codes";
-        nix-config = "${config.home.homeDirectory}/Documents/nix-config";
+        MY_CODES_PATH = "${config.home.homeDirectory}/Documents/my-codes";
+        NIX_CONFIG_PATH = "${config.home.homeDirectory}/Documents/nix-config";
       };
     };
   };

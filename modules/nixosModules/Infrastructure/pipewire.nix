@@ -66,6 +66,16 @@
               "bluez5.hfphsp-backend" = "none";
             };
           };
+          "50-alsa-config" = {
+            "monitor.alsa.properties" = {
+              # Use ALSA-Card-Profile devices. They use UCM or the profile
+              # configuration to configure the device and mixer settings.
+              # alsa.use-acp = true
+              # Use UCM instead of profile when available. Can be disabled
+              # to skip trying to use the UCM profile.
+              "alsa.use-ucm" = true;
+            };
+          };
           # https://wiki.archlinux.org/title/Bluetooth_headset#Disable_PulseAudio_auto_switching_headset_to_HSP/HFP
           # "20-bluetooth-settings" = {
           #   "wireplumber.settings" = {

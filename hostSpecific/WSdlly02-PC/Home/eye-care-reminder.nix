@@ -20,7 +20,9 @@
             fi
           fi
         ''}";
-        Environment = with pkgs; [ "PATH=${libnotify}/bin:${kdePackages.qttools}/bin" ];
+        Environment = with pkgs; [
+          "PATH=${libnotify}/bin:${kdePackages.qttools}/bin"
+        ];
       };
       Install.WantedBy = [ "default.target" ];
     };
